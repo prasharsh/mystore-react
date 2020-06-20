@@ -1,0 +1,24 @@
+.login-form {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  height: 100%;
+}
+.cut-img {
+  max-width: 100%;
+  height: 180px;
+}
+.later-img {
+  max-width: 100%;
+  height: 280px;
+}
+.profile-img {
+  max-width: 100%;
+  height: 60px;
+}
+.purple-btn {
+  color: #fff;
+  background-color: #563d7c;
+  border-color: #563d7c;
+}
