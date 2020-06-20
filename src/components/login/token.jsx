@@ -68,6 +68,8 @@ class Token extends Component {
       [name]: value,
     });
   };
+  // https://www.digitalocean.com/community/tutorials/react-fancy-forms-reactstrap
+
   render() {
     return (
       <Container className="Token">

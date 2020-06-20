@@ -69,6 +69,8 @@ class Registration extends Component {
 
     this.setState({ validate });
   };
+  // https://www.digitalocean.com/community/tutorials/react-fancy-forms-reactstrap
+
   render() {
     return (
       <Container className="Registration">

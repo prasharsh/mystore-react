@@ -47,6 +47,7 @@ class Login extends Component {
     }
     this.setState({ validate });
   };
+  //https://www.digitalocean.com/community/tutorials/react-fancy-forms-reactstrap
 
   validatePassword = (event) => {
     const { validate } = this.state;
