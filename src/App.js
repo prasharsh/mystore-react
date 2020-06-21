@@ -13,6 +13,11 @@ import Wall from "./components/home/home.jsx";
 import ApplyLeave from "./components/leave/apply-leave.jsx";
 import LeaveHistory from "./components/leave/leave-history.jsx";
 import LeaveDetails from "./components/leave/leave-details.jsx";
+
+import CreateSwap from "./components/shift/CreateSwap.jsx";
+import EditSwap from "./components/shift/EditSwap.jsx";
+import SwapRequests from "./components/shift/SwapRequests.jsx";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -108,6 +113,27 @@ class App extends Component {
               )}
               {localStorage.getItem("auth") === "true" ? (
                 <Route path="/home/leavedetails" component={LeaveDetails} />
+              ) : (
+                <Redirect to="/" />
+              )}
+
+              {localStorage.getItem("auth") === "true" ? (
+                <Route path="/home/swapShift/create" component={CreateSwap} />
+              ) : (
+                <Redirect to="/" />
+              )}
+
+              {localStorage.getItem("auth") === "true" ? (
+                <Route path="/home/swapShift/edit" component={EditSwap} />
+              ) : (
+                <Redirect to="/" />
+              )}
+
+              {localStorage.getItem("auth") === "true" ? (
+                <Route
+                  path="/home/swapShift/requests"
+                  component={SwapRequests}
+                />
               ) : (
                 <Redirect to="/" />
               )}
