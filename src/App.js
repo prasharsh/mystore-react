@@ -12,7 +12,7 @@ import ComplaintHome from "./components/complaints/complaint-home.jsx";
 import Wall from "./components/home/home.jsx";
 import ApplyLeave from "./components/leave/apply-leave.jsx";
 import LeaveHistory from "./components/leave/leave-history.jsx";
-
+import LeaveDetails from "./components/leave/leave-details.jsx";
 import {
   BrowserRouter as Router,
   Switch,
@@ -103,6 +103,11 @@ class App extends Component {
               )}
               {localStorage.getItem("auth") === "true" ? (
                 <Route path="/home/leavehistory" component={LeaveHistory} />
+              ) : (
+                <Redirect to="/" />
+              )}
+              {localStorage.getItem("auth") === "true" ? (
+                <Route path="/home/leavedetails" component={LeaveDetails} />
               ) : (
                 <Redirect to="/" />
               )}

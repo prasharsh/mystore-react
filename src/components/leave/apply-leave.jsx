@@ -46,7 +46,7 @@ class ApplyLeave extends Component {
                     </div>
                     <span className="p-2"></span>
                     <div style={{ display: "inline-block" }}>
-                      <h4>ApplyLeave</h4>
+                      <h4>Apply Leave</h4>
                       <hr></hr>
                     </div>
                   </div>
