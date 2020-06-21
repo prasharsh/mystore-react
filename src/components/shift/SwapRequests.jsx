@@ -124,5 +124,4 @@ class SwapRequests extends Component {
     );
   }
 }
-
 export default SwapRequests;

@@ -69,6 +69,7 @@ export class NavigationBar extends Component {
                 >
                   Provide Availablity
                 </NavDropdown.Item>
+
                 <span className="navSpan">Swap Shift</span>
                 <NavDropdown.Item
                   onClick={() =>

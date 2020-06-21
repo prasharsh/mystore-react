@@ -130,5 +130,4 @@ class EditSwap extends Component {
     );
   }
 }
-
 export default EditSwap;
