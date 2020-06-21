@@ -133,9 +133,11 @@ class Login extends Component {
       localStorage.setItem("auth", "true");
 
       if(this.state.email === 'parth.panchal@mcd.ca' && this.state.password !== ""){
-        this.props.history.push("/employee-page");
+        localStorage.setItem("role","crew");
+        this.props.history.push("home/wall");
       }
       else if (this.state.email === 'meghan@mcd.ca' && this.state.password !== ""){
+        localStorage.setItem("role","manager");
         this.props.history.push("home/wall");
       }
       

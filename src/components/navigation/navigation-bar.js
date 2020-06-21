@@ -36,9 +36,12 @@ const Styles = styled.div`
 export class NavigationBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {role:''};
+    
   }
   componentDidMount() {
+    this.retrieverole();
+    console.log(this.state.role);
     console.log(this.props);
   }
   handleLogout = () => {
@@ -46,6 +49,10 @@ export class NavigationBar extends Component {
     localStorage.setItem("auth", "false");
     this.props.history.push("/");
   };
+  retrieverole = () =>{
+    
+    this.setState({role:localStorage.getItem("role")});
+  }
   render() {
     return (
       <Styles>
@@ -93,15 +100,23 @@ export class NavigationBar extends Component {
                 >
                   Shift Swap Requests
                 </NavDropdown.Item>
+               
+                 
+                
 
-                <span className="navSpan">Allocate Shift</span>
-                <NavDropdown.Item
-                  onClick={() => this.props.history.push("/home/later")}
-                >
-                  Generate Shift
-                </NavDropdown.Item>
-              </NavDropdown>
+               {
+                 this.state.role === "manager" &&
+                 <span className="navSpan">Allocate Shift</span> &&
+                 <NavDropdown.Item
+                   onClick={() => this.props.history.push("/home/generate-schedule")}
+                 >
+                   Generate Shift
+                 </NavDropdown.Item>
+               
 
+               }
+               
+               </NavDropdown>
               {/* <span className="p-2">|</span> */}
               <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Applications <i className="fas fa-clipboard"></i>
@@ -119,9 +134,23 @@ export class NavigationBar extends Component {
               <Nav.Link onClick={() => this.props.history.push("/home/leave")}>
                 Leave <i className="fas fa-file"></i>
               </Nav.Link>
+              
+            
             </Nav>
-
             <Nav className="ml-auto">
+
+              {
+                
+                this.state.role === "crew" &&
+                <Nav.Item>
+                  <Nav.Link 
+                   onClick={()=> this.props.history.push("/home/request-avail")}
+                  >
+                    Request availiability
+                  </Nav.Link>
+                </Nav.Item>
+
+              }
               <Nav.Item>
                 <Nav.Link
                   onClick={() => this.props.history.push("/home/profile")}
