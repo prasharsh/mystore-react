@@ -131,7 +131,14 @@ class Login extends Component {
     ) {
       this.props.updateAuth(true);
       localStorage.setItem("auth", "true");
-      this.props.history.push("home/wall");
+
+      if(this.state.email === 'parth.panchal@mcd.ca' && this.state.password !== ""){
+        this.props.history.push("/employee-page");
+      }
+      else if (this.state.email === 'meghan@mcd.ca' && this.state.password !== ""){
+        this.props.history.push("home/wall");
+      }
+      
     }
   };
 }

@@ -17,7 +17,7 @@ import LeaveDetails from "./components/leave/leave-details.jsx";
 import CreateSwap from "./components/shift/CreateSwap.jsx";
 import EditSwap from "./components/shift/EditSwap.jsx";
 import SwapRequests from "./components/shift/SwapRequests.jsx";
-
+import EmployeeDashboard from "./components/employeedashboard/employeedashboard";
 import {
   BrowserRouter as Router,
   Switch,
@@ -75,7 +75,11 @@ class App extends Component {
               <Route path="/sign-up" component={Registration}></Route>
               <Route path="/token" component={Token}></Route>
               <Route path="/forgot-password" component={ForgotPassword}></Route>
-
+              {localStorage.getItem("auth") === "true" ? (
+                <Route path="/employee-page" component={EmployeeDashboard} />
+              ) : (
+                <Redirect to="/" />
+              )}
               {localStorage.getItem("auth") === "true" ? (
                 <Route path="/home/test" component={NotFound} />
               ) : (
