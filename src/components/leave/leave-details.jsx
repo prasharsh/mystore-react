@@ -61,7 +61,7 @@ class LeaveDetails extends Component {
                                 this.props.history.push("/home/leavehistory")
                               }
                               name="submit"
-                              className="btn btn-dark mr-5"
+                              className="btn btn-dark mx-2"
                             >
                               Back
                             </button>
@@ -70,7 +70,7 @@ class LeaveDetails extends Component {
                                 this.props.history.push("/home/leavehistory")
                               }
                               name="submit"
-                              className="btn btn-dark mr-5"
+                              className="btn btn-dark mx-2"
                             >
                               Delete
                             </button>
