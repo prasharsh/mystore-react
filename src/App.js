@@ -11,6 +11,7 @@ import Profile from "./components/navigation/profile/user-profile.jsx";
 import ComplaintHome from "./components/complaints/complaint-home.jsx";
 import Wall from "./components/home/home.jsx";
 import ApplyLeave from "./components/leave/apply-leave.jsx";
+import LeaveHistory from "./components/leave/leave-history.jsx";
 
 import {
   BrowserRouter as Router,
@@ -97,6 +98,11 @@ class App extends Component {
               )}
               {localStorage.getItem("auth") === "true" ? (
                 <Route path="/home/leave" component={ApplyLeave} />
+              ) : (
+                <Redirect to="/" />
+              )}
+              {localStorage.getItem("auth") === "true" ? (
+                <Route path="/home/leavehistory" component={LeaveHistory} />
               ) : (
                 <Redirect to="/" />
               )}
