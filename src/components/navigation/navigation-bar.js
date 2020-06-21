@@ -76,6 +76,9 @@ export class NavigationBar extends Component {
               <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Wages <i className="fas fa-file-invoice-dollar"></i>
               </Nav.Link>
+              <Nav.Link onClick={() => this.props.history.push("/home/leave")}>
+                Leave <i className="fas fa-file"></i>
+              </Nav.Link>
             </Nav>
 
             <Nav className="ml-auto">

@@ -10,6 +10,7 @@ import "./App.css";
 import Profile from "./components/navigation/profile/user-profile.jsx";
 import ComplaintHome from "./components/complaints/complaint-home.jsx";
 import Wall from "./components/home/home.jsx";
+import ApplyLeave from "./components/leave/apply-leave.jsx";
 
 import {
   BrowserRouter as Router,
@@ -91,6 +92,11 @@ class App extends Component {
               )}
               {localStorage.getItem("auth") === "true" ? (
                 <Route path="/home/profile" component={Profile} />
+              ) : (
+                <Redirect to="/" />
+              )}
+              {localStorage.getItem("auth") === "true" ? (
+                <Route path="/home/leave" component={ApplyLeave} />
               ) : (
                 <Redirect to="/" />
               )}
