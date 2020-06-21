@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Nav, Navbar, Form, FormControl } from "react-bootstrap";
+import { Nav, Navbar, Form, FormControl, NavDropdown } from "react-bootstrap";
 import styled from "styled-components";
 import { Link } from "react-router";
 const Styles = styled.div`
@@ -59,9 +59,48 @@ export class NavigationBar extends Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link onClick={() => this.props.history.push("/home/later")}>
+              {/* <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Shifts <i className="fas fa-clock"></i>
-              </Nav.Link>
+              </Nav.Link> */}
+
+              <NavDropdown title="Shift Management" id="basic-nav-dropdown">
+                <NavDropdown.Item
+                  onClick={() => this.props.history.push("/home/later")}
+                >
+                  Provide Availablity
+                </NavDropdown.Item>
+                <span className="navSpan">Swap Shift</span>
+                <NavDropdown.Item
+                  onClick={() =>
+                    this.props.history.push("/home/swapShift/create")
+                  }
+                >
+                  Create Shift Swap Request
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={() =>
+                    this.props.history.push("/home/swapShift/edit")
+                  }
+                >
+                  Edit Shift Swap Request
+                </NavDropdown.Item>
+
+                <NavDropdown.Item
+                  onClick={() =>
+                    this.props.history.push("/home/swapShift/requests")
+                  }
+                >
+                  Shift Swap Requests
+                </NavDropdown.Item>
+
+                <span className="navSpan">Allocate Shift</span>
+                <NavDropdown.Item
+                  onClick={() => this.props.history.push("/home/later")}
+                >
+                  Generate Shift
+                </NavDropdown.Item>
+              </NavDropdown>
+
               {/* <span className="p-2">|</span> */}
               <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Applications <i className="fas fa-clipboard"></i>
