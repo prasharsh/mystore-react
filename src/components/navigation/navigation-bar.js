@@ -32,6 +32,10 @@ const Styles = styled.div`
   .cursor-hand {
     cursor: pointer;
   }
+  .hover-color:hover {
+    background: white;
+    color: #563d7c;
+  }
 `;
 export class NavigationBar extends Component {
   constructor(props) {
@@ -69,6 +73,7 @@ export class NavigationBar extends Component {
               </Nav.Link> */}
               <NavDropdown title="Shift Management" id="basic-nav-dropdown">
                 <NavDropdown.Item
+                  className="hover-color"
                   onClick={() => this.props.history.push("/home/later")}
                 >
                   Provide Availablity
@@ -76,6 +81,7 @@ export class NavigationBar extends Component {
 
                 <span className="navSpan">Swap Shift</span>
                 <NavDropdown.Item
+                  className="hover-color"
                   onClick={() =>
                     this.props.history.push("/home/swapShift/create")
                   }
@@ -83,6 +89,7 @@ export class NavigationBar extends Component {
                   Create Shift Swap Request
                 </NavDropdown.Item>
                 <NavDropdown.Item
+                  className="hover-color"
                   onClick={() =>
                     this.props.history.push("/home/swapShift/edit")
                   }
@@ -91,6 +98,7 @@ export class NavigationBar extends Component {
                 </NavDropdown.Item>
 
                 <NavDropdown.Item
+                  className="hover-color"
                   onClick={() =>
                     this.props.history.push("/home/swapShift/requests")
                   }
@@ -102,6 +110,7 @@ export class NavigationBar extends Component {
                     <span className="navSpan">Allocate Shift</span>
                   ) && (
                     <NavDropdown.Item
+                      className="hover-color"
                       onClick={() =>
                         this.props.history.push("/home/generate-schedule")
                       }
