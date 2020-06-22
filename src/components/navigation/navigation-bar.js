@@ -36,8 +36,7 @@ const Styles = styled.div`
 export class NavigationBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {role:''};
-    
+    this.state = { role: "" };
   }
   componentDidMount() {
     this.retrieverole();
@@ -49,10 +48,9 @@ export class NavigationBar extends Component {
     localStorage.setItem("auth", "false");
     this.props.history.push("/");
   };
-  retrieverole = () =>{
-    
-    this.setState({role:localStorage.getItem("role")});
-  }
+  retrieverole = () => {
+    this.setState({ role: localStorage.getItem("role") });
+  };
   render() {
     return (
       <Styles>
@@ -100,25 +98,31 @@ export class NavigationBar extends Component {
                 >
                   Shift Swap Requests
                 </NavDropdown.Item>
-               
-                 
-                
 
-               {
-                 this.state.role === "manager" &&
-                 <span className="navSpan">Allocate Shift</span> &&
-                 <NavDropdown.Item
-                   onClick={() => this.props.history.push("/home/generate-schedule")}
-                 >
-                   Generate Shift
-                 </NavDropdown.Item>
-               
+                {this.state.role === "manager" && (
+                    <span className="navSpan">Allocate Shift</span>
+                  ) && (
+                    <NavDropdown.Item
+                      onClick={() =>
+                        this.props.history.push("/home/generate-schedule")
+                      }
+                    >
+                      Generate Shift
+                    </NavDropdown.Item>
+                  )}
+              </NavDropdown>
 
-               }
-               
-               </NavDropdown>
               {/* <span className="p-2">|</span> */}
-              <Nav.Link onClick={() => this.props.history.push("/home/later")}>
+              <Nav.Link
+                onClick={() => this.props.history.push("/home/jobPosting")}
+              >
+                Job Posting <i className="fas fa-newspaper"></i>
+              </Nav.Link>
+
+              {/* <span className="p-2">|</span> */}
+              <Nav.Link
+                onClick={() => this.props.history.push("/home/application")}
+              >
                 Applications <i className="fas fa-clipboard"></i>
               </Nav.Link>
               {/* <span className="p-2">|</span> */}
@@ -134,23 +138,19 @@ export class NavigationBar extends Component {
               <Nav.Link onClick={() => this.props.history.push("/home/leave")}>
                 Leave <i className="fas fa-file"></i>
               </Nav.Link>
-              
-            
             </Nav>
             <Nav className="ml-auto">
-
-              {
-                
-                this.state.role === "crew" &&
+              {this.state.role === "crew" && (
                 <Nav.Item>
-                  <Nav.Link 
-                   onClick={()=> this.props.history.push("/home/request-avail")}
+                  <Nav.Link
+                    onClick={() =>
+                      this.props.history.push("/home/request-avail")
+                    }
                   >
                     Request availiability
                   </Nav.Link>
                 </Nav.Item>
-
-              }
+              )}
               <Nav.Item>
                 <Nav.Link
                   onClick={() => this.props.history.push("/home/profile")}

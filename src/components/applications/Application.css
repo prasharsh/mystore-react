@@ -1,0 +1,28 @@
+@media only screen and (min-width: 600px) {
+  .NormalForm {
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 1%;
+    padding-bottom: 5%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .NormalForm {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 1%;
+    padding-bottom: 15%;
+  }
+}
+
+.scrollTable {
+  height: 450px;
+  overflow-y: auto; /* Trigger vertical scroll    */
+  overflow-x: auto; /* Hide the horizontal scroll */
+}
+
+.ApplicantForm {
+  padding-left: 1%;
+  padding-right: 1%;
+}
