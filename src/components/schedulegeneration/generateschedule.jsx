@@ -8,7 +8,7 @@ export default class GenerateSchedule extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
       }
       handleSubmit(event){
-        alert("ji");
+       
         this.props.history.push('/home/generate-schedule/suggestions');
       }
     render() {

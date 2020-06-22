@@ -103,7 +103,9 @@ class Login extends Component {
                 required
               ></Input>
               <FormFeedback valid>Valid password</FormFeedback>
-              <FormFeedback>Please enter a passoword of length >6</FormFeedback>
+              <FormFeedback>
+                Please enter a passoword of length &gt;6
+              </FormFeedback>
             </FormGroup>
           </Col>
           <Button
@@ -140,7 +142,6 @@ class Login extends Component {
         localStorage.setItem("role","manager");
         this.props.history.push("/home/");
       }
-      
     }
   };
 }

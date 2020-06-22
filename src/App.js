@@ -13,15 +13,17 @@ import Wall from "./components/home/home.jsx";
 import ApplyLeave from "./components/leave/apply-leave.jsx";
 import LeaveHistory from "./components/leave/leave-history.jsx";
 import LeaveDetails from "./components/leave/leave-details.jsx";
-
+import EmployeeDashboard from "./components/employeedashboard/employeedashboard.jsx";
+import CrewRequestAvail from "./components/employeedashboard/RequestAvail.jsx";
+import GenerateSchedule from "./components/schedulegeneration/generateschedule.jsx";
+import Schedule1 from "./components/schedulegeneration/schedulesuggest1.jsx";
+import Schedule2 from "./components/schedulegeneration/schedulesuggest2.jsx";
+import ScheduleSuggestions from "./components/schedulegeneration/schedulesuggestions.jsx";
 import CreateSwap from "./components/shift/CreateSwap.jsx";
 import EditSwap from "./components/shift/EditSwap.jsx";
 import SwapRequests from "./components/shift/SwapRequests.jsx";
-import CrewRequestAvail from "./components/employeedashboard/RequestAvail";
-import GenerateSchedule from "./components/schedulegeneration/generateschedule";
-import Schedule1 from "./components/schedulegeneration/schedulesuggest1";
-import Schedule2 from "./components/schedulegeneration/schedulesuggest2";
-import ScheduleSuggestions from "./components/schedulegeneration/schedulesuggestions";
+
+
 
 import {
   BrowserRouter as Router,
