@@ -17,7 +17,7 @@ export default class JobDetails extends Component {
     console.log(job);
     if (this.state.selected) {
       this.props.history.push({
-        pathname: "/application",
+        pathname: "/home/application",
         state: { job },
       });
     }

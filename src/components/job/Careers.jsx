@@ -147,7 +147,7 @@ export default class Careers extends Component {
     const { selectedJob } = this.state;
 
     this.props.history.push({
-      pathname: "/job-details",
+      pathname: "/home/job-details",
       state: { job },
     });
   };

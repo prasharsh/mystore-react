@@ -93,7 +93,7 @@ export default class Application extends Component {
     }
     event.preventDefault();
     event.stopPropagation();
-    this.props.history.push("/");
+    this.props.history.push("/home");
   };
 
   render() {

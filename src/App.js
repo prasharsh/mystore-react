@@ -144,15 +144,10 @@ class App extends Component {
                     />
                   )}
                 ></Route>
-                <Route path="/sign-up" component={Registration}></Route>
-                <Route path="/token" component={Token}></Route>
-                <Route
-                  path="/forgot-password"
-                  component={ForgotPassword}
-                ></Route>
-                <Route path="/careers" component={Careers} />
-                <Route path="/job-details" component={JobDetails} />
-                <Route path="/application" component={Application} />
+
+                <Route path="/home/careers" component={Careers} />
+                <Route path="/home/job-details" component={JobDetails} />
+                <Route path="/home/application" component={Application} />
                 <Route path="/home/jobPosting" component={JobManagment} />
                 <Route path="/home/update-job" component={UpdateJob} />
                 <Route path="/home/create-job" component={CreateJob} />
@@ -168,6 +163,23 @@ class App extends Component {
               </Switch>
             ) : (
               <Switch>
+                <Route
+                  path="/"
+                  exact
+                  render={(props) => (
+                    <Login
+                      {...props}
+                      isAuthed={this.state.show}
+                      updateAuth={(show) => this.setState({ show })}
+                    />
+                  )}
+                ></Route>
+                <Route path="/sign-up" component={Registration}></Route>
+                <Route path="/token" component={Token}></Route>
+                <Route
+                  path="/forgot-password"
+                  component={ForgotPassword}
+                ></Route>
                 <Route component={NotFound} />
               </Switch>
             )}

@@ -67,7 +67,6 @@ export class NavigationBar extends Component {
               {/* <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Shifts <i className="fas fa-clock"></i>
               </Nav.Link> */}
-
               <NavDropdown title="Shift Management" id="basic-nav-dropdown">
                 <NavDropdown.Item
                   onClick={() => this.props.history.push("/home/later")}
@@ -111,36 +110,43 @@ export class NavigationBar extends Component {
                     </NavDropdown.Item>
                   )}
               </NavDropdown>
-
               {/* <span className="p-2">|</span> */}
-              <Nav.Link
-                onClick={() => this.props.history.push("/home/jobPosting")}
-              >
-                Job Posting <i className="fas fa-newspaper"></i>
-              </Nav.Link>
-
+              {this.state.role === "manager" && (
+                <Nav.Link
+                  onClick={() => this.props.history.push("/home/jobPosting")}
+                >
+                  Job Posting <i className="fas fa-newspaper"></i>
+                </Nav.Link>
+              )}
               {/* <span className="p-2">|</span> */}
-              <Nav.Link
-                onClick={() => this.props.history.push("/home/application")}
-              >
-                Applications <i className="fas fa-clipboard"></i>
-              </Nav.Link>
-              {/* <span className="p-2">|</span> */} {
-              this.state.role==="crew"&&
-              <Nav.Item>
-              <Nav.Link
-                onClick={() => this.props.history.push("/home/complaints")}
-              > 
-                Grievances 
-                
-              </Nav.Link>
-              </Nav.Item>}
+              {this.state.role === "manager" && (
+                <Nav.Link
+                  onClick={() => this.props.history.push("/home/application")}
+                >
+                  Applications <i className="fas fa-clipboard"></i>
+                </Nav.Link>
+              )}
+              {/* <span className="p-2">|</span> */}{" "}
+              {this.state.role === "crew" && (
+                <Nav.Item>
+                  <Nav.Link
+                    onClick={() => this.props.history.push("/home/complaints")}
+                  >
+                    Grievances
+                  </Nav.Link>
+                </Nav.Item>
+              )}
               {/* <span className="p-2">|</span> */}
               <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Wages <i className="fas fa-file-invoice-dollar"></i>
               </Nav.Link>
               <Nav.Link onClick={() => this.props.history.push("/home/leave")}>
                 Leave <i className="fas fa-file"></i>
+              </Nav.Link>
+              <Nav.Link
+                onClick={() => this.props.history.push("/home/careers")}
+              >
+                Careers <i className="fa fa-briefcase"></i>
               </Nav.Link>
             </Nav>
             <Nav className="ml-auto">
