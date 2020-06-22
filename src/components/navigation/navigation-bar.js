@@ -117,16 +117,21 @@ export class NavigationBar extends Component {
                }
                
                </NavDropdown>
-              {/* <span className="p-2">|</span> */}
+            
               <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Applications <i className="fas fa-clipboard"></i>
               </Nav.Link>
-              {/* <span className="p-2">|</span> */}
-              <Nav.Link
-                onClick={() => this.props.history.push("/home/complaints")}
-              >
-                Grievances <i className="fas fa-exclamation-triangle"></i>
-              </Nav.Link>
+               {
+              this.state.role === "crew" &&
+              <Nav.Item>
+               <Nav.Link
+               onClick={() => this.props.history.push("/home/complaints")}
+               > 
+                Grievances 
+                
+               </Nav.Link>
+              </Nav.Item>
+              }
               {/* <span className="p-2">|</span> */}
               <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Wages <i className="fas fa-file-invoice-dollar"></i>
@@ -134,11 +139,6 @@ export class NavigationBar extends Component {
               <Nav.Link onClick={() => this.props.history.push("/home/leave")}>
                 Leave <i className="fas fa-file"></i>
               </Nav.Link>
-              
-            
-            </Nav>
-            <Nav className="ml-auto">
-
               {
                 
                 this.state.role === "crew" &&
@@ -151,6 +151,11 @@ export class NavigationBar extends Component {
                 </Nav.Item>
 
               }
+            
+            </Nav>
+            <Nav className="ml-auto">
+
+              
               <Nav.Item>
                 <Nav.Link
                   onClick={() => this.props.history.push("/home/profile")}

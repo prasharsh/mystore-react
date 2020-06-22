@@ -134,11 +134,11 @@ class Login extends Component {
 
       if(this.state.email === 'parth.panchal@mcd.ca' && this.state.password !== ""){
         localStorage.setItem("role","crew");
-        this.props.history.push("home/wall");
+        this.props.history.push("/home/");
       }
       else if (this.state.email === 'meghan@mcd.ca' && this.state.password !== ""){
         localStorage.setItem("role","manager");
-        this.props.history.push("home/wall");
+        this.props.history.push("/home/");
       }
       
     }
