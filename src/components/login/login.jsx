@@ -103,7 +103,9 @@ class Login extends Component {
                 required
               ></Input>
               <FormFeedback valid>Valid password</FormFeedback>
-              <FormFeedback>Please enter a passoword of length >6</FormFeedback>
+              <FormFeedback>
+                Please enter a passoword of length &gt;6
+              </FormFeedback>
             </FormGroup>
           </Col>
           <Button
@@ -132,15 +134,19 @@ class Login extends Component {
       this.props.updateAuth(true);
       localStorage.setItem("auth", "true");
 
-      if(this.state.email === 'parth.panchal@mcd.ca' && this.state.password !== ""){
-        localStorage.setItem("role","crew");
+      if (
+        this.state.email === "parth.panchal@mcd.ca" &&
+        this.state.password !== ""
+      ) {
+        localStorage.setItem("role", "crew");
+        this.props.history.push("home/wall");
+      } else if (
+        this.state.email === "meghan@mcd.ca" &&
+        this.state.password !== ""
+      ) {
+        localStorage.setItem("role", "manager");
         this.props.history.push("home/wall");
       }
-      else if (this.state.email === 'meghan@mcd.ca' && this.state.password !== ""){
-        localStorage.setItem("role","manager");
-        this.props.history.push("home/wall");
-      }
-      
     }
   };
 }

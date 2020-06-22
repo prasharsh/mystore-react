@@ -13,16 +13,16 @@ import Wall from "./components/home/home.jsx";
 import ApplyLeave from "./components/leave/apply-leave.jsx";
 import LeaveHistory from "./components/leave/leave-history.jsx";
 import LeaveDetails from "./components/leave/leave-details.jsx";
-
+import EmployeeDashboard from "./components/employeedashboard/employeedashboard.jsx";
+import CrewRequestAvail from "./components/employeedashboard/RequestAvail.jsx";
+import GenerateSchedule from "./components/schedulegeneration/generateschedule.jsx";
+import Schedule1 from "./components/schedulegeneration/schedulesuggest1.jsx";
+import Schedule2 from "./components/schedulegeneration/schedulesuggest2.jsx";
+import ScheduleSuggestions from "./components/schedulegeneration/schedulesuggestions.jsx";
 import CreateSwap from "./components/shift/CreateSwap.jsx";
 import EditSwap from "./components/shift/EditSwap.jsx";
 import SwapRequests from "./components/shift/SwapRequests.jsx";
-import EmployeeDashboard from "./components/employeedashboard/employeedashboard";
-import CrewRequestAvail from "./components/employeedashboard/RequestAvail";
-import GenerateSchedule from "./components/schedulegeneration/generateschedule";
-import Schedule1 from "./components/schedulegeneration/schedulesuggest1";
-import Schedule2 from "./components/schedulegeneration/schedulesuggest2";
-import ScheduleSuggestions  from "./components/schedulegeneration/schedulesuggestions";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -35,7 +35,6 @@ class App extends Component {
     super(props);
     this.state = {
       show: false,
-      employee:false
     };
   }
   componentDidMount() {
@@ -44,13 +43,6 @@ class App extends Component {
       localStorage.setItem("auth", "false");
     } else if (localStorage.getItem("auth") === "true") {
       this.setState({ show: true });
-    }
-
-    if(localStorage.getItem("auth-employee") === undefined){
-      localStorage.setItem("auth-employee", "false");
-    }
-    else if(localStorage.getItem("auth-employee") === true){
-      this.setState({ employee: true });
     }
   }
   render() {
@@ -88,51 +80,7 @@ class App extends Component {
               <Route path="/sign-up" component={Registration}></Route>
               <Route path="/token" component={Token}></Route>
               <Route path="/forgot-password" component={ForgotPassword}></Route>
-              {localStorage.getItem("auth") === "true" ? (
-                <Route path="/home/generate-schedule" component={GenerateSchedule} />
-              ) : (
-                <Redirect to="/" />
-              )
 
-              }
-              {localStorage.getItem("auth") === "true" ? (
-                <Route path="/home/generate-schedule/suggestions/suggest1" component={Schedule1} />
-              ) : (
-                <Redirect to="/" />
-              )
-
-              }
-
-              {localStorage.getItem("auth") === "true" ? (
-                <Route path="/home/generate-schedule/suggestions/suggest2" component={Schedule2} />
-              ) : (
-                <Redirect to="/" />
-              )
-
-              }
-
-
-              {localStorage.getItem("auth") === "true" ? (
-                <Route path="/home/generate-schedule/suggestions" component={ScheduleSuggestions} />
-              ) : (
-                <Redirect to="/" />
-              )
-
-              }
-              {localStorage.getItem("auth") === "true" ? (
-                <Route path="/home/request-avail" component={CrewRequestAvail} />
-              ) : (
-                <Redirect to="/" />
-              )
-
-              }
-              {localStorage.getItem("auth") === "true" ? (
-                <Route path="/home" component={EmployeeDashboard} />
-              ) : (
-                <Redirect to="/" />
-              )
-
-              }
               {localStorage.getItem("auth") === "true" ? (
                 <Route path="/home/test" component={NotFound} />
               ) : (
@@ -182,6 +130,49 @@ class App extends Component {
 
               {localStorage.getItem("auth") === "true" ? (
                 <Route path="/home/swapShift/edit" component={EditSwap} />
+              ) : (
+                <Redirect to="/" />
+              )}
+
+              {localStorage.getItem("auth") === "true" ? (
+                <Route
+                  path="/home/generate-schedule"
+                  component={GenerateSchedule}
+                />
+              ) : (
+                <Redirect to="/" />
+              )}
+              {localStorage.getItem("auth") === "true" ? (
+                <Route
+                  path="/home/generate-schedule/suggestions/suggest1"
+                  component={Schedule1}
+                />
+              ) : (
+                <Redirect to="/" />
+              )}
+
+              {localStorage.getItem("auth") === "true" ? (
+                <Route
+                  path="/home/generate-schedule/suggestions/suggest2"
+                  component={Schedule2}
+                />
+              ) : (
+                <Redirect to="/" />
+              )}
+
+              {localStorage.getItem("auth") === "true" ? (
+                <Route
+                  path="/home/generate-schedule/suggestions"
+                  component={ScheduleSuggestions}
+                />
+              ) : (
+                <Redirect to="/" />
+              )}
+              {localStorage.getItem("auth") === "true" ? (
+                <Route
+                  path="/home/request-avail"
+                  component={CrewRequestAvail}
+                />
               ) : (
                 <Redirect to="/" />
               )}
