@@ -11,18 +11,15 @@ export default class JobDetails extends Component {
     this.setState({ selected: true });
   }
   render() {
-    const { selectedJob } = this.props.location.state;
-    console.log(selectedJob);
+    console.log(this.props);
+
+    const { job } = this.props.location.state;
+    console.log(job);
     if (this.state.selected) {
-      return (
-        <Redirect
-          push
-          to={{
-            pathname: "/application",
-            state: { selectedJob },
-          }}
-        />
-      );
+      this.props.history.push({
+        pathname: "/application",
+        state: { job },
+      });
     }
     return (
       <div>
@@ -44,27 +41,15 @@ export default class JobDetails extends Component {
               <div className="NormalForm">
                 <Form>
                   <Form.Row className="CreateJobRow">
-                    <Form.Control
-                      type="text"
-                      readOnly
-                      value={selectedJob.position}
-                    />
+                    <Form.Control type="text" readOnly value={job.position} />
                   </Form.Row>
 
                   <Form.Row className="CreateJobRow">
-                    <Form.Control
-                      type="text"
-                      readOnly
-                      value={selectedJob.type}
-                    />
+                    <Form.Control type="text" readOnly value={job.type} />
                   </Form.Row>
 
                   <Form.Row className="CreateJobRow">
-                    <Form.Control
-                      type="text"
-                      readOnly
-                      value={selectedJob.shift}
-                    />
+                    <Form.Control type="text" readOnly value={job.shift} />
                   </Form.Row>
 
                   <Form.Row className="CreateJobRow">
@@ -73,7 +58,7 @@ export default class JobDetails extends Component {
                       as="textarea"
                       rows="3"
                       readOnly
-                      value={selectedJob.requirments}
+                      value={job.requirments}
                     />
                   </Form.Row>
 
@@ -83,7 +68,7 @@ export default class JobDetails extends Component {
                       as="textarea"
                       rows="3"
                       readOnly
-                      value={selectedJob.description}
+                      value={job.description}
                     />
                   </Form.Row>
                 </Form>

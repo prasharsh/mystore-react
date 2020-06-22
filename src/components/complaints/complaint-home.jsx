@@ -6,7 +6,8 @@ import ViewComplaintModal from "./view-complaint-modal.jsx";
 import ViewResponseModal from "./view-response-modal.jsx";
 import CreateResponseModal from "./create-response-modal.jsx";
 import CreateComplaintModal from "./create-complaint-modal.jsx";
-class ComplaintHome extends Component {
+
+export default class ComplaintHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -59,6 +60,7 @@ class ComplaintHome extends Component {
     alert(msg);
   };
   render() {
+    console.log('HIHOIHOIHOIHO')
     return (
       <div>
         <div className="col-md-12">
@@ -167,4 +169,4 @@ class ComplaintHome extends Component {
     );
   }
 }
-export default ComplaintHome;
+

@@ -93,19 +93,10 @@ export default class Application extends Component {
     }
     event.preventDefault();
     event.stopPropagation();
+    this.props.history.push("/");
   };
 
   render() {
-    if (this.state.applied) {
-      return (
-        <Redirect
-          push
-          to={{
-            pathname: "/",
-          }}
-        />
-      );
-    }
     return (
       <div className="col-md-12">
         <div className="card">

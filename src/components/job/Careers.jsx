@@ -144,21 +144,17 @@ export default class Careers extends Component {
     //console.log(job);
     this.setState({ selectedJob: job });
     this.setState({ selected: true });
+    const { selectedJob } = this.state;
+
+    this.props.history.push({
+      pathname: "/job-details",
+      state: { job },
+    });
   };
   render() {
     const { selectedJob } = this.state;
     // console.log(selectedJob);
-    if (this.state.selected) {
-      return (
-        <Redirect
-          push
-          to={{
-            pathname: "/job-details",
-            state: { selectedJob },
-          }}
-        />
-      );
-    }
+
     return (
       <div className="col-md-12">
         <div className="card">

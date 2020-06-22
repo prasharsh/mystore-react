@@ -125,12 +125,16 @@ export class NavigationBar extends Component {
               >
                 Applications <i className="fas fa-clipboard"></i>
               </Nav.Link>
-              {/* <span className="p-2">|</span> */}
+              {/* <span className="p-2">|</span> */} {
+              this.state.role==="crew"&&
+              <Nav.Item>
               <Nav.Link
                 onClick={() => this.props.history.push("/home/complaints")}
-              >
-                Grievances <i className="fas fa-exclamation-triangle"></i>
+              > 
+                Grievances 
+                
               </Nav.Link>
+              </Nav.Item>}
               {/* <span className="p-2">|</span> */}
               <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Wages <i className="fas fa-file-invoice-dollar"></i>
