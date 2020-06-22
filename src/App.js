@@ -152,7 +152,7 @@ class App extends Component {
                 <Route path="/home/update-job" component={UpdateJob} />
                 <Route path="/home/create-job" component={CreateJob} />
                 <Route
-                  path="/home/application"
+                  path="/home/application-managment"
                   component={ApplicationManagment}
                 />
                 <Route

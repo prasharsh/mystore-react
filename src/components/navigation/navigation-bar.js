@@ -121,7 +121,9 @@ export class NavigationBar extends Component {
               {/* <span className="p-2">|</span> */}
               {this.state.role === "manager" && (
                 <Nav.Link
-                  onClick={() => this.props.history.push("/home/application")}
+                  onClick={() =>
+                    this.props.history.push("/home/application-managment")
+                  }
                 >
                   Applications <i className="fas fa-clipboard"></i>
                 </Nav.Link>
