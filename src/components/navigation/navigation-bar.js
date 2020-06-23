@@ -159,6 +159,9 @@ export class NavigationBar extends Component {
               >
                 Careers <i className="fa fa-briefcase"></i>
               </Nav.Link>
+              <Nav.Link onClick={() => this.props.history.push("/home/resign")}>
+                Resign <i className="fas fa-clipboard"></i>
+              </Nav.Link>
             </Nav>
             <Nav className="ml-auto">
               {this.state.role === "crew" && (

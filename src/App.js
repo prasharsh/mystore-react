@@ -30,6 +30,10 @@ import JobDetails from "./components/job/JobDetails.jsx";
 import Application from "./components/applications/Application.jsx";
 import ApplicationManagment from "./components/applications/ApplicationManagment.jsx";
 import ApplicationDetails from "./components/applications/ApplicationDetails.jsx";
+import ResignPage from "./components/resign/resignpage.jsx"
+import ApplyResign from "./components/resign/applyresign.jsx";
+import ViewResign from "./components/resign/viewresign.jsx";
+import ResignDetails from "./components/resign/resigndetails"
 
 import {
   BrowserRouter as Router,
@@ -81,6 +85,10 @@ class App extends Component {
                 <Route exact path="/home/wall" component={Wall} />
                 <Route exact path="/home/later" component={UnderConstruction} />
                 <Route exact path="/home/profile" component={Profile} />
+                <Route path="/home/resign" component={ResignPage} />
+                <Route path="/home/applyresign" component={ApplyResign} />
+                <Route path="/home/viewresign" component={ViewResign} />
+                <Route path="/home/resigndetails" component={ResignDetails} />
                 <Route exact path="/home/leave" component={ApplyLeave} />
                 <Route
                   exact
