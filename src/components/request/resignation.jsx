@@ -38,8 +38,8 @@ handleDelete(index) {
         <td>{index.EmpID}</td>
         <td>{index.Name}</td>
         <td>{index.Reason}</td>
-        <td><Button className="btn-active   mr-5" onClick={() => this.handleDelete(index)}> Accept</Button>
-        <Button className="btn-active  mr-5" onClick={() => this.handleDelete(index)}> Reject</Button></td>   
+        <td><Button className="btn btn-primary  mr-5" onClick={() => this.handleDelete(index)}> Accept</Button>
+        <Button className="btn btn-primary mr-5" onClick={() => this.handleDelete(index)}> Reject</Button></td>   
         </tr>
         </tbody> 
     ));

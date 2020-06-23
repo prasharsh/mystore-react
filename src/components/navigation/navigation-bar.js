@@ -132,14 +132,7 @@ export class NavigationBar extends Component {
               )}
            
 
-              {this.state.role === "crew" && (
-                <Nav.Link
-                  onClick={() => this.props.history.push("/home/resign")}
-                >
-                  Resign <i className="fas fa-clipboard"></i>
-                </Nav.Link>
-              )}
-
+              
               {/* <span className="p-2">|</span> */}
               {this.state.role === "manager" && (
                 <Nav.Link
@@ -160,6 +153,13 @@ export class NavigationBar extends Component {
                   </Nav.Link>
                 </Nav.Item>
               )}
+              {this.state.role === "crew" && (
+                <Nav.Link
+                  onClick={() => this.props.history.push("/home/resign")}
+                >
+                  Resign <i className="fas fa-clipboard"></i>
+                </Nav.Link>
+              )}
               {/* <span className="p-2">|</span> */}
               {/* <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Wages <i className="fas fa-file-invoice-dollar"></i>
@@ -169,12 +169,17 @@ export class NavigationBar extends Component {
                 Leave <i className="fas fa-file"></i>
               </Nav.Link>
                )}
+
+
               <Nav.Link
                 onClick={() => this.props.history.push("/home/careers")}
               >
                 Careers <i className="fa fa-briefcase"></i>
               </Nav.Link>
               
+
+
+              {this.state.role === "manager" && (
               <NavDropdown title="Request" id="basic-nav-dropdown">
                 {this.state.role === "manager" && (
                 <NavDropdown.Item
@@ -195,7 +200,8 @@ export class NavigationBar extends Component {
                   Resignation
                 </NavDropdown.Item>)}
 
-                </NavDropdown>
+                </NavDropdown>)}
+              
             </Nav>
             <Nav className="ml-auto">
               {this.state.role === "crew" && (
