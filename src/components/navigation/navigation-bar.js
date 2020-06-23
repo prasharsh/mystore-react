@@ -79,35 +79,47 @@ export class NavigationBar extends Component {
                   Provide Availablity
                 </NavDropdown.Item> */}
                 {this.state.role === "crew" && (
-                <span className="navSpan">Swap Shift</span>)}
-                {this.state.role === "crew" && (
-                <NavDropdown.Item
-                  className="hover-color"
-                  onClick={() =>
-                    this.props.history.push("/home/swapShift/create")
-                  }
-                >
-                  Create Shift Swap Request
-                </NavDropdown.Item>)}
-                {this.state.role === "crew" && (
-                <NavDropdown.Item
-                  className="hover-color"
-                  onClick={() =>
-                    this.props.history.push("/home/swapShift/edit")
-                  }
-                >
-                  Edit Shift Swap Request
-                </NavDropdown.Item>
+                  <NavDropdown.Item
+                    className="hover-color"
+                    onClick={() =>
+                      this.props.history.push("/home/request-avail")
+                    }
+                  >
+                    Request Availablity
+                  </NavDropdown.Item>
                 )}
                 {this.state.role === "crew" && (
-                <NavDropdown.Item
-                  className="hover-color"
-                  onClick={() =>
-                    this.props.history.push("/home/swapShift/requests")
-                  }
-                >
-                  Shift Swap Requests
-                </NavDropdown.Item>
+                  <span className="navSpan">Swap Shift</span>
+                )}
+                {this.state.role === "crew" && (
+                  <NavDropdown.Item
+                    className="hover-color"
+                    onClick={() =>
+                      this.props.history.push("/home/swapShift/create")
+                    }
+                  >
+                    Create Shift Swap Request
+                  </NavDropdown.Item>
+                )}
+                {this.state.role === "crew" && (
+                  <NavDropdown.Item
+                    className="hover-color"
+                    onClick={() =>
+                      this.props.history.push("/home/swapShift/edit")
+                    }
+                  >
+                    Edit Shift Swap Request
+                  </NavDropdown.Item>
+                )}
+                {this.state.role === "crew" && (
+                  <NavDropdown.Item
+                    className="hover-color"
+                    onClick={() =>
+                      this.props.history.push("/home/swapShift/requests")
+                    }
+                  >
+                    Shift Swap Requests
+                  </NavDropdown.Item>
                 )}
                 {this.state.role === "manager" && (
                     <span className="navSpan">Allocate Shift</span>
@@ -130,9 +142,6 @@ export class NavigationBar extends Component {
                   Job Posting <i className="fas fa-newspaper"></i>
                 </Nav.Link>
               )}
-           
-
-              
               {/* <span className="p-2">|</span> */}
               {this.state.role === "manager" && (
                 <Nav.Link
@@ -144,12 +153,13 @@ export class NavigationBar extends Component {
                 </Nav.Link>
               )}
               {/* <span className="p-2">|</span> */}{" "}
-              {this.state.role === "crew" && (
+              {(this.state.role === "crew" ||
+                this.state.role === "manager") && (
                 <Nav.Item>
                   <Nav.Link
                     onClick={() => this.props.history.push("/home/complaints")}
                   >
-                    Grievances
+                    Grievances <i className="fas fa-exclamation-triangle"></i>
                   </Nav.Link>
                 </Nav.Item>
               )}
@@ -164,47 +174,45 @@ export class NavigationBar extends Component {
               {/* <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Wages <i className="fas fa-file-invoice-dollar"></i>
               </Nav.Link> */}
-               {this.state.role === "crew" && (
-              <Nav.Link onClick={() => this.props.history.push("/home/leave")}>
-                Leave <i className="fas fa-file"></i>
-              </Nav.Link>
-               )}
-
-
+              {this.state.role === "crew" && (
+                <Nav.Link
+                  onClick={() => this.props.history.push("/home/leave")}
+                >
+                  Leave <i className="fas fa-file"></i>
+                </Nav.Link>
+              )}
               <Nav.Link
                 onClick={() => this.props.history.push("/home/careers")}
               >
                 Careers <i className="fa fa-briefcase"></i>
               </Nav.Link>
-              
-
-
               {this.state.role === "manager" && (
-              <NavDropdown title="Request" id="basic-nav-dropdown">
-                {this.state.role === "manager" && (
-                <NavDropdown.Item
-                  className="hover-color"
-                  onClick={() =>
-                    this.props.history.push("/home/request/leave")
-                  }
-                >
-                  Leave
-                </NavDropdown.Item>)}
-                {this.state.role === "manager" && (
-                <NavDropdown.Item
-                  className="hover-color"
-                  onClick={() =>
-                    this.props.history.push("/home/request/resignation")
-                  }
-                >
-                  Resignation
-                </NavDropdown.Item>)}
-
-                </NavDropdown>)}
-              
+                <NavDropdown title="Request" id="basic-nav-dropdown">
+                  {this.state.role === "manager" && (
+                    <NavDropdown.Item
+                      className="hover-color"
+                      onClick={() =>
+                        this.props.history.push("/home/request/leave")
+                      }
+                    >
+                      Leave
+                    </NavDropdown.Item>
+                  )}
+                  {this.state.role === "manager" && (
+                    <NavDropdown.Item
+                      className="hover-color"
+                      onClick={() =>
+                        this.props.history.push("/home/request/resignation")
+                      }
+                    >
+                      Resignation
+                    </NavDropdown.Item>
+                  )}
+                </NavDropdown>
+              )}
             </Nav>
             <Nav className="ml-auto">
-              {this.state.role === "crew" && (
+              {/* {this.state.role === "crew" && (
                 <Nav.Item>
                   <Nav.Link
                     onClick={() =>
@@ -214,7 +222,7 @@ export class NavigationBar extends Component {
                     Request availiability
                   </Nav.Link>
                 </Nav.Item>
-              )}
+              )} */}
               <Nav.Item>
                 <Nav.Link
                   onClick={() => this.props.history.push("/home/profile")}
