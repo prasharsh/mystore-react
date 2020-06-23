@@ -139,7 +139,7 @@ export class NavigationBar extends Component {
                 <Nav.Link
                   onClick={() => this.props.history.push("/home/jobPosting")}
                 >
-                  Job Posting <i className="fas fa-newspaper"></i>
+                  Job Postings <i className="fas fa-newspaper"></i>
                 </Nav.Link>
               )}
               {/* <span className="p-2">|</span> */}
@@ -187,7 +187,7 @@ export class NavigationBar extends Component {
                 Careers <i className="fa fa-briefcase"></i>
               </Nav.Link>
               {this.state.role === "manager" && (
-                <NavDropdown title="Request" id="basic-nav-dropdown">
+                <NavDropdown title="Requests" id="basic-nav-dropdown">
                   {this.state.role === "manager" && (
                     <NavDropdown.Item
                       className="hover-color"
