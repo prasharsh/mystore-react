@@ -33,7 +33,8 @@ import ApplicationDetails from "./components/applications/ApplicationDetails.jsx
 import ResignPage from "./components/resign/resignpage.jsx"
 import ApplyResign from "./components/resign/applyresign.jsx";
 import ViewResign from "./components/resign/viewresign.jsx";
-import ResignDetails from "./components/resign/resigndetails"
+import ResignDetails from "./components/resign/resigndetails.jsx";
+import AcceptResignation from "./components/request/resignation.jsx"
 
 import {
   BrowserRouter as Router,
@@ -90,6 +91,7 @@ class App extends Component {
                 <Route path="/home/viewresign" component={ViewResign} />
                 <Route path="/home/resigndetails" component={ResignDetails} />
                 <Route exact path="/home/leave" component={ApplyLeave} />
+                <Route exact path="/home/request/resignation" component={AcceptResignation} />
                 <Route
                   exact
                   path="/home/leavehistory"

@@ -1,0 +1,23 @@
+.resign
+{
+    table-layout: fixed;
+    color: #563d7c;
+}
+.row-name {
+    margin-top: 40px;
+  }
+  
+  .btn.active {
+    color: #fff;
+    background-color: #563d7c;
+    border-color: #563d7c;
+  }
+  
+  .column1 {
+    text-align: center;
+  }
+  
+  .column2 {
+    text-align: center;
+  }
+  
