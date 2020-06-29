@@ -26,3 +26,13 @@
   padding-left: 1%;
   padding-right: 1%;
 }
+.ScheduleInterview
+{
+padding-left: 1%;
+padding-right: 1%;
+}
+.btn.active {
+  color: #fff;
+  background-color: #563d7c;
+  border-color: #563d7c;
+}

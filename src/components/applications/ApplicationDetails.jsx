@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ApplicationDetailsForm from "./ApplicationDetailsForm";
-import JobForm from "./JobForm";
+import ScheduleInterview from "./ScheduleInterview";
 
 export default class ApplicationDetails extends Component {
   render() {
@@ -17,7 +17,7 @@ export default class ApplicationDetails extends Component {
                     <div style={{ display: "inline-block" }}></div>
                     <span className="p-2"></span>
                     <div style={{ display: "inline-block" }}>
-                      <h4>Applications Details</h4>
+                      <h4>Application Details</h4>
                       <hr></hr>
                     </div>
                   </div>
@@ -36,7 +36,7 @@ export default class ApplicationDetails extends Component {
                             <div style={{ display: "inline-block" }}></div>
                             <span className="p-2"></span>
                             <div style={{ display: "inline-block" }}>
-                              <h4>Applications Details</h4>
+                              <h4>Application Details</h4>
                               <hr></hr>
                             </div>
                           </div>
@@ -59,15 +59,17 @@ export default class ApplicationDetails extends Component {
                             <div style={{ display: "inline-block" }}></div>
                             <span className="p-2"></span>
                             <div style={{ display: "inline-block" }}>
-                              <h4>Applications Details</h4>
+                              <h4>Schedule Interview</h4>
                               <hr></hr>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <JobForm
-                        value={this.props.location.state.value}
-                      ></JobForm>
+                      </div >
+                      
+                      <ScheduleInterview>
+
+                      </ScheduleInterview>
+                    
                     </div>
                   </div>
                 </Col>
