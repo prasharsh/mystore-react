@@ -18,9 +18,13 @@ class Registration extends Component {
     this.state = {
       email: "",
       password: "",
+      fname: "",
+      lname: "",
       confirmPassword: "",
       validate: {
         emailState: "",
+        fnameState: "",
+        lnameState: "",
         passwordState: "",
         passwordMatchState: "",
       },
@@ -42,6 +46,28 @@ class Registration extends Component {
       validate.emailState = "has-success";
     } else {
       validate.emailState = "has-danger";
+    }
+    this.setState({ validate });
+  };
+
+  validateFname = (event) => {
+    let { validate } = this.state;
+
+    if (event.target.value.length > 0) {
+      validate.fnameState = "has-success";
+    } else {
+      validate.fnameState = "has-danger";
+    }
+    this.setState({ validate });
+  };
+
+  validateLname = (event) => {
+    let { validate } = this.state;
+
+    if (event.target.value.length > 0) {
+      validate.lnameState = "has-success";
+    } else {
+      validate.lnameState = "has-danger";
     }
     this.setState({ validate });
   };
@@ -99,6 +125,49 @@ class Registration extends Component {
               <FormFeedback>Please enter a valid email</FormFeedback>
             </FormGroup>
           </Col>
+
+          <Col>
+            <FormGroup>
+              <Label>First name</Label>
+              <Input
+                type="text"
+                placeholder="First Name"
+                name="fname"
+                value={this.state.fname}
+                onChange={(e) => {
+                  this.handleChange(e);
+                  this.validateFname(e);
+                }}
+                required
+                valid={this.state.validate.fnameState === "has-success"}
+                invalid={this.state.validate.fnameState === "has-danger"}
+              ></Input>
+              <FormFeedback valid>Valid first name</FormFeedback>
+              <FormFeedback>Please enter first name</FormFeedback>
+            </FormGroup>
+          </Col>
+
+          <Col>
+            <FormGroup>
+              <Label>Last name</Label>
+              <Input
+                type="text"
+                placeholder="Last Name"
+                name="lname"
+                value={this.state.lname}
+                onChange={(e) => {
+                  this.handleChange(e);
+                  this.validateLname(e);
+                }}
+                required
+                valid={this.state.validate.lnameState === "has-success"}
+                invalid={this.state.validate.lnameState === "has-danger"}
+              ></Input>
+              <FormFeedback valid>Valid last name</FormFeedback>
+              <FormFeedback>Please enter last name</FormFeedback>
+            </FormGroup>
+          </Col>
+
           <Col>
             <FormGroup>
               <Label>Password</Label>
@@ -116,7 +185,9 @@ class Registration extends Component {
                 required
               ></Input>
               <FormFeedback valid>Valid password</FormFeedback>
-              <FormFeedback>Please enter a passoword of length >6</FormFeedback>
+              <FormFeedback>
+                Please enter a passoword of length &gt;6
+              </FormFeedback>
             </FormGroup>
           </Col>
           <Col>
@@ -138,7 +209,9 @@ class Registration extends Component {
                 required
               ></Input>
               <FormFeedback valid>Valid password</FormFeedback>
-              <FormFeedback>Please enter a passoword of length >6</FormFeedback>
+              <FormFeedback>
+                Please enter a passoword of length &gt;6
+              </FormFeedback>
             </FormGroup>
           </Col>
 
@@ -161,6 +234,8 @@ class Registration extends Component {
   handleSubmit = () => {
     if (
       this.state.validate.emailState === "has-success" &&
+      this.state.validate.fnameState === "has-success" &&
+      this.state.validate.lnameState === "has-success" &&
       this.state.validate.passwordState === "has-success" &&
       this.state.validate.passwordMatchState === "has-success"
     ) {
@@ -170,6 +245,8 @@ class Registration extends Component {
       } else {
         alert("Password and confirm password mismatch ");
       }
+    } else {
+      alert("Please provide all details");
     }
   };
 }
