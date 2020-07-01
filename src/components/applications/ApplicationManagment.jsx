@@ -245,7 +245,7 @@ export default class ApplicationManagment extends Component {
                     <div style={{ display: "inline-block" }}></div>
                     <span className="p-2"></span>
                     <div style={{ display: "inline-block" }}>
-                      <h4>Applications</h4>
+                      <h4>Applicant</h4>
                       <hr></hr>
                     </div>
                   </div>
@@ -261,8 +261,8 @@ export default class ApplicationManagment extends Component {
                       <th>Email</th>
                       <th>Position</th>
                       <th>Date</th>
-                      <th></th>
-                      <th></th>
+                      <th>Details</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -289,10 +289,17 @@ export default class ApplicationManagment extends Component {
                           <td>
                             <button
                               name="submit"
-                              className="btn btn-danger"
+                              className="btn btn-primary mr-2"
                               onClick={() => this.handleDelete(index)}
                             >
-                              Delete
+                              Accept
+                            </button>
+                            <button
+                              name="submit"
+                              className="btn btn-danger mr-2"
+                              onClick={() => this.handleDelete(index)}
+                            >
+                              Reject
                             </button>
                           </td>
                         </tr>

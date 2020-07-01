@@ -121,6 +121,7 @@ export class NavigationBar extends Component {
                     Shift Swap Requests
                   </NavDropdown.Item>
                 )}
+
                 {this.state.role === "manager" && (
                     <span className="navSpan">Allocate Shift</span>
                   ) && (
@@ -140,6 +141,16 @@ export class NavigationBar extends Component {
                   onClick={() => this.props.history.push("/home/jobPosting")}
                 >
                   Job Postings <i className="fas fa-newspaper"></i>
+                </Nav.Link>
+              )}
+              {/* <span className="p-2">|</span> */}
+              {this.state.role === "manager" && (
+                <Nav.Link
+                  onClick={() =>
+                    this.props.history.push("/home/employeedetails")
+                  }
+                >
+                  Employee <i className="fas fa-clipboard"></i>
                 </Nav.Link>
               )}
               {/* <span className="p-2">|</span> */}

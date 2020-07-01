@@ -60,7 +60,6 @@ export default class ComplaintHome extends Component {
     alert(msg);
   };
   render() {
-    console.log('HIHOIHOIHOIHO')
     return (
       <div>
         <div className="col-md-12">
@@ -169,4 +168,3 @@ export default class ComplaintHome extends Component {
     );
   }
 }
-
