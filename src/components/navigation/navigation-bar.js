@@ -150,7 +150,7 @@ export class NavigationBar extends Component {
                     this.props.history.push("/home/employeedetails")
                   }
                 >
-                  Employee <i className="fas fa-clipboard"></i>
+                  Crew <i className="fas fa-clipboard"></i>
                 </Nav.Link>
               )}
               {/* <span className="p-2">|</span> */}
