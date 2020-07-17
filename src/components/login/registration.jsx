@@ -20,6 +20,7 @@ class Registration extends Component {
       password: "",
       fname: "",
       lname: "",
+      phone: "",
       confirmPassword: "",
       validate: {
         emailState: "",
@@ -27,6 +28,7 @@ class Registration extends Component {
         lnameState: "",
         passwordState: "",
         passwordMatchState: "",
+        phoneState: "",
       },
     };
     this.handleChange = this.handleChange.bind(this);
@@ -49,6 +51,16 @@ class Registration extends Component {
     }
     this.setState({ validate });
   };
+  validatePhone = (event) => {
+    let { validate } = this.state;
+
+    if (event.target.value.length > 0) {
+      validate.phoneState = "has-success";
+    } else {
+      validate.phoneState = "has-danger";
+    }
+    this.setState({ validate });
+  };
 
   validateFname = (event) => {
     let { validate } = this.state;
@@ -61,6 +73,24 @@ class Registration extends Component {
     this.setState({ validate });
   };
 
+  registerUser() {
+    let user = {
+      username: this.state.email,
+      password: this.state.password,
+      firstName: this.state.fname,
+      lastName: this.state.lname,
+      phone: this.state.phone,
+    };
+    fetch("http://localhost:8080/api/myStore/register", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(user),
+    }).then((res) => {
+      if (res) {
+        console.log(res.body);
+      }
+    });
+  }
   validateLname = (event) => {
     let { validate } = this.state;
 
@@ -170,6 +200,27 @@ class Registration extends Component {
 
           <Col>
             <FormGroup>
+              <Label>Phone</Label>
+              <Input
+                type="text"
+                placeholder="Phone"
+                name="phone"
+                value={this.state.phone}
+                onChange={(e) => {
+                  this.handleChange(e);
+                  this.validateLname(e);
+                }}
+                required
+                valid={this.state.validate.phoneState === "has-success"}
+                invalid={this.state.validate.phoneState === "has-danger"}
+              ></Input>
+              <FormFeedback valid>Valid phone number</FormFeedback>
+              <FormFeedback>Please enter phone number</FormFeedback>
+            </FormGroup>
+          </Col>
+
+          <Col>
+            <FormGroup>
               <Label>Password</Label>
               <Input
                 type="password"
@@ -240,6 +291,7 @@ class Registration extends Component {
       this.state.validate.passwordMatchState === "has-success"
     ) {
       if (this.state.confirmPassword === this.state.password) {
+        this.registerUser();
         alert("User Registerd succesfully!");
         this.props.history.push("/");
       } else {

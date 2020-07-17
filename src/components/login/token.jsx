@@ -70,6 +70,22 @@ class Token extends Component {
   };
   // https://www.digitalocean.com/community/tutorials/react-fancy-forms-reactstrap
 
+  resetPassword() {
+    let user = {
+      token: this.state.token,
+      password: this.state.password,
+    };
+    fetch("http://localhost:8080/api/myStore/changePassword", {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(user),
+    }).then((res) => {
+      if (res) {
+        console.log(res.body);
+      }
+    });
+  }
+
   render() {
     return (
       <Container className="Token">
@@ -158,6 +174,7 @@ class Token extends Component {
       this.state.validate.passwordMatchState === "has-success"
     ) {
       if (this.state.confirmPassword === this.state.password) {
+        this.resetPassword();
         alert("Password Changed  succesfully!");
         this.props.history.push("/");
       } else {

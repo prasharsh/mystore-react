@@ -21,6 +21,7 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      role: "",
       validate: {
         emailState: "",
         passwordState: "",
@@ -125,23 +126,34 @@ class Login extends Component {
   }
 
   handleSubmit = () => {
-    console.log(this.state);
-
     if (
       this.state.validate.emailState === "has-success" &&
       this.state.validate.passwordState === "has-success"
     ) {
-      this.props.updateAuth(true);
-      localStorage.setItem("auth", "true");
-
-      if(this.state.email === 'parth.panchal@mcd.ca' && this.state.password !== ""){
-        localStorage.setItem("role","crew");
-        this.props.history.push("/home/");
-      }
-      else if (this.state.email === 'meghan@mcd.ca' && this.state.password !== ""){
-        localStorage.setItem("role","manager");
-        this.props.history.push("/home/");
-      }
+      console.log(this.state);
+      let user = {
+        username: this.state.email,
+        password: this.state.password,
+      };
+      let role = "";
+      fetch("http://localhost:8080/api/myStore/login", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(user),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.props.updateAuth(true);
+          localStorage.setItem("auth", "true");
+          localStorage.setItem("role", data.userRole);
+          localStorage.setItem("id", data.id);
+          console.log(
+            localStorage.getItem("role") +
+              "......." +
+              localStorage.getItem("auth")
+          );
+          this.props.history.push("/home/");
+        });
     }
   };
 }
