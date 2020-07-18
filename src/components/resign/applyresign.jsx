@@ -12,17 +12,14 @@ class ApplyResign extends Component {
         super();
        
     this.state = {
-       
-        firstname:'',
-        lastname:'',
+        empid:'',
         reason:'',
-        manager:'',
         fields: {},
         errors: {}
 
     }
     this.handleChange=this.handleChange.bind(this);
-    this.submituserRegistrationForm = this.submituserRegistrationForm.bind(this)
+    this.submitResignationForm = this.submitResignationForm.bind(this)
 }
 handleChange(e) {
     let fields = this.state.fields;
@@ -32,16 +29,14 @@ handleChange(e) {
     });
 
   }
-  submituserRegistrationForm(e) {
+  submitResignationForm(e) {
     e.preventDefault();
     if (this.validateForm()) {
         let fields = {};
-        fields["firstname"] = "";
-        fields["lastname"] = "";
-        fields["reason"] = "";
-        fields["manager"] = "";
+         fields["reason"] = "";
         this.setState({fields:fields});
-        alert("Resignation Successfull");
+        
+        const result= this.applyresignation();
         this.props.history.push("/home/resign")
     }
 
@@ -50,30 +45,42 @@ handleChange(e) {
     let fields = this.state.fields;
     let errors = {};
     let formIsValid = true;
-    //Password
-    if(!fields["firstname"]){
-        formIsValid = false;
-        errors["firstname"] = "First name cannot be empty";
-     }
-     if(!fields["lastname"]){
-        formIsValid = false;
-        errors["lastname"] = "Last name cannot be empty";
-     }
+
      if(!fields["reason"]){
         formIsValid = false;
         errors["reason"] = "State atlease one reason";
      }
-     if(!fields["manager"]){
-        formIsValid = false;
-        errors["manager"] = "Please enter your manager name";
-     }
+
      this.setState({
         errors: errors
       });
       return formIsValid;
     }
-    
+
+  
+  applyresignation() {
+    let resignation = {
+      empid:localStorage.getItem("id"),
+      reason: this.state.fields.reason,
+    };
+    const empid=localStorage.getItem("id");
+    fetch(`http://localhost:8080/api/myStore/resignation/apply/${empid}`, {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(resignation),
+    })
+    .then(function(response){return response.json();})
+    .then(function(data)
+    {const items=data;
+    console.log(items)
+      if(items==="Success")
+      alert("Resignation Successfull");
+      else
+      alert("You have already applied, please edit the resignation form");
+    });
+  }
     render() {
+      
       return (
           <div>
         <div className="row-name">
@@ -96,23 +103,28 @@ handleChange(e) {
           <h5>Employee Separation Form </h5>
           <br></br>
   <form method="post"  name="userResignationForm"  onSubmit= {this.submituserRegistrationForm} >
-        <label>First Name</label>
-        <input type="text" name="firstname" value={this.state.fields.firstname} onChange={this.handleChange} placeholder="James "/>
-        <div className="errorMsg">{this.state.errors.firstname}</div>
+        <label>EMPID</label>
+        {/* <input type="text" name="firstname" value={this.state.fields.firstname} onChange={this.handleChange} placeholder="James "/>
+        <div className="errorMsg">{this.state.errors.firstname}</div> */}
+        <input type="text" readOnly name="EMPID" value={localStorage.getItem("id")}></input>
+        
   
-        <label>Last Name</label>
-        <input type="text" name="lastname" value={this.state.fields.lastname} onChange={this.handleChange} placeholder="Blunt"/>
-        <div className="errorMsg">{this.state.errors.lastname}</div>
+        {/* <label>Name</label>
+        {/* <input type="text" name="lastname" value={this.state.fields.lastname} onChange={this.handleChange} placeholder="Blunt"/>
+        <div className="errorMsg">{this.state.errors.lastname}</div> */}
+        {/* <input type="text" readOnly name="Name" value={this.state.name}></input> */}
+
+
+        {/* <label>Resignation ID</label>
+        {/* <input type="text" name="reason" value={this.state.fields.reason} onChange={this.handleChange} placeholder="Re-locating to another province"/>
+        <div className="errorMsg">{this.state.errors.reason}</div> */}
+        {/* <input type="text" readOnly name="RID" value={this.state.resignationID}></input> */} 
 
         <label>Reason</label>
-        <input type="text" name="reason" value={this.state.fields.reason} onChange={this.handleChange} placeholder="Re-locating to another province"/>
+        <input type="text" name="reason" value={this.state.fields.reason} onChange={this.handleChange}placeholder="Enter your reason" />
         <div className="errorMsg">{this.state.errors.reason}</div>
-
-        <label>Manager</label>
-        <input type="text" name="manager" value={this.state.fields.manager} onChange={this.handleChange}placeholder="Chris Luke" />
-        <div className="errorMsg">{this.state.errors.manager}</div>
         <br></br>
-        <input type="submit" className="btn btn-success "  value="Resign" />
+        <input type="submit" onClick={this.submitResignationForm}  className="btn btn-success "  value="Resign" />
         </form>
         <br></br>
           <h6>Please read the separation terms and policies </h6>
@@ -122,5 +134,6 @@ handleChange(e) {
         </div>
       );
        }
-   }
+      }
+   
    export default ApplyResign;

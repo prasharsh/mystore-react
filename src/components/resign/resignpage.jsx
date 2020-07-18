@@ -1,5 +1,7 @@
+
 import React, { Component } from "react";
 import "./resign.css";
+
 
 import ComplaintImage from "../complaints/complaint.svg";
 
@@ -8,7 +10,13 @@ import "../login/login.css";
 import { Jumbotron, Button, Container } from "react-bootstrap";
 
 class ResignPage extends Component {
-    state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
+    
+  }
+
+
     render() {
       return (
           <div>
@@ -52,9 +60,7 @@ class ResignPage extends Component {
                           <span
                           className="btn active"
                             type="submit"
-                            onClick={() =>
-                              this.props.history.push("/home/viewresign")
-                            }
+                            onClick={() =>this.props.history.push("/home/resigndetails")}
                           >
                               
                             View Resignatoion

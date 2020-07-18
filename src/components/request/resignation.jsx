@@ -27,10 +27,12 @@ handleDelete(index) {
   alert("You are about to take action, please confirm.");
 }
   renderTable(){
+    console.log(localStorage.getItem("id"));
     const {request} = this.state;
     if( request){
 
     return (
+      
         
       request.map((index) => 
   <tbody>    
@@ -63,9 +65,7 @@ handleDelete(index) {
               </div>
             </div>
           </div>
-        
-                
-               
+    
                 <br></br>
                 <br></br>
                 <div>
