@@ -32,7 +32,7 @@ import ApplicationManagment from "./components/applications/ApplicationManagment
 import ApplicationDetails from "./components/applications/ApplicationDetails.jsx";
 import ResignPage from "./components/resign/resignpage.jsx";
 import ApplyResign from "./components/resign/applyresign.jsx";
-import ViewResign from "./components/resign/viewresign.jsx";
+import EditResign from "./components/resign/editresign.jsx";
 import ResignDetails from "./components/resign/resigndetails.jsx";
 import AcceptResignation from "./components/request/resignation.jsx";
 import LeaveApproval from "./components/leave/leave_approval.jsx";
@@ -90,7 +90,7 @@ class App extends Component {
                 <Route exact path="/home/profile" component={Profile} />
                 <Route path="/home/resign" component={ResignPage} />
                 <Route path="/home/applyresign" component={ApplyResign} />
-                <Route path="/home/viewresign" component={ViewResign} />
+                <Route path="/home/editresign" component={EditResign} />
                 <Route path="/home/resigndetails" component={ResignDetails} />
 
                 <Route

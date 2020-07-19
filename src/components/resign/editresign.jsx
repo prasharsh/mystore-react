@@ -7,11 +7,12 @@ import "../login/login.css";
 
 import { Button, Container, Form } from "react-bootstrap";
 
-class ApplyResign extends Component {
+class EditResign extends Component {
     constructor() {
         super();
        
     this.state = {
+      resign:[],
         empid:'',
         reason:'',
         fields: {},
@@ -36,11 +37,12 @@ handleChange(e) {
          fields["reason"] = "";
         this.setState({fields:fields});
         
-        const result= this.applyresignation();
+        const result= this.updateresignation();
         this.props.history.push("/home/resign")
     }
 
   }
+
   validateForm(){
     let fields = this.state.fields;
     let errors = {};
@@ -56,16 +58,34 @@ handleChange(e) {
       });
       return formIsValid;
     }
+    componentDidMount(){
+      const {resign} =this.state.resign
+         const empid=localStorage.getItem("id");
+        fetch(`http://localhost:8080/api/myStore/resignation/edit/${empid}`)
+        .then((response) => response.json())
+        .then((responseJson) => {
+            this.setState(
+                {
+    
+                    resign: responseJson,
+    
+                },
+            );
+        })
+        
+      }
 
   
-  applyresignation() {
+  updateresignation() {
     let resignation = {
       empid:localStorage.getItem("id"),
       reason: this.state.fields.reason,
+      rid: this.state.resign.rid,
+      status:'PENDING'
     };
-    const empid=localStorage.getItem("id");
-    fetch(`http://localhost:8080/api/myStore/resignation/apply/${empid}`, {
-      method: "POST",
+    const empid = localStorage.getItem("id");
+    fetch(`http://localhost:8080/api/myStore/resignation/update/${empid}`, {
+      method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(resignation),
     })
@@ -74,9 +94,9 @@ handleChange(e) {
     {const items=data;
     console.log(items)
       if(items==="Success")
-      alert("Resignation Successfull");
+      alert("Successfully updated your resigntion ");
       else
-      alert("You have already applied, please edit the resignation form");
+      alert("Failed to update ");
     });
   }
     render() {
@@ -104,21 +124,7 @@ handleChange(e) {
           <br></br>
   <form method="post"  name="userResignationForm"  onSubmit= {this.submituserRegistrationForm} >
         <label>EMPID</label>
-        {/* <input type="text" name="firstname" value={this.state.fields.firstname} onChange={this.handleChange} placeholder="James "/>
-        <div className="errorMsg">{this.state.errors.firstname}</div> */}
         <input type="text" readOnly name="EMPID" value={localStorage.getItem("id")}></input>
-        
-  
-        {/* <label>Name</label>
-        {/* <input type="text" name="lastname" value={this.state.fields.lastname} onChange={this.handleChange} placeholder="Blunt"/>
-        <div className="errorMsg">{this.state.errors.lastname}</div> */}
-        {/* <input type="text" readOnly name="Name" value={localStorage.getItem("name")}></input>  */}
-
-
-        {/* <label>Resignation ID</label>
-        {/* <input type="text" name="reason" value={this.state.fields.reason} onChange={this.handleChange} placeholder="Re-locating to another province"/>
-        <div className="errorMsg">{this.state.errors.reason}</div> */}
-        {/* <input type="text" readOnly name="RID" value={this.state.resignationID}></input> */} 
 
         <label>Reason</label>
         <input type="text" name="reason" value={this.state.fields.reason} onChange={this.handleChange}placeholder="Enter your reason" />
@@ -136,4 +142,4 @@ handleChange(e) {
        }
       }
    
-   export default ApplyResign;
+   export default EditResign;

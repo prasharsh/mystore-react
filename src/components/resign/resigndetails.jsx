@@ -28,6 +28,7 @@ componentDidMount(){
     })
     
   }
+  editresignation
 
   deleteresignation = () =>{
     const empid=localStorage.getItem("id");
@@ -109,7 +110,7 @@ componentDidMount(){
                           <div style={{ display: "inline-block" }}>
                             <button
                               onClick={() =>
-                                this.props.history.push("/home/applyresign")
+                                this.props.history.push("/home/editresign")
                               }
                               name="submit"
                               className="btn btn-primary mx-2"
