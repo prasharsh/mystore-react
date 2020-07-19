@@ -5,48 +5,63 @@ import "./request.css";
 class AcceptResignation extends Component {
   constructor(props){
    super(props);
-  
- // this would be service
- this.state = {
-    request:[{EmpID:"JP193",Name:"James",Reason:"Am re-locating to another province"}
-    ,{EmpID:"LN718",Name:"Rosen",Reason:"Looking for full time opportunities."},
-    {EmpID:"AZ729",Name:"Anna",Reason:"Leaving to pursue  higher studies"},
-    {EmpID:"L3718",Name:"Jared",Reason:"Looking for Better opportunities"}]
-}
+this.state={
+  resignation:[]
+};
 this.handleDelete=this.handleDelete.bind(this);
   }
 
 handleDelete(index) {
-  console.log(index.EmpID);
+  console.log(index.empid);
   this.setState({
-    request: this.state.request.filter(
-      (item) => item.EmpID !== index.EmpID
+    resignation: this.state.resignation.filter(
+      (item) => item.empid !== index.empid
     ),
-  
   });
   alert("You are about to take action, please confirm.");
 }
+componentDidMount() {
+  const url = "http://localhost:8080/api/mystore/requests/resignation";
+
+  fetch(url)
+    .then((response) => response.json())
+    .then(
+      (result) => {
+        this.setState({
+          resignation: result,
+        });
+        console.log(result);
+      },
+
+      (error) => {
+        console.log(error);
+      }
+    );
+}
+
   renderTable(){
-    console.log(localStorage.getItem("id"));
-    const {request} = this.state;
-    if( request){
+   const {resignation} = this.state;
+     if( resignation.length >0){
 
     return (
-      
         
-      request.map((index) => 
+      resignation.map((index) => 
   <tbody>    
         <tr>
-        <td>{index.EmpID}</td>
-        <td>{index.Name}</td>
-        <td>{index.Reason}</td>
+        <td>{index.empid}</td>
+        <td>{index.name}</td>
+        <td>{index.rid}</td>
+        <td>{index.reason}</td>
+        <td>{index.status}</td>
+
         <td><Button className="btn btn-primary  mr-5" onClick={() => this.handleDelete(index)}> Accept</Button>
         <Button className="btn btn-primary mr-5" onClick={() => this.handleDelete(index)}> Reject</Button></td>   
         </tr>
         </tbody> 
     ));
+  
   }
-  }
+}
 
       render() {
           return (
@@ -65,7 +80,9 @@ handleDelete(index) {
               </div>
             </div>
           </div>
-    
+        
+                
+               
                 <br></br>
                 <br></br>
                 <div>
@@ -74,11 +91,12 @@ handleDelete(index) {
                 <tr>
                 <th> Employee No.</th>
             <th>Name</th>
+            <th>Resignation ID</th>
             <th>Reason</th>
+            <th>Status</th>
             <th>Action</th>
                 </tr>
                 </thead>
-
                 {this.renderTable()}
                 </Table>
               </div>

@@ -84,7 +84,7 @@ We ask employees to submit a written, signed notice of resignation for record-ke
                             }
                           >
    
-                         Apply Resignation
+                         Apply
                           </span>
                           </td>
                         <td>
@@ -94,7 +94,7 @@ We ask employees to submit a written, signed notice of resignation for record-ke
                             onClick={() =>this.props.history.push("/home/resigndetails")}
                           >
                               
-                            View Resignatoion
+                            View 
                           </span>
                         </td>
                         
