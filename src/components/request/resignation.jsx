@@ -8,18 +8,79 @@ class AcceptResignation extends Component {
 this.state={
   resignation:[]
 };
-this.handleDelete=this.handleDelete.bind(this);
+this.handleReject=this.handleReject.bind(this);
   }
 
-handleDelete(index) {
+handleReject(index) {
+  const empid=index.empid;
+  const name=index.name;
+  let resign = {
+    empid:localStorage.getItem("id"),
+    rid: index.rid,
+    status:'Rejected'
+  };
+  fetch(`http://localhost:8080/api/mystore/requests/resignation/reject/${empid}`,
+    {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(resign),
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+     const result =responseJson
+      if(result==="Success")
+      alert("You have Rejected the Resignation for  " +name );
+      else
+      alert("Error in performing action, contact the helpdesk.");
+    });
+    this.setState({
+      resignation: this.state.resignation.filter(
+        (item) => item.empid !== index.empid
+      ),
+    });
+}
+
+handleAccept(index) {
   console.log(index.empid);
+  const empid=index.empid;
+  const name=index.name;
+  let resign = {
+    empid:localStorage.getItem("id"),
+    rid: index.rid,
+    status:'Accepted'
+  };
+  fetch(`http://localhost:8080/api/mystore/requests/resignation/inactive/${empid}`,
+  {
+    method: "PUT",
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+     const result =responseJson
+      if(result==="Success")
+      {
+        fetch(`http://localhost:8080/api/mystore/requests/resignation/accept/${empid}`,
+        {
+          method: "PUT",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(resign),
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+         const result =responseJson
+         if(result==="Success")
+         alert("You have Accepted the Resignation for  " +name );
+      });
+    }
+    else
+    alert("Error in performing accept action");
+  });
   this.setState({
     resignation: this.state.resignation.filter(
       (item) => item.empid !== index.empid
     ),
   });
-  alert("You are about to take action, please confirm.");
 }
+
 componentDidMount() {
   const url = "http://localhost:8080/api/mystore/requests/resignation";
 
@@ -30,7 +91,6 @@ componentDidMount() {
         this.setState({
           resignation: result,
         });
-        console.log(result);
       },
 
       (error) => {
@@ -54,8 +114,8 @@ componentDidMount() {
         <td>{index.reason}</td>
         <td>{index.status}</td>
 
-        <td><Button className="btn btn-primary  mr-5" onClick={() => this.handleDelete(index)}> Accept</Button>
-        <Button className="btn btn-primary mr-5" onClick={() => this.handleDelete(index)}> Reject</Button></td>   
+        <td><Button className="btn btn-primary  mr-5" onClick={() => this.handleAccept(index)}> Accept</Button>
+        <Button className="btn btn-primary mr-5" onClick={() =>this.handleReject(index)}> Reject</Button></td>   
         </tr>
         </tbody> 
     ));

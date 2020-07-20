@@ -89,6 +89,7 @@ handleChange(e) {
             <div style={{ display: "inline-block" }}>
               <img className="profile-img" src={ComplaintImage}></img>{" "}
             </div>
+
             <span className="p-2"></span>
             <div style={{ display: "inline-block" }}>
               <h4>Resign </h4>
@@ -108,17 +109,7 @@ handleChange(e) {
         <div className="errorMsg">{this.state.errors.firstname}</div> */}
         <input type="text" readOnly name="EMPID" value={localStorage.getItem("id")}></input>
         
-  
-        {/* <label>Name</label>
-        {/* <input type="text" name="lastname" value={this.state.fields.lastname} onChange={this.handleChange} placeholder="Blunt"/>
-        <div className="errorMsg">{this.state.errors.lastname}</div> */}
-        {/* <input type="text" readOnly name="Name" value={localStorage.getItem("name")}></input>  */}
-
-
-        {/* <label>Resignation ID</label>
-        {/* <input type="text" name="reason" value={this.state.fields.reason} onChange={this.handleChange} placeholder="Re-locating to another province"/>
-        <div className="errorMsg">{this.state.errors.reason}</div> */}
-        {/* <input type="text" readOnly name="RID" value={this.state.resignationID}></input> */} 
+        
 
         <label>Reason</label>
         <input type="text" name="reason" value={this.state.fields.reason} onChange={this.handleChange}placeholder="Enter your reason" />
