@@ -50,6 +50,9 @@ export class NavigationBar extends Component {
   handleLogout = () => {
     this.props.updateAuth(false);
     localStorage.setItem("auth", "false");
+
+    localStorage.removeItem("role");
+    localStorage.removeItem("id");
     this.props.history.push("/");
   };
   retrieverole = () => {

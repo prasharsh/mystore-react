@@ -27,11 +27,17 @@ class ForgotPassword extends Component {
   triggerEmail() {
     const { email } = this.state;
     console.log(email);
-    fetch(`http://localhost:8080/api/myStore/resetPassword/${email}`).then(
-      (response) => {
-        console.log(response);
-      }
-    );
+    fetch(`http://localhost:8080/api/myStore/resetPassword/${email}`)
+      .then((response) => response.json())
+      .then((res) => {
+        console.log(res);
+        alert(res);
+        if (res === "Please check your email for the token sent!!") {
+          this.props.history.push("/token");
+        } else {
+          this.setState({ email: "" });
+        }
+      });
   }
 
   handleChange = async (event) => {
@@ -100,8 +106,6 @@ class ForgotPassword extends Component {
   handleSubmit = () => {
     if (this.state.validate.emailState === "has-success") {
       this.triggerEmail();
-      alert("Please check your email for the token sent!!");
-      this.props.history.push("/token");
     }
   };
 }

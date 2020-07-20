@@ -85,11 +85,13 @@ class Registration extends Component {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(user),
-    }).then((res) => {
-      if (res) {
-        console.log(res.body);
-      }
-    });
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        if (res) {
+          alert(res);
+        }
+      });
   }
   validateLname = (event) => {
     let { validate } = this.state;
@@ -292,7 +294,6 @@ class Registration extends Component {
     ) {
       if (this.state.confirmPassword === this.state.password) {
         this.registerUser();
-        alert("User Registerd succesfully!");
         this.props.history.push("/");
       } else {
         alert("Password and confirm password mismatch ");

@@ -15,17 +15,48 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: "Suraj xyz",
-      firstName: "Suraj",
-      lastName: "Sharma",
-      email: "abc@gmail.com",
+      id: "",
+      userName: "",
+      firstName: "",
+      lastName: "",
+      phone: "",
+      email: "",
       newPass: "",
       validate: {
         emailState: "",
         passwordState: "",
+        phoneState: "",
       },
     };
   }
+
+  componentDidMount() {
+    const url =
+      "http://localhost:8080/api/myStore/fetchUserProfile/" +
+      localStorage.getItem("id");
+
+    fetch(url)
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          this.setState({
+            id: result.id,
+            userName: result.id,
+            firstName: result.firstName,
+            lastName: result.lastName,
+            phone: result.phone,
+            email: result.username,
+            newPass: result.password,
+          });
+          console.log(result);
+        },
+
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
   validatePassword = (event) => {
     const { validate } = this.state;
     if (event.target.value.length > 6) {
@@ -55,16 +86,48 @@ class Profile extends Component {
     this.setState({ validate });
   };
 
+  validatePhone = (event) => {
+    const { validate } = this.state;
+    if (event.target.value.length > 6) {
+      validate.phoneState = "has-success";
+    } else {
+      validate.phoneState = "has-danger";
+    }
+    this.setState({ validate });
+  };
+
+  updateProfile() {
+    let user = {
+      id: localStorage.getItem("id"),
+      username: this.state.email,
+      password: this.state.password,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      phone: this.state.phone,
+      password: this.state.newPass,
+    };
+    let role = "";
+    fetch("http://localhost:8080/api/myStore/updateProfile", {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(user),
+    })
+      .then((response) => {
+        response.json();
+        alert("Profile successfully updated !");
+      })
+      .then((data) => {
+        console.log(data);
+      });
+  }
   handleUpdate = () => {
     if (this.state.email.length === 0) {
       alert("Please enter the email");
     } else if (this.state.email.length > 0) {
-      if (this.state.validate.emailState === "has-success") {
-        alert("Profile updated");
-      } else if (this.state.validate.emailState === "has-danger") {
+      if (this.state.validate.emailState === "has-danger") {
         alert("Please provide valid email");
       } else {
-        alert("Profile updated");
+        this.updateProfile();
       }
     }
   };
@@ -103,6 +166,7 @@ class Profile extends Component {
                           placeholder="Username"
                           className="form-control here"
                           required="required"
+                          readOnly
                           type="text"
                           onChange={(e) => {
                             this.handleChange(e);
@@ -129,6 +193,7 @@ class Profile extends Component {
                         ></input>
                       </div>
                     </div>
+
                     <div className="form-group row">
                       <label for="lastname" className="col-4 col-form-label">
                         Last Name
@@ -159,6 +224,7 @@ class Profile extends Component {
                           className="form-control here"
                           required="required"
                           type="text"
+                          readOnly
                           onChange={(e) => {
                             this.handleChange(e);
                             this.validateEmail(e);
@@ -175,6 +241,33 @@ class Profile extends Component {
                         <FormFeedback>Please enter a valid email</FormFeedback>
                       </div>
                     </FormGroup>
+
+                    <FormGroup className="form-group row">
+                      <label for="email" className="col-4 col-form-label">
+                        Phone
+                      </label>
+                      <div className="col-8">
+                        <Input
+                          type="text"
+                          placeholder="Phone"
+                          name="phone"
+                          value={this.state.phone}
+                          onChange={(e) => {
+                            this.handleChange(e);
+                            this.validatePhone(e);
+                          }}
+                          required
+                          valid={
+                            this.state.validate.phoneState === "has-success"
+                          }
+                          invalid={
+                            this.state.validate.phoneState === "has-danger"
+                          }
+                        ></Input>
+                        <FormFeedback valid>Valid phone number</FormFeedback>
+                        <FormFeedback>Please enter phone number</FormFeedback>
+                      </div>
+                    </FormGroup>
                     <FormGroup className="form-group row">
                       <label for="newpass" className="col-4 col-form-label">
                         New Password
@@ -185,7 +278,7 @@ class Profile extends Component {
                           name="newPass"
                           placeholder="New Password"
                           className="form-control here"
-                          type="text"
+                          type="password"
                           valid={
                             this.state.validate.passwordState === "has-success"
                           }
@@ -206,18 +299,18 @@ class Profile extends Component {
                       </div>
                     </FormGroup>
                     <br></br>
-                    <div className="form-group row">
-                      <div className="offset-2 col-9">
-                        <button
-                          onClick={this.handleUpdate}
-                          name="submit"
-                          className="btn btn-dark"
-                        >
-                          Update
-                        </button>
-                      </div>
-                    </div>
                   </form>
+                  <div className="form-group row">
+                    <div className="offset-2 col-9">
+                      <button
+                        onClick={this.handleUpdate}
+                        name="submit"
+                        className="btn btn-dark"
+                      >
+                        Update
+                      </button>
+                    </div>
+                  </div>
                 </Container>
               </div>
             </div>

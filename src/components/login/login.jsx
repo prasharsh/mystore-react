@@ -144,15 +144,25 @@ class Login extends Component {
         .then((response) => response.json())
         .then((data) => {
           this.props.updateAuth(true);
-          localStorage.setItem("auth", "true");
+
           localStorage.setItem("role", data.userRole);
           localStorage.setItem("id", data.id);
-          console.log(
-            localStorage.getItem("role") +
-              "......." +
-              localStorage.getItem("auth")
-          );
-          this.props.history.push("/home/");
+          localStorage.setItem("auth", "true");
+
+          if (localStorage.getItem("role") !== "null") {
+            localStorage.setItem("auth", "true");
+            console.log(
+              localStorage.getItem("role") +
+                "......." +
+                localStorage.getItem("auth")
+            );
+            console.log("inside if role is valid");
+            this.props.history.push("/home/");
+            //window.location.reload();
+          } else {
+            alert(data.message);
+            window.location.reload();
+          }
         });
     }
   };
