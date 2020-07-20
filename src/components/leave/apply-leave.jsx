@@ -6,7 +6,67 @@ import "../login/login.css";
 import "./leave.css";
 
 class ApplyLeave extends Component {
-  state = {};
+  constructor() {
+    super();
+    this.state = {
+      startdate: "",
+      enddate: "",
+      reason: "",
+      empid: "",
+      fields: {},
+    };
+  }
+
+  handleChange = (e) => {
+    let fields = this.state.fields;
+    this.setState({ reason: e.target.value });
+  };
+
+  startDate = (value) => {
+    this.setState({ startdate: value });
+  };
+
+  endDate = (value) => {
+    this.setState({ enddate: value });
+  };
+
+  applyLeave = () => {
+    //this.props.history.push("/home/resign");
+    console.log("hiii");
+    console.log(this.props);
+    let leave = {
+      empid: localStorage.getItem("id"),
+      startdate: this.state.startdate,
+      enddate: this.state.enddate,
+      reason: this.state.reason,
+    };
+    const empid = localStorage.getItem("id");
+    fetch(`http://localhost:8080/api/myStore/leave/apply/${empid}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(leave),
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        const items = data;
+        console.log(items);
+        if (items === "Success") {
+          alert("Leave applied successfully");
+        } else if (items === "Duplicate") {
+          alert(
+            "Leave has already been applied for the respective start and end date"
+          );
+        } else {
+          alert("Error in applying leave");
+        }
+      });
+    this.props.history.push("/home/leavehistory");
+  };
+
   render() {
     return (
       <div>
@@ -61,7 +121,7 @@ class ApplyLeave extends Component {
                       </p>
                     </td>
                     <td>
-                      <DatePickerComp />{" "}
+                      <DatePickerComp parentCallback={this.startDate} />{" "}
                     </td>
                   </tr>
                   <tr>
@@ -72,7 +132,7 @@ class ApplyLeave extends Component {
                       </p>
                     </td>
                     <td>
-                      <DatePickerComp />{" "}
+                      <DatePickerComp parentCallback={this.endDate} />
                     </td>
                   </tr>
                   <tr>
@@ -85,7 +145,9 @@ class ApplyLeave extends Component {
                     <td>
                       <textarea
                         className="form-control"
-                        id="textarea"
+                        name="reason"
+                        value={this.state.fields.reason}
+                        onChange={this.handleChange}
                         rows="1"
                       ></textarea>
                     </td>
@@ -98,9 +160,7 @@ class ApplyLeave extends Component {
                   <div align="center">
                     <div style={{ display: "inline-block" }}>
                       <button
-                        onClick={() =>
-                          this.props.history.push("/home/leavehistory")
-                        }
+                        onClick={this.applyLeave}
                         name="submit"
                         className="btn btn-dark"
                       >

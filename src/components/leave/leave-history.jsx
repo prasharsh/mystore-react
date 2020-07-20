@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Table from "react-bootstrap/Table";
 import ComplaintImage from "../complaints/complaint.svg";
 import "../login/login.css";
 import "./leave.css";

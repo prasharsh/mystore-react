@@ -15,6 +15,7 @@ class DatePickerComp extends Component {
     this.setState({
       startDate: date,
     });
+    this.props.parentCallback(date);
   };
 
   render() {
@@ -25,7 +26,7 @@ class DatePickerComp extends Component {
             <DatePicker
               selected={this.state.startDate}
               onChange={this.handleChange}
-              dateFormat="MMMM d, yyyy"
+              dateFormat="yyyy-MM-dd"
               className="form-control"
               minDate={new Date()}
               placeholderText="Select a day"
