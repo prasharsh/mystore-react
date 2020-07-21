@@ -157,7 +157,7 @@ class Profile extends Component {
                   <form>
                     <div className="form-group row">
                       <label for="username" className="col-4 col-form-label">
-                        User Name
+                        Employee Id
                       </label>
                       <div className="col-8">
                         <input
@@ -214,7 +214,7 @@ class Profile extends Component {
                     </div>
                     <FormGroup className="form-group row">
                       <label for="email" className="col-4 col-form-label">
-                        Email*
+                        Email
                       </label>
                       <div className="col-8">
                         <Input

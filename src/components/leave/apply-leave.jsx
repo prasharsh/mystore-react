@@ -14,6 +14,11 @@ class ApplyLeave extends Component {
       reason: "",
       empid: "",
       fields: {},
+      errors: {
+        startdate: "",
+        enddate: "",
+        reason: "",
+      },
     };
   }
 
@@ -30,41 +35,90 @@ class ApplyLeave extends Component {
     this.setState({ enddate: value });
   };
 
-  applyLeave = () => {
-    //this.props.history.push("/home/resign");
-    console.log("hiii");
-    console.log(this.props);
-    let leave = {
-      empid: localStorage.getItem("id"),
-      startdate: this.state.startdate,
-      enddate: this.state.enddate,
-      reason: this.state.reason,
-    };
-    const empid = localStorage.getItem("id");
-    fetch(`http://localhost:8080/api/myStore/leave/apply/${empid}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(leave),
-    })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        const items = data;
-        console.log(items);
-        if (items === "Success") {
-          alert("Leave applied successfully");
-        } else if (items === "Duplicate") {
-          alert(
-            "Leave has already been applied for the respective start and end date"
-          );
-        } else {
-          alert("Error in applying leave");
+  validateForm = (event) => {
+    let errors = this.state.errors;
+    errors.startdate = "";
+    errors.enddate = "";
+    errors.reason = "";
+    errors.comparisonDate = "";
+    this.setState({
+      errors: errors,
+    });
+    let formIsValid = true;
+    if (this.state.startdate != "" || this.state.enddate != "") {
+      if (this.state.enddate != this.state.startdate) {
+        if (this.state.enddate < this.state.startdate) {
+          formIsValid = false;
+          errors.enddate = "End date is greater than start date";
+          this.setState({
+            errors: errors,
+          });
         }
+      }
+    }
+
+    if (this.state.reason.length <= 1) {
+      formIsValid = false;
+      errors.reason = "Please provide the reason";
+      this.setState({
+        errors: errors,
       });
-    this.props.history.push("/home/leavehistory");
+    }
+
+    if (this.state.startdate == "") {
+      formIsValid = false;
+      errors.startdate = "Please provide the start date";
+      this.setState({
+        errors: errors,
+      });
+    }
+
+    if (this.state.enddate == "") {
+      formIsValid = false;
+      errors.enddate = "Please provide the end date";
+      this.setState({
+        errors: errors,
+      });
+    }
+
+    console.log(this.state.errors);
+    return formIsValid;
+  };
+
+  applyLeave = () => {
+    if (this.validateForm()) {
+      let leave = {
+        empid: localStorage.getItem("id"),
+        startdate: this.state.startdate,
+        enddate: this.state.enddate,
+        reason: this.state.reason,
+      };
+      const empid = localStorage.getItem("id");
+      fetch(`http://localhost:8080/api/myStore/leave/apply/${empid}`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(leave),
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          const items = data;
+          console.log(items);
+          if (items === "Success") {
+            alert("Leave applied successfully");
+          } else if (items === "Duplicate") {
+            alert(
+              "Leave has already been applied for the respective start and end date"
+            );
+          } else {
+            alert("Error in applying leave");
+          }
+        });
+      this.props.history.push("/home");
+    }
   };
 
   render() {
@@ -122,6 +176,9 @@ class ApplyLeave extends Component {
                     </td>
                     <td>
                       <DatePickerComp parentCallback={this.startDate} />{" "}
+                      <div className="errorMsg">
+                        {this.state.errors.startdate}
+                      </div>
                     </td>
                   </tr>
                   <tr>
@@ -133,6 +190,9 @@ class ApplyLeave extends Component {
                     </td>
                     <td>
                       <DatePickerComp parentCallback={this.endDate} />
+                      <div className="errorMsg">
+                        {this.state.errors.enddate}
+                      </div>
                     </td>
                   </tr>
                   <tr>
@@ -150,6 +210,7 @@ class ApplyLeave extends Component {
                         onChange={this.handleChange}
                         rows="1"
                       ></textarea>
+                      <div className="errorMsg">{this.state.errors.reason}</div>
                     </td>
                   </tr>
                 </tbody>

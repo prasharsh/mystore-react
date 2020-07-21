@@ -4,7 +4,53 @@ import "../login/login.css";
 import "./leave.css";
 
 class LeaveHistory extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      leaveHistory: [],
+    };
+  }
+
+  componentDidMount() {
+    const empid = localStorage.getItem("id");
+    fetch(`http://localhost:8080/api/myStore/leave/viewLeaveHistory/${empid}`)
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          this.setState({
+            leaveHistory: result,
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  renderTable() {
+    const { leaveHistory } = this.state;
+    if (leaveHistory.length > 0) {
+      return leaveHistory.map((value) => (
+        <tbody key={value.id}>
+          <tr>
+            <td>{value.id}</td>
+            <td>{value.startdate}</td>
+            <td>{value.enddate}</td>
+            <td>{value.reason}</td>
+            <td>
+              <span
+                type="submit"
+                onClick={() => this.props.history.push("/home/leavedetails")}
+              >
+                <u>{value.status}</u>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      ));
+    }
+  }
+
   render() {
     return (
       <div>
@@ -53,39 +99,14 @@ class LeaveHistory extends Component {
               <table className="table">
                 <thead className="thead-container">
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Request ID</th>
                     <th scope="col">Start Date</th>
                     <th scope="col">End Date</th>
                     <th scope="col">Reason</th>
                     <th scope="col">Status</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <span>1</span>
-                    </td>
-                    <td>
-                      <span>1-07-2020</span>
-                    </td>
-                    <td>
-                      <span>10-07-2020</span>
-                    </td>
-                    <td>
-                      <span>Not feeling well</span>
-                    </td>
-                    <td>
-                      <span
-                        type="submit"
-                        onClick={() =>
-                          this.props.history.push("/home/leavedetails")
-                        }
-                      >
-                        <u>Pending</u>
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
+                {this.renderTable()}
               </table>
             </div>
           </div>
