@@ -89,15 +89,6 @@ export default class ApplicationForm extends Component {
               </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
-          <Form.Row>
-            <Form.Group controlId="formGroupFile" as={Col}>
-              <Form.File
-                className="position-relative"
-                label="Optional Resume File Uploader"
-                feedbackTooltip
-              />
-            </Form.Group>
-          </Form.Row>
 
           <Button type="submit" variant="dark" size="lg">
             Apply
