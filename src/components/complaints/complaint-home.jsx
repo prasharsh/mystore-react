@@ -18,6 +18,13 @@ export default class ComplaintHome extends Component {
       numArray: [1, 2, 3],
     };
   }
+  componentDidMount() {
+    this.retrieverole();
+  }
+
+  retrieverole = () => {
+    this.setState({ role: localStorage.getItem("role") });
+  };
 
   showComplaint = () => {
     this.setState({ showComplaint: true });
@@ -60,6 +67,7 @@ export default class ComplaintHome extends Component {
     alert(msg);
   };
   render() {
+    const isManager = this.state.role === "manager";
     return (
       <div>
         <div className="col-md-12">
@@ -87,7 +95,7 @@ export default class ComplaintHome extends Component {
                     <th>Complaint Type</th>
                     <th>View Complaint</th>
                     <th>View Response</th>
-                    <th>Respond (Manager Only)</th>
+                    {isManager ? <th>Respond (Manager Only)</th> : null}
                   </tr>
                 </thead>
                 <tbody>
@@ -115,15 +123,17 @@ export default class ComplaintHome extends Component {
                             View
                           </button>
                         </td>
-                        <td>
-                          <button
-                            onClick={this.showCreateResponse}
-                            name="submit"
-                            className="btn btn-success"
-                          >
-                            Respond
-                          </button>
-                        </td>
+                        {isManager ? (
+                          <td>
+                            <button
+                              onClick={this.showCreateResponse}
+                              name="submit"
+                              className="btn btn-success"
+                            >
+                              Respond
+                            </button>
+                          </td>
+                        ) : null}
                       </tr>
                     );
                   })}

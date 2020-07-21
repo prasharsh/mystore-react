@@ -52,8 +52,8 @@ class App extends Component {
       show: false,
     };
   }
-  componentDidMount() {
-    // console.log(typeof localStorage.getItem("auth"));
+
+  async componentDidMount() {
     if (localStorage.getItem("auth") === undefined) {
       localStorage.setItem("auth", "false");
     } else if (localStorage.getItem("auth") === "true") {
@@ -88,12 +88,17 @@ class App extends Component {
                 <Route exact path="/home/wall" component={Wall} />
                 <Route exact path="/home/later" component={UnderConstruction} />
                 <Route exact path="/home/profile" component={Profile} />
-                <Route path="/home/resign" component={ResignPage} />
-                <Route path="/home/applyresign" component={ApplyResign} />
-                <Route path="/home/editresign" component={EditResign} />
-                <Route path="/home/resigndetails" component={ResignDetails} />
+                <Route exact path="/home/resign" component={ResignPage} />
+                <Route exact path="/home/applyresign" component={ApplyResign} />
+                <Route exact path="/home/editresign" component={EditResign} />
+                <Route
+                  exact
+                  path="/home/resigndetails"
+                  component={ResignDetails}
+                />
 
                 <Route
+                  exact
                   path="/home/employeedetails"
                   component={EmployeeDetails}
                 />

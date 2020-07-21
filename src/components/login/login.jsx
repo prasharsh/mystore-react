@@ -143,8 +143,6 @@ class Login extends Component {
       })
         .then((response) => response.json())
         .then((data) => {
-          this.props.updateAuth(true);
-
           localStorage.setItem("role", data.userRole);
           localStorage.setItem("id", data.id);
           localStorage.setItem("auth", "true");
@@ -157,7 +155,8 @@ class Login extends Component {
                 localStorage.getItem("auth")
             );
             console.log("inside if role is valid");
-            this.props.history.push("/home/wall");
+            this.props.updateAuth(true);
+            this.props.history.push("/home");
             //window.location.reload();
           } else {
             alert(data.message);

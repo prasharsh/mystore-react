@@ -42,6 +42,7 @@ export class NavigationBar extends Component {
     super(props);
     this.state = { role: "" };
   }
+
   componentDidMount() {
     this.retrieverole();
     console.log(this.state.role);
