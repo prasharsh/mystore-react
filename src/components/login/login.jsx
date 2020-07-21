@@ -157,7 +157,7 @@ class Login extends Component {
                 localStorage.getItem("auth")
             );
             console.log("inside if role is valid");
-            this.props.history.push("/home/");
+            this.props.history.push("/home/wall");
             //window.location.reload();
           } else {
             alert(data.message);
