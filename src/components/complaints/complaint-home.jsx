@@ -6,6 +6,7 @@ import ViewComplaintModal from "./view-complaint-modal.jsx";
 import ViewResponseModal from "./view-response-modal.jsx";
 import CreateResponseModal from "./create-response-modal.jsx";
 import CreateComplaintModal from "./create-complaint-modal.jsx";
+import Loader from "./loader.js";
 
 export default class ComplaintHome extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class ComplaintHome extends Component {
     this.onChangePage = this.onChangePage.bind(this);
 
     this.state = {
+      loading: true,
       showComplaint: false,
       showResponse: false,
       showCreateResponse: false,
@@ -42,7 +44,7 @@ export default class ComplaintHome extends Component {
           this.setState({
             complaints: responseJson,
           });
-          this.setPageItems();
+          this.setState({ loading: false });
         });
     } else if (role === "manager") {
       fetch(`http://localhost:8080/api/complaints/getAllComplaints`)
@@ -51,21 +53,13 @@ export default class ComplaintHome extends Component {
           this.setState({
             complaints: responseJson,
           });
-          this.setPageItems();
+          this.setState({ loading: false });
         });
     }
   }
 
   componentDidMount() {
     this.getDetailsAgain();
-  }
-
-  setPageItems() {
-    if (this.state.complaints.length < 5) {
-      this.setState({ pageOfItems: this.state.complaints });
-    } else {
-      this.setState({ pageOfItems: this.state.complaints.slice(0, 4) });
-    }
   }
 
   showComplaint = (complaint) => {
@@ -117,6 +111,7 @@ export default class ComplaintHome extends Component {
     alert(msg);
   };
   render() {
+    if (this.state.loading) return <Loader />;
     const isManager = localStorage.getItem("role") === "manager";
     return (
       <div>

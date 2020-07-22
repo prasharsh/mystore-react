@@ -33,12 +33,15 @@ class ViewNotificationModal extends Component {
                   rows="3"
                   name="notification"
                   readOnly
-                  value={this.state.notification}
+                  value={this.props.notification}
                 />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
+            <Button variant="danger" onClick={this.props.closeModal}>
+              Delete
+            </Button>
             <Button variant="secondary" onClick={this.props.closeModal}>
               Close
             </Button>
