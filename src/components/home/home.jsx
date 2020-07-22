@@ -55,19 +55,21 @@ class Wall extends Component {
                         Announcements
                       </Card.Header>
                       <Card.Body>
-                        <ListGroup variant="flush">
-                          {this.state.numArray.map((value, index) => {
-                            return (
-                              <ListGroup.Item
-                                key={index}
-                                action
-                                onClick={this.showAnnouncement}
-                              >
-                                Announcement {value}
-                              </ListGroup.Item>
-                            );
-                          })}
-                        </ListGroup>
+                        <div className="card-container-announcement">
+                          <ListGroup variant="flush">
+                            {this.state.numArray.map((value, index) => {
+                              return (
+                                <ListGroup.Item
+                                  key={index}
+                                  action
+                                  onClick={this.showAnnouncement}
+                                >
+                                  Announcement {value}
+                                </ListGroup.Item>
+                              );
+                            })}
+                          </ListGroup>
+                        </div>
                       </Card.Body>
                     </Card>
                   </Col>
@@ -80,20 +82,23 @@ class Wall extends Component {
                         ></img>{" "}
                         Notfications
                       </Card.Header>
+
                       <Card.Body>
-                        <ListGroup variant="flush">
-                          {this.state.numArray.map((value, index) => {
-                            return (
-                              <ListGroup.Item
-                                key={index}
-                                action
-                                onClick={this.showNotification}
-                              >
-                                Notification {value}
-                              </ListGroup.Item>
-                            );
-                          })}
-                        </ListGroup>
+                        <div className="card-container-not">
+                          <ListGroup variant="flush">
+                            {this.state.numArray.map((value, index) => {
+                              return (
+                                <ListGroup.Item
+                                  key={index}
+                                  action
+                                  onClick={this.showNotification}
+                                >
+                                  Notification {value}
+                                </ListGroup.Item>
+                              );
+                            })}
+                          </ListGroup>
+                        </div>
                       </Card.Body>
                     </Card>
                   </Col>
