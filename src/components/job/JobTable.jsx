@@ -20,7 +20,7 @@ export default class JobTable extends Component {
             {this.props.jobs.map((job, index) => {
               return (
                 <tr key={index}>
-                  <td>{job.id}</td>
+                  <td>{job.jobID}</td>
                   <td>{job.position}</td>
                   <td>{job.type}</td>
                   <td>{job.shift}</td>

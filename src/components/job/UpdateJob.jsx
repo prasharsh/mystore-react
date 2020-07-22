@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import UpdateJobForm from "./UpdateJobForm";
 import createBrowserHistory from "history/createBrowserHistory";
+import axios from "axios";
 
 const history = createBrowserHistory({ forceRefresh: true });
 
@@ -9,18 +10,29 @@ export default class UpdateJob extends Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
-    if (this.props.location.state !== undefined) {
-      this.setState({
-        selectedJob: this.props.location.state.selectedJob,
-        position: this.props.location.state.selectedJob.position,
-        jobType: this.props.location.state.selectedJob.type,
-        shiftType: this.props.location.state.selectedJob.shift,
-        description: this.props.location.state.selectedJob.description,
-        requirments: this.props.location.state.selectedJob.requirments,
-      });
-    }
-  }
+  componentDidMount = async () => {
+    const { selectedJob } = this.props.location.state;
+    let jobPostURL = "http://localhost:8080/api/jobPosts/fetchByJobID/";
+
+    await axios.get(jobPostURL + `${selectedJob.jobID}`).then(
+      (response) => {
+        console.log(response.data);
+        this.setState(() => ({ selectedJob: response.data }));
+        this.setState(() => ({
+          position: response.data.position,
+          jobType: response.data.type,
+          shiftType: response.data.shift,
+          description: response.data.description,
+          requirments: response.data.requirment,
+        }));
+        console.log(response.data.requirment);
+        console.log(this.state.requirments);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
 
   state = {
     selectedJob: {},
@@ -31,7 +43,7 @@ export default class UpdateJob extends Component {
     jobType: "",
     shiftType: "",
     requirments: "",
-    requirmentsValid: true,
+    requirementsValid: true,
     requirmentsInvalid: false,
     description: "",
     descriptionValid: true,
@@ -55,15 +67,14 @@ export default class UpdateJob extends Component {
     this.setState({ shiftType: event.target.value });
   };
 
-  handleRequirmentsChange = (event) => {
+  handleRequirementsChange = (event) => {
     this.setState({ requirments: event.target.value });
     if (event.target.value !== "") {
-      this.setState({ requirmentsValid: true, requirmentsInvalid: false });
+      this.setState({ requirementsValid: true, requirementsInvalid: false });
     } else {
-      this.setState({ requirmentsValid: false, requirmentsInvalid: true });
+      this.setState({ requirementsValid: false, requirementsInvalid: true });
     }
   };
-
   handleDescriptionChange = (event) => {
     this.setState({ description: event.target.value });
     if (event.target.value !== "") {
@@ -73,7 +84,7 @@ export default class UpdateJob extends Component {
     }
   };
 
-  handleUpdateJob = (event) => {
+  handleUpdateJob = async (event) => {
     event.stopPropagation();
     event.preventDefault();
     const jobs = this.props.location.state.jobs;
@@ -85,31 +96,74 @@ export default class UpdateJob extends Component {
       description,
       requirments,
       positionValid,
-      requirmentsValid,
+      requirementsValid,
       descriptionValid,
       selectedJob,
     } = this.state;
-    const id = selectedJob.id;
+    const jobID = selectedJob.jobID;
     let job = {
-      id: id,
+      jobID: jobID,
       position: position,
       type: jobType,
       shift: shiftType,
-      requirments: requirments,
+      requirment: requirments,
       description: description,
     };
-    if (positionValid && requirmentsValid && descriptionValid) {
-      this.setState({ selected: true });
+    console.log("job");
+    console.log(job);
+    console.log(selectedJob);
+    console.log("here" + positionValid + requirementsValid + descriptionValid);
+    if (positionValid && requirementsValid && descriptionValid) {
+      console.log("in first");
+      console.log(selectedJob.position !== position);
+      console.log(selectedJob.type !== jobType);
+      console.log(selectedJob.shift !== shiftType);
+      console.log(selectedJob.description !== description);
+      console.log(selectedJob.requirment !== requirments);
+
       if (
-        selectedJob.position !== position &&
-        selectedJob.type !== jobType &&
-        selectedJob.shift !== shiftType &&
-        selectedJob.description !== description &&
-        selectedJob.requirments !== requirments
+        selectedJob.position !== position ||
+        selectedJob.type !== jobType ||
+        selectedJob.shift !== shiftType ||
+        selectedJob.description !== description ||
+        selectedJob.requirment !== requirments
       ) {
-        alert(`Job: ${id} Job Position ${position} has been updated`);
+        console.log("before call");
+        let jobPostURL = "http://localhost:8080/api/jobPosts/updateJob/";
+        await axios.put(jobPostURL + `${job.jobID}`, job).then(
+          (response) => {
+            console.log(response.data);
+            if (response.data) {
+              this.setState({ selected: true });
+              alert(`Job: ${job.jobID} has been updated`);
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       }
     }
+  };
+
+  handleDelete = async () => {
+    let jobPostURL = "http://localhost:8080/api/jobPosts/deleteJob/";
+    const { selectedJob } = this.state;
+    const jobID = selectedJob.jobID;
+    console.log(jobID);
+
+    await axios.delete(jobPostURL + `${jobID}`).then(
+      (response) => {
+        console.log(response.data);
+        if (response.data) {
+          this.setState({ selected: true });
+          alert(`Job: ${jobID} has been deleted`);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
   render() {
     console.log(this.state.selected);
@@ -137,8 +191,9 @@ export default class UpdateJob extends Component {
                 handlePositionChange={this.handlePositionChange}
                 handleJobTypeChange={this.handleJobTypeChange}
                 handleShiftTypeChange={this.handleShiftTypeChange}
-                handleRequirmentsChange={this.handleRequirmentsChange}
+                handleRequirementsChange={this.handleRequirementsChange}
                 handleDescriptionChange={this.handleDescriptionChange}
+                handleDelete={this.handleDelete}
                 state={this.state}
                 selectedJob={this.state.selectedJob}
               ></UpdateJobForm>

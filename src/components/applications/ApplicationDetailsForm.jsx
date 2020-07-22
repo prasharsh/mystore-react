@@ -3,6 +3,7 @@ import { Form, Col } from "react-bootstrap";
 
 export default class ApplicationDetailsForm extends Component {
   render() {
+    console.log(this.props.value);
     return (
       <div className="ApplicantForm">
         <Form>

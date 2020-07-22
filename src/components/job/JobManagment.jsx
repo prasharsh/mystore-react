@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Job.css";
 import { Button } from "react-bootstrap";
 import JobTable from "./JobTable";
+import axios from "axios";
 
 export default class JobManagment extends Component {
   constructor(props) {
@@ -15,133 +16,19 @@ export default class JobManagment extends Component {
     };
   }
 
-  async componentDidMount() {
-    //BACK END CALL to get the list of job postings
-    let jobs = [
-      {
-        id: 1,
-        position: "Waiter",
-        type: "Full-Time",
-        shift: "AM",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
-      },
-      {
-        id: 2,
-        position: "Cook",
-        type: "Full-Time",
-        shift: "PM",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
-      },
-      {
-        id: 3,
-        position: "Waiter",
-        type: "Part-Time",
-        shift: "Day",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
-      },
-      {
-        id: 4,
-        position: "Cook",
-        type: "Part-Time",
-        shift: "Evening",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
-      },
-      {
-        id: 5,
-        position: "Manager",
-        type: "Full-Time",
-        shift: "AM",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
-      },
-      {
-        id: 6,
-        position: "Manager",
-        type: "Part-Time",
-        shift: "Day",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
-      },
-      {
-        id: 7,
-        position: "Manager",
-        type: "Full-Time",
-        shift: "AM",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
-      },
-      {
-        id: 8,
-        position: "Manager",
-        type: "Part-Time",
-        shift: "AM",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
-      },
-      {
-        id: 9,
-        position: "Manager",
-        type: "Full-Time",
-        shift: "AM",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
-      },
-      {
-        id: 10,
-        position: "Manager",
-        type: "Part-Time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
+  componentDidMount = async () => {
+    let jobPostURL = "http://localhost:8080/api/jobPosts/fetchAll";
 
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
+    await axios.get(jobPostURL).then(
+      (response) => {
+        console.log(response.data);
+        this.setState(() => ({ jobs: response.data }));
       },
-      {
-        id: 11,
-        position: "Manager",
-        type: "Full-Time",
-        shift: "AM",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
-      },
-      {
-        id: 12,
-        position: "Manager",
-        type: "Full-Time",
-        shift: "AM",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium. Cibo ubique at has. Soluta fabulas theophrastus id eum. Nec at mucius menandri sententiae. Ius ex brute tollit prodesset.",
-        description:
-          "Te noster officiis posidonium has, mel ei postea perpetua. Ferri tamquam laoreet in has. Nec at ridens bonorum, no mei quot dicat tantas. Ne eos porro assum, his ei elitr quaerendum, partem instructior in vim. Tation praesent quaerendum eu per, nonumes accusamus eloquentiam mei eu. Duis tota sadipscing usu ut.",
-      },
-    ];
-    this.setState(() => ({ jobs }));
-  }
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
 
   async componentDidUpdate() {
     console.log("did update");
