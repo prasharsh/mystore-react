@@ -10,6 +10,8 @@ import CreateComplaintModal from "./create-complaint-modal.jsx";
 export default class ComplaintHome extends Component {
   constructor(props) {
     super(props);
+    this.onChangePage = this.onChangePage.bind(this);
+
     this.state = {
       showComplaint: false,
       showResponse: false,
@@ -19,7 +21,13 @@ export default class ComplaintHome extends Component {
       activeComplaintText: "",
       activeResponse: "",
       activeComplaintId: 0,
+      pageOfItems: [],
     };
+  }
+
+  onChangePage(pageOfItems) {
+    // update local state with new page of items
+    this.setState({ pageOfItems });
   }
 
   getDetailsAgain() {
@@ -34,6 +42,7 @@ export default class ComplaintHome extends Component {
           this.setState({
             complaints: responseJson,
           });
+          this.setPageItems();
         });
     } else if (role === "manager") {
       fetch(`http://localhost:8080/api/complaints/getAllComplaints`)
@@ -42,11 +51,21 @@ export default class ComplaintHome extends Component {
           this.setState({
             complaints: responseJson,
           });
+          this.setPageItems();
         });
     }
   }
+
   componentDidMount() {
     this.getDetailsAgain();
+  }
+
+  setPageItems() {
+    if (this.state.complaints.length < 5) {
+      this.setState({ pageOfItems: this.state.complaints });
+    } else {
+      this.setState({ pageOfItems: this.state.complaints.slice(0, 4) });
+    }
   }
 
   showComplaint = (complaint) => {
@@ -118,98 +137,114 @@ export default class ComplaintHome extends Component {
                   </div>
                 </div>
               </div>
-              <Table responsive="sm">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Date</th>
-                    {isManager ? <th>Employee Name</th> : null}
-                    <th>Complaint Type</th>
-                    <th>View Complaint</th>
-                    <th>View Response</th>
-                    {isManager ? <th>Respond</th> : null}
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.complaints.map((value, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{value.complaintDate}</td>
-                        {isManager ? <td>{value.complaintUserName}</td> : null}
-                        <td>{value.complaintType}</td>
-                        <td>
-                          <button
-                            onClick={() =>
-                              this.showComplaint(value.complaintText)
-                            }
-                            name="submit"
-                            className="btn btn-info"
-                          >
-                            View
-                          </button>
-                          <ViewComplaintModal
-                            show={this.state.showComplaint}
-                            closeModal={this.hideComplaint}
-                            complaint={this.state.activeComplaintText}
-                          ></ViewComplaintModal>
-                        </td>
-                        <td>
-                          <button
-                            onClick={() => this.showResponse(value.response)}
-                            name="submit"
-                            className="btn btn-info"
-                          >
-                            View
-                          </button>
-                          <ViewResponseModal
-                            show={this.state.showResponse}
-                            closeModal={this.hideResponse}
-                            response={this.state.activeResponse}
-                          ></ViewResponseModal>
-                        </td>
-                        {isManager ? (
-                          <td>
-                            <button
-                              disabled={value.response !== null}
-                              onClick={() => this.showCreateResponse(value.id)}
-                              name="submit"
-                              className="btn btn-success"
-                            >
-                              Respond
-                            </button>
-                            <CreateResponseModal
-                              show={this.state.showCreateResponse}
-                              closeModal={this.hideCreateResponse}
-                              complaintId={this.state.activeComplaintId}
-                            ></CreateResponseModal>
-                          </td>
-                        ) : null}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
+              <div
+                className={
+                  this.state.complaints.length > 3 ? "scrollTable" : ""
+                }
+              >
+                <Table responsive="sm">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Date</th>
+                      {isManager ? <th>Employee Name</th> : null}
+                      <th>Complaint Type</th>
+                      <th>View Complaint</th>
+                      <th>View Response</th>
+                      {isManager ? <th>Respond</th> : null}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.complaints.map((value, index) => {
+                      return (
+                        <React.Fragment key={index}>
+                          <tr>
+                            <td>{index + 1}</td>
+                            <td>{value.complaintDate}</td>
+                            {isManager ? (
+                              <td>{value.complaintUserName}</td>
+                            ) : null}
+                            <td>{value.complaintType}</td>
+                            <td>
+                              <button
+                                onClick={() =>
+                                  this.showComplaint(value.complaintText)
+                                }
+                                name="submit"
+                                className="btn btn-info"
+                              >
+                                View
+                              </button>
+                              <ViewComplaintModal
+                                show={this.state.showComplaint}
+                                closeModal={this.hideComplaint}
+                                complaint={this.state.activeComplaintText}
+                              ></ViewComplaintModal>
+                            </td>
+                            <td>
+                              <button
+                                onClick={() =>
+                                  this.showResponse(value.response)
+                                }
+                                name="submit"
+                                className="btn btn-info"
+                              >
+                                View
+                              </button>
+                              <ViewResponseModal
+                                show={this.state.showResponse}
+                                closeModal={this.hideResponse}
+                                response={this.state.activeResponse}
+                              ></ViewResponseModal>
+                            </td>
+                            {isManager ? (
+                              <td>
+                                <button
+                                  disabled={value.response !== null}
+                                  onClick={() =>
+                                    this.showCreateResponse(value.id)
+                                  }
+                                  name="submit"
+                                  className="btn btn-success"
+                                >
+                                  Respond
+                                </button>
+                                <CreateResponseModal
+                                  show={this.state.showCreateResponse}
+                                  closeModal={this.hideCreateResponse}
+                                  complaintId={this.state.activeComplaintId}
+                                ></CreateResponseModal>
+                              </td>
+                            ) : null}
+                          </tr>
+                        </React.Fragment>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </div>
               <CreateComplaintModal
                 show={this.state.showCreateComplaint}
                 closeModal={this.hideCreateComplaint}
               ></CreateComplaintModal>
               <br></br>
-              <div className="row">
-                <div className="col-md-12">
-                  <div align="center">
-                    <div style={{ display: "inline-block" }}>
-                      <button
-                        onClick={this.showCreateComplaint}
-                        name="submit"
-                        className="btn btn-dark"
-                      >
-                        Create Complaint
-                      </button>
+              {!isManager ? (
+                <div className="row">
+                  <div className="col-md-12">
+                    <div align="center">
+                      <div style={{ display: "inline-block" }}>
+                        <button
+                          onClick={this.showCreateComplaint}
+                          name="submit"
+                          className="btn btn-dark"
+                        >
+                          Create Complaint
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ) : null}
             </div>
           </div>
         </div>

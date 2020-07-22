@@ -37,8 +37,13 @@ class CreateComplaintModal extends Component {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(complaint),
     }).then((response) => {
-      this.props.closeModal("save");
+      if (response.status === 200) {
+        this.props.closeModal("save");
+      }
     });
+
+    this.setState({ complaint: "" });
+    this.setState({ complaintType: "Official" });
   };
 
   closeComplaint = () => {

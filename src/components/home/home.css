@@ -5,3 +5,15 @@
   max-width: 100%;
   height: 30px;
 }
+.card-container-announcement {
+  float: left;
+  width: 250px;
+  overflow-y: auto;
+  max-height: 100px;
+}
+
+.card-container-not {
+  width: 250px;
+  overflow-y: auto;
+  max-height: 100px;
+}
