@@ -8,6 +8,7 @@ class CreateComplaintModal extends Component {
 
     this.state = {
       complaint: "",
+      complaintType: "Official",
       validated: true,
     };
   }
@@ -21,8 +22,23 @@ class CreateComplaintModal extends Component {
     });
   };
 
+  handleSelectChange = async (event) => {
+    await this.setState({ complaintType: event.target.value });
+  };
+
   saveComplaint = () => {
-    this.props.closeModal("save");
+    let complaint = {};
+    complaint.complaintText = this.state.complaint;
+    complaint.complaintType = this.state.complaintType;
+    complaint.userId = localStorage.getItem("id");
+
+    fetch("http://localhost:8080/api/complaints/createComplaint", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(complaint),
+    }).then((response) => {
+      this.props.closeModal("save");
+    });
   };
 
   closeComplaint = () => {
@@ -46,10 +62,14 @@ class CreateComplaintModal extends Component {
             <Form validated={this.state.validated} onSubmit={this.handleSubmit}>
               <Form.Group controlId="exampleForm.ControlSelect1">
                 <Form.Label>Complaint Type</Form.Label>
-                <Form.Control as="select">
-                  <option>Official</option>
-                  <option>Personal</option>
-                  <option>Others</option>
+                <Form.Control
+                  as="select"
+                  onChange={this.handleSelectChange}
+                  value={this.state.complaintType}
+                >
+                  <option value="Official">Official</option>
+                  <option value="Personal">Personal</option>
+                  <option value="Others">Others</option>
                 </Form.Control>
               </Form.Group>
               <Form.Group controlId="exampleForm.ControlTextarea1">

@@ -7,9 +7,7 @@ class ViewResponseModal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      response: "The response is.....",
-    };
+    this.state = {};
   }
   render() {
     return (
@@ -33,7 +31,7 @@ class ViewResponseModal extends Component {
                   rows="3"
                   name="complaint"
                   readOnly
-                  value={this.state.response}
+                  value={this.props.response}
                 />
               </Form.Group>
             </Form>

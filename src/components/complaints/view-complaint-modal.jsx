@@ -7,10 +7,9 @@ class ViewComplaintModal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      complaint: "I have a complaint.....",
-    };
+    this.state = {};
   }
+
   render() {
     return (
       <div>
@@ -33,7 +32,7 @@ class ViewComplaintModal extends Component {
                   rows="3"
                   name="complaint"
                   readOnly
-                  value={this.state.complaint}
+                  value={this.props.complaint}
                 />
               </Form.Group>
             </Form>

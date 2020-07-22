@@ -22,7 +22,17 @@ class CreateResponseModal extends Component {
   };
 
   saveData = () => {
-    this.props.closeModal("save");
+    var response = {};
+    response.response = this.state.response;
+    response.id = this.props.complaintId;
+    response.managerId = localStorage.getItem("id");
+    fetch("http://localhost:8080/api/complaints/updateResponse", {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(response),
+    }).then((response) => {
+      this.props.closeModal("save");
+    });
   };
 
   close = () => {

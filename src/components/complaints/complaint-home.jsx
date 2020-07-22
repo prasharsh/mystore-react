@@ -15,18 +15,42 @@ export default class ComplaintHome extends Component {
       showResponse: false,
       showCreateResponse: false,
       showCreateComplaint: false,
-      numArray: [1, 2, 3],
+      complaints: [],
+      activeComplaintText: "",
+      activeResponse: "",
+      activeComplaintId: 0,
     };
   }
+
+  getDetailsAgain() {
+    const role = localStorage.getItem("role");
+    const userId = localStorage.getItem("id");
+    if (role === "crew") {
+      fetch(
+        `http://localhost:8080/api/complaints/getComplaintsByUserId/${userId}`
+      )
+        .then((response) => response.json())
+        .then((responseJson) => {
+          this.setState({
+            complaints: responseJson,
+          });
+        });
+    } else if (role === "manager") {
+      fetch(`http://localhost:8080/api/complaints/getAllComplaints`)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          this.setState({
+            complaints: responseJson,
+          });
+        });
+    }
+  }
   componentDidMount() {
-    this.retrieverole();
+    this.getDetailsAgain();
   }
 
-  retrieverole = () => {
-    this.setState({ role: localStorage.getItem("role") });
-  };
-
-  showComplaint = () => {
+  showComplaint = (complaint) => {
+    this.setState({ activeComplaintText: complaint });
     this.setState({ showComplaint: true });
   };
 
@@ -34,7 +58,12 @@ export default class ComplaintHome extends Component {
     this.setState({ showComplaint: false });
   };
 
-  showResponse = () => {
+  showResponse = (response) => {
+    if (response === null) {
+      this.setState({ activeResponse: "No Response Yet" });
+    } else {
+      this.setState({ activeResponse: response });
+    }
     this.setState({ showResponse: true });
   };
 
@@ -42,12 +71,16 @@ export default class ComplaintHome extends Component {
     this.setState({ showResponse: false });
   };
 
-  showCreateResponse = () => {
+  showCreateResponse = (complaintId) => {
+    this.setState({ activeComplaintId: complaintId });
     this.setState({ showCreateResponse: true });
   };
 
   hideCreateResponse = (type) => {
     this.setState({ showCreateResponse: false });
+    if (type === "save") {
+      this.getDetailsAgain();
+    }
   };
 
   showCreateComplaint = () => {
@@ -57,9 +90,7 @@ export default class ComplaintHome extends Component {
   hideCreateComplaint = (type) => {
     this.setState({ showCreateComplaint: false });
     if (type === "save") {
-      let array = this.state.numArray;
-      array.push(array.length + 1);
-      this.setState({ numArray: array });
+      this.getDetailsAgain();
     }
   };
 
@@ -67,7 +98,7 @@ export default class ComplaintHome extends Component {
     alert(msg);
   };
   render() {
-    const isManager = this.state.role === "manager";
+    const isManager = localStorage.getItem("role") === "manager";
     return (
       <div>
         <div className="col-md-12">
@@ -92,46 +123,66 @@ export default class ComplaintHome extends Component {
                   <tr>
                     <th>#</th>
                     <th>Date</th>
+                    {isManager ? <th>Employee Name</th> : null}
                     <th>Complaint Type</th>
                     <th>View Complaint</th>
                     <th>View Response</th>
-                    {isManager ? <th>Respond (Manager Only)</th> : null}
+                    {isManager ? <th>Respond</th> : null}
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.numArray.map((value, index) => {
+                  {this.state.complaints.map((value, index) => {
                     return (
                       <tr key={index}>
-                        <td>{value}</td>
-                        <td>09-06-2020</td>
-                        <td>Official</td>
+                        <td>{index + 1}</td>
+                        <td>{value.complaintDate}</td>
+                        {isManager ? <td>{value.complaintUserName}</td> : null}
+                        <td>{value.complaintType}</td>
                         <td>
                           <button
-                            onClick={this.showComplaint}
+                            onClick={() =>
+                              this.showComplaint(value.complaintText)
+                            }
                             name="submit"
                             className="btn btn-info"
                           >
                             View
                           </button>
+                          <ViewComplaintModal
+                            show={this.state.showComplaint}
+                            closeModal={this.hideComplaint}
+                            complaint={this.state.activeComplaintText}
+                          ></ViewComplaintModal>
                         </td>
                         <td>
                           <button
-                            onClick={this.showResponse}
+                            onClick={() => this.showResponse(value.response)}
                             name="submit"
                             className="btn btn-info"
                           >
                             View
                           </button>
+                          <ViewResponseModal
+                            show={this.state.showResponse}
+                            closeModal={this.hideResponse}
+                            response={this.state.activeResponse}
+                          ></ViewResponseModal>
                         </td>
                         {isManager ? (
                           <td>
                             <button
-                              onClick={this.showCreateResponse}
+                              disabled={value.response !== null}
+                              onClick={() => this.showCreateResponse(value.id)}
                               name="submit"
                               className="btn btn-success"
                             >
                               Respond
                             </button>
+                            <CreateResponseModal
+                              show={this.state.showCreateResponse}
+                              closeModal={this.hideCreateResponse}
+                              complaintId={this.state.activeComplaintId}
+                            ></CreateResponseModal>
                           </td>
                         ) : null}
                       </tr>
@@ -139,18 +190,6 @@ export default class ComplaintHome extends Component {
                   })}
                 </tbody>
               </Table>
-              <ViewComplaintModal
-                show={this.state.showComplaint}
-                closeModal={this.hideComplaint}
-              ></ViewComplaintModal>
-              <ViewResponseModal
-                show={this.state.showResponse}
-                closeModal={this.hideResponse}
-              ></ViewResponseModal>
-              <CreateResponseModal
-                show={this.state.showCreateResponse}
-                closeModal={this.hideCreateResponse}
-              ></CreateResponseModal>
               <CreateComplaintModal
                 show={this.state.showCreateComplaint}
                 closeModal={this.hideCreateComplaint}
