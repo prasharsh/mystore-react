@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import CreateJobForm from "./CreateJobForm";
+import axios from "axios";
 
 export default class CreateJob extends Component {
   state = {
@@ -53,7 +54,7 @@ export default class CreateJob extends Component {
     }
   };
 
-  handleCreateJob = (event) => {
+  handleCreateJob = async (event) => {
     event.stopPropagation();
     event.preventDefault();
     const { jobs } = this.props.location.state;
@@ -66,18 +67,26 @@ export default class CreateJob extends Component {
     } = this.state;
     const id = jobs.length + 1;
     let job = {
-      id: id,
       position: position,
       type: jobType,
       shift: shiftType,
-      requirments: requirments,
+      requirment: requirments,
       description: description,
     };
-    console.log("dakljfsdklfjadsklfj");
-    this.setState({ selected: true });
-    alert("Job Posting for: " + job.position + " has been added");
 
-    //Make backend call to add job database
+    let jobPostURL = "http://localhost:8080/api/jobPosts/insertJob";
+    await axios.post(jobPostURL, job).then(
+      (response) => {
+        console.log(response.data);
+        if (response.data) {
+          this.setState({ selected: true });
+          alert("Job Posting for: " + job.position + " has been added");
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
 
   render() {

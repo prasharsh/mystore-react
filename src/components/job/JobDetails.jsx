@@ -2,10 +2,27 @@ import React, { Component } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./Job.css";
+import axios from "axios";
 
 export default class JobDetails extends Component {
   state = {
     selected: false,
+    job: {},
+  };
+
+  componentDidMount = async () => {
+    const { job } = this.props.location.state;
+    let jobPostURL = "http://localhost:8080/api/jobPosts/fetchByJobID/";
+
+    await axios.get(jobPostURL + `${job.jobID}`).then(
+      (response) => {
+        console.log(response.data);
+        this.setState(() => ({ job: response.data }));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
   handleJobDetailsApply() {
     this.setState({ selected: true });
@@ -58,7 +75,7 @@ export default class JobDetails extends Component {
                       as="textarea"
                       rows="3"
                       readOnly
-                      value={job.requirments}
+                      value={job.requirment}
                     />
                   </Form.Row>
 

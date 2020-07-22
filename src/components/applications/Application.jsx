@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ApplicationForm from "./ApplicationForm";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 export default class Application extends Component {
   state = {
@@ -20,6 +21,7 @@ export default class Application extends Component {
     phoneNumberInvalid: false,
     phoneNumberValid: false,
     applied: false,
+    job: {},
   };
   handleFirstNameChange = (event) => {
     this.setState({
@@ -73,14 +75,34 @@ export default class Application extends Component {
       this.setState({ phoneNumberValid: false, phoneNumberInvalid: true });
     }
   };
-  handleAppSubmit = (event) => {
+  handleAppSubmit = async (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    const userID = localStorage.getItem("id");
+    console.log("UserID: " + userID);
+    const job = this.props.location.state.job;
+
     const {
       firstNameValid,
       lastNameValid,
       emailValid,
       addressValid,
       phoneNumberValid,
+      firstName,
+      lastName,
+      phoneNumber,
+      address,
+      email,
     } = this.state;
+    let application = {
+      firstName: firstName,
+      lastName: lastName,
+      address: address,
+      phoneNumber: phoneNumber,
+      email: email,
+      userID: userID,
+      jobID: job.jobID,
+    };
     if (
       firstNameValid &&
       lastNameValid &&
@@ -88,11 +110,23 @@ export default class Application extends Component {
       addressValid &&
       phoneNumberValid
     ) {
-      this.setState({ applied: true });
-      alert("Thank you for your application");
+      let applicationURL =
+        "http://localhost:8080/api/applications/insertApplication";
+
+      console.log("here");
+      await axios.post(applicationURL, application).then(
+        (response) => {
+          if (response.data) {
+            alert("Thank you for your application");
+            this.setState({ applied: true });
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
-    event.preventDefault();
-    event.stopPropagation();
+
     this.props.history.push("/home");
   };
 

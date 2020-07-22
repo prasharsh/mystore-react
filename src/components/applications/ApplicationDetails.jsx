@@ -2,10 +2,31 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ApplicationDetailsForm from "./ApplicationDetailsForm";
 import ScheduleInterview from "./ScheduleInterview";
+import axios from "axios";
 
 export default class ApplicationDetails extends Component {
+  componentDidMount = async () => {
+    let applicationURL =
+      "http://localhost:8080/api/applications/fetchByApplicationID/";
+    let application = this.props.location.state.value;
+
+    await axios.get(applicationURL + `${application.applicationID}`).then(
+      (response) => {
+        console.log(response.data);
+        this.setState(() => ({ application: response.data }));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
+  state = {
+    application: {},
+  };
   render() {
-    console.log(this.props.location.state.value);
+    const { application } = this.state;
+    console.log(application);
     return (
       <div>
         <div className="col-md-12">
@@ -44,7 +65,7 @@ export default class ApplicationDetails extends Component {
                       </div>
                       <div className="col-lg-12">
                         <ApplicationDetailsForm
-                          value={this.props.location.state.value}
+                          value={application}
                         ></ApplicationDetailsForm>
                       </div>
                     </div>
@@ -64,12 +85,9 @@ export default class ApplicationDetails extends Component {
                             </div>
                           </div>
                         </div>
-                      </div >
-                      
-                      <ScheduleInterview>
+                      </div>
 
-                      </ScheduleInterview>
-                    
+                      <ScheduleInterview></ScheduleInterview>
                     </div>
                   </div>
                 </Col>

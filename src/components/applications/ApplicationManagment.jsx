@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 import "./Application.css";
+import axios from "axios";
 
 export default class ApplicationManagment extends Component {
   state = {
@@ -9,228 +10,44 @@ export default class ApplicationManagment extends Component {
     selected: false,
   };
 
-  async componentDidMount() {
-    //BACK END CALL to get the list of job postings
+  componentDidMount = async () => {
+    let applicationURL = "http://localhost:8080/api/applications/fetchAll";
 
-    let application = [
-      {
-        id: 1,
-        position: "Waiter",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
+    await axios.get(applicationURL).then(
+      (response) => {
+        console.log(response.data);
+        this.setState(() => ({ application: response.data }));
       },
-      {
-        id: 2,
-        position: "Waiter",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
 
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-      },
-      {
-        id: 3,
-        position: "Waiter",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-      },
-      {
-        id: 4,
-        position: "Cook",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-      },
-      {
-        id: 5,
-        position: "Manager",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-      },
-      {
-        id: 6,
-        position: "Manager",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-      },
-      {
-        id: 7,
-        position: "Manager",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-      },
-      {
-        id: 8,
-        position: "Manager",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-      },
-      {
-        id: 9,
-        position: "Manager",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-      },
-      {
-        id: 10,
-        position: "Manager",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-      },
-      {
-        id: 11,
-        position: "Manager",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-      },
-      {
-        id: 12,
-        position: "Manager",
-        firstName: "First",
-        lastName: "Last",
-        email: "fake@dal.ca",
-        date: "Jan 1, 2020",
-        address: "123 Hickamore st, Halifax",
-        phoneNumber: "123-123-1234",
-        type: "Part-time",
-        shift: "Weekends",
-        requirments:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-
-        description:
-          "Lorem ipsum dolor sit amet, vel habeo eirmod omittam te. Meis quaestio qualisque usu ex, eos et copiosae partiendo petentium",
-      },
-    ];
-
-    this.setState(() => ({ application }));
-  }
   handleDetails = (value) => {
     this.props.history.push({
       pathname: "/home/application-details",
       state: { value },
     });
   };
-  handleDelete = (index) => {
-    let app = this.state.application;
-    delete app[index];
-    this.setState({ application: app });
+  handleDelete = async (value, index) => {
+    console.log(value);
+    console.log(index);
+
+    let applicationURL =
+      "http://localhost:8080/api/applications/deleteApplication/";
+
+    await axios.delete(applicationURL + `${value.applicationID}`).then(
+      (response) => {
+        console.log(response.data);
+        let app = this.state.application;
+        delete app[index];
+        this.setState({ application: app });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
 
   render() {
@@ -269,7 +86,7 @@ export default class ApplicationManagment extends Component {
                     {this.state.application.map((value, index) => {
                       return (
                         <tr key={index}>
-                          <td>{value.id}</td>
+                          <td>{value.applicationID}</td>
                           <td>{value.firstName}</td>
                           <td>{value.lastName}</td>
                           <td>{value.email}</td>
@@ -297,7 +114,7 @@ export default class ApplicationManagment extends Component {
                             <button
                               name="submit"
                               className="btn btn-danger mr-2"
-                              onClick={() => this.handleDelete(index)}
+                              onClick={() => this.handleDelete(value, index)}
                             >
                               Reject
                             </button>
