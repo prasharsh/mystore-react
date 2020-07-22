@@ -12,6 +12,7 @@ class ViewAnnouncementModal extends Component {
     };
   }
   render() {
+    const isManager = localStorage.getItem("role") === "manager";
     return (
       <div>
         <Modal
@@ -33,12 +34,17 @@ class ViewAnnouncementModal extends Component {
                   rows="3"
                   name="announcement"
                   readOnly
-                  value={this.state.announcement}
+                  value={this.props.announcement}
                 />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
+            {isManager ? (
+              <Button variant="danger" onClick={this.props.closeModal}>
+                Delete
+              </Button>
+            ) : null}
             <Button variant="secondary" onClick={this.props.closeModal}>
               Close
             </Button>
