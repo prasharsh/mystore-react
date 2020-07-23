@@ -59,6 +59,7 @@ export default class ApplicationManagment extends Component {
     await axios.put(userURL + `${value.userID}`).then(
       (response) => {
         console.log(response.data);
+        this.handleDelete(value, index);
       },
       (error) => {
         console.log(error);
