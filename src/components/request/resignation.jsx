@@ -158,7 +158,7 @@ class AcceptResignation extends Component {
           <Table classname="resign">
             <thead>
               <tr>
-                <th> Employee No.</th>
+                <th>Employee No.</th>
                 <th>Name</th>
                 <th>Resignation ID</th>
                 <th>Reason</th>
