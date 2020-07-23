@@ -12,6 +12,7 @@ import NotificationImg from "./notification.svg";
 import TeamImg from "./team.svg";
 import BuildingImg from "./building.svg";
 import CreateAnnouncementModel from "./create-announcement-modal.jsx";
+import Loader from "../complaints/loader.js";
 class Wall extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +21,8 @@ class Wall extends Component {
       showNotification: false,
       showCreateAnnouncement: false,
       announcements: [],
+      loadingNotifications: true,
+      loadingAnnouncements: true,
       notifications: [],
       activeAnnouncement: {},
       activeNotification: "",
@@ -47,6 +50,7 @@ class Wall extends Component {
         this.setState({
           notifications: notifications,
         });
+        this.setState({ loadingNotifications: false });
       });
   }
   getAnnouncementDetailsAgain() {
@@ -62,6 +66,8 @@ class Wall extends Component {
         this.setState({
           announcements: announcements,
         });
+
+        this.setState({ loadingAnnouncements: false });
       });
   }
 
@@ -100,6 +106,8 @@ class Wall extends Component {
   };
 
   render() {
+    if (this.state.loadingAnnouncements || this.state.loadingNotifications)
+      return <Loader />;
     const isManager = localStorage.getItem("role") === "manager";
     return (
       <div>
