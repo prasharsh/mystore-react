@@ -115,29 +115,33 @@ class Wall extends Component {
           <div className="card">
             <div className="card-body">
               <Container>
-                <Row>
+                <Row className="justify-content-md-center">
                   <Col className="col-md-4">
                     <Card border="dark" style={{ width: "18rem" }}>
                       <Card.Header>
                         <img
                           className="profile-img"
-                          src={AnnouncementImg}
+                          src={NotificationImg}
                         ></img>{" "}
-                        Announcements
+                        Notfications
                       </Card.Header>
+
                       <Card.Body>
-                        <div className="card-container-announcement">
+                        <div className="card-container-not">
                           <ListGroup variant="flush">
-                            {this.state.announcements.map((value, index) => {
+                            {this.state.notifications.map((value, index) => {
                               return (
                                 <ListGroup.Item
                                   key={index}
                                   action
-                                  onClick={() => this.showAnnouncement(value)}
+                                  onClick={() => this.showNotification(value)}
                                 >
-                                  Announcement {value.id}
+                                  Notification {value.id}
                                   <br></br>
-                                  Date: {value.announcementDate}
+                                  Type: {value.notificationType}
+                                  <br></br>
+                                  Date: {value.notificationDate}
+                                  <br></br>
                                 </ListGroup.Item>
                               );
                             })}
@@ -146,7 +150,6 @@ class Wall extends Component {
                       </Card.Body>
                     </Card>
                   </Col>
-                  <Col className="col-md-4"></Col>
                   <Col className="col-md-4">
                     <Card border="dark" style={{ width: "18rem" }}>
                       <Card.Header>
@@ -164,34 +167,31 @@ class Wall extends Component {
                   </Col>
                 </Row>
                 <br></br>
-                <Row>
-                  {localStorage.getItem("role") !== "guest" ? (
+
+                {localStorage.getItem("role") !== "guest" ? (
+                  <Row className="justify-content-md-center">
                     <Col className="col-md-4">
                       <Card border="dark" style={{ width: "18rem" }}>
                         <Card.Header>
                           <img
                             className="profile-img"
-                            src={NotificationImg}
+                            src={AnnouncementImg}
                           ></img>{" "}
-                          Notfications
+                          Announcements
                         </Card.Header>
-
                         <Card.Body>
-                          <div className="card-container-not">
+                          <div className="card-container-announcement">
                             <ListGroup variant="flush">
-                              {this.state.notifications.map((value, index) => {
+                              {this.state.announcements.map((value, index) => {
                                 return (
                                   <ListGroup.Item
                                     key={index}
                                     action
-                                    onClick={() => this.showNotification(value)}
+                                    onClick={() => this.showAnnouncement(value)}
                                   >
-                                    Notification {value.id}
+                                    Announcement {value.id}
                                     <br></br>
-                                    Type: {value.notificationType}
-                                    <br></br>
-                                    Date: {value.notificationDate}
-                                    <br></br>
+                                    Date: {value.announcementDate}
                                   </ListGroup.Item>
                                 );
                               })}
@@ -200,11 +200,7 @@ class Wall extends Component {
                         </Card.Body>
                       </Card>
                     </Col>
-                  ) : null}
-                  <Col className="col-md-4"></Col>
-
-                  {localStorage.getItem("role") !== "guest" ? (
-                    <Col>
+                    <Col className="col-md-4">
                       <Card border="dark" style={{ width: "18rem" }}>
                         <Card.Header>
                           <img className="profile-img" src={TeamImg}></img>{" "}
@@ -216,8 +212,8 @@ class Wall extends Component {
                         </Card.Body>
                       </Card>
                     </Col>
-                  ) : null}
-                </Row>
+                  </Row>
+                ) : null}
               </Container>
               <br></br>
               {isManager ? (
