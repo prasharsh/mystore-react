@@ -186,7 +186,7 @@ class Wall extends Component {
                                     action
                                     onClick={() => this.showNotification(value)}
                                   >
-                                    Notification {index + 1}
+                                    Notification {value.id}
                                     <br></br>
                                     Type: {value.notificationType}
                                     <br></br>

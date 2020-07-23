@@ -113,8 +113,8 @@ export default class ComplaintHome extends Component {
       method: "PUT",
     }).then((response) => {
       if (response.status === 200) {
-        alert("Complaint Deleted");
         this.getDetailsAgain();
+        alert("Complaint Deleted");
       }
     });
   };
