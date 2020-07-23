@@ -11,27 +11,49 @@ import ViewNotificationModel from "./view-notification-modal.jsx";
 import NotificationImg from "./notification.svg";
 import TeamImg from "./team.svg";
 import BuildingImg from "./building.svg";
+import CreateAnnouncementModel from "./create-announcement-modal.jsx";
+import Loader from "../complaints/loader.js";
 class Wall extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showAnnouncement: false,
       showNotification: false,
+      showCreateAnnouncement: false,
       announcements: [],
+      loadingNotifications: true,
+      loadingAnnouncements: true,
       notifications: [],
-      activeAnnouncement: "",
+      activeAnnouncement: {},
       activeNotification: "",
+      acitiveAnnoucementId: 0,
     };
   }
 
   componentDidMount() {
-    this.getDetailsAgain();
+    this.getAnnouncementDetailsAgain();
+    this.getNotificationDetailsAgain();
   }
 
-  getDetailsAgain() {
-    const role = localStorage.getItem("role");
+  getNotificationDetailsAgain() {
     const userId = localStorage.getItem("id");
+    fetch(
+      `http://localhost:8080/api/notifications/getUserNotifications/${userId}`
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        let notifications = [];
+        for (var i = 0; i < responseJson.length; i++) {
+          notifications.push(responseJson[i]);
+        }
 
+        this.setState({
+          notifications: notifications,
+        });
+        this.setState({ loadingNotifications: false });
+      });
+  }
+  getAnnouncementDetailsAgain() {
     fetch(`http://localhost:8080/api/annoucements/getAllAnnouncements`)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -44,23 +66,8 @@ class Wall extends Component {
         this.setState({
           announcements: announcements,
         });
-        console.log(this.state.announcements);
-      });
-    fetch(
-      `http://localhost:8080/api/notifications/getUserNotifications/${userId}`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(typeof this.state.numArray);
-        let notifications = [];
-        for (var i = 0; i < responseJson.length; i++) {
-          notifications.push(responseJson[i]);
-        }
 
-        this.setState({
-          notifications: notifications,
-        });
-        console.log(this.state.announcements);
+        this.setState({ loadingAnnouncements: false });
       });
   }
 
@@ -68,9 +75,22 @@ class Wall extends Component {
     this.setState({ showAnnouncement: true });
     this.setState({ activeAnnouncement: announcement });
   };
+  showCreateAnnouncement = () => {
+    this.setState({ showCreateAnnouncement: true });
+  };
 
-  hideAnnouncement = () => {
+  hideCreateAnnouncement = (type) => {
+    this.setState({ showCreateAnnouncement: false });
+    if (type === "save") {
+      this.getAnnouncementDetailsAgain();
+    }
+  };
+
+  hideAnnouncement = (type) => {
     this.setState({ showAnnouncement: false });
+    if (type === "save") {
+      this.getAnnouncementDetailsAgain();
+    }
   };
 
   showNotification = (notification) => {
@@ -78,19 +98,25 @@ class Wall extends Component {
     this.setState({ activeNotification: notification });
   };
 
-  hideNotification = () => {
+  hideNotification = (type) => {
     this.setState({ showNotification: false });
+    if (type === "save") {
+      this.getNotificationDetailsAgain();
+    }
   };
 
   render() {
+    if (this.state.loadingAnnouncements || this.state.loadingNotifications)
+      return <Loader />;
+    const isManager = localStorage.getItem("role") === "manager";
     return (
       <div>
         <div className="col-md-12">
           <div className="card">
             <div className="card-body">
               <Container>
-                <Row className="">
-                  <Col>
+                <Row>
+                  <Col className="col-md-4">
                     <Card border="dark" style={{ width: "18rem" }}>
                       <Card.Header>
                         <img
@@ -107,9 +133,7 @@ class Wall extends Component {
                                 <ListGroup.Item
                                   key={index}
                                   action
-                                  onClick={() =>
-                                    this.showAnnouncement(value.announcement)
-                                  }
+                                  onClick={() => this.showAnnouncement(value)}
                                 >
                                   Announcement {index + 1}
                                   <br></br>
@@ -122,7 +146,8 @@ class Wall extends Component {
                       </Card.Body>
                     </Card>
                   </Col>
-                  <Col>
+                  <Col className="col-md-4"></Col>
+                  <Col className="col-md-4">
                     <Card border="dark" style={{ width: "18rem" }}>
                       <Card.Header>
                         <img className="profile-img" src={BuildingImg}></img>{" "}
@@ -141,7 +166,7 @@ class Wall extends Component {
                 <br></br>
                 <Row>
                   {localStorage.getItem("role") !== "guest" ? (
-                    <Col>
+                    <Col className="col-md-4">
                       <Card border="dark" style={{ width: "18rem" }}>
                         <Card.Header>
                           <img
@@ -159,9 +184,7 @@ class Wall extends Component {
                                   <ListGroup.Item
                                     key={index}
                                     action
-                                    onClick={() =>
-                                      this.showNotification(value.notification)
-                                    }
+                                    onClick={() => this.showNotification(value)}
                                   >
                                     Notification {index + 1}
                                     <br></br>
@@ -178,8 +201,8 @@ class Wall extends Component {
                       </Card>
                     </Col>
                   ) : null}
+                  <Col className="col-md-4"></Col>
 
-                  <br></br>
                   {localStorage.getItem("role") !== "guest" ? (
                     <Col>
                       <Card border="dark" style={{ width: "18rem" }}>
@@ -196,9 +219,28 @@ class Wall extends Component {
                   ) : null}
                 </Row>
               </Container>
+              <br></br>
+              {isManager ? (
+                <div className="row">
+                  <div className="col-md-12">
+                    <div align="center">
+                      <div style={{ display: "inline-block" }}>
+                        <button
+                          onClick={this.showCreateAnnouncement}
+                          name="submit"
+                          className="btn btn-dark"
+                        >
+                          Create Announcement
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
+
         <ViewAnnouncementModal
           show={this.state.showAnnouncement}
           closeModal={this.hideAnnouncement}
@@ -209,6 +251,10 @@ class Wall extends Component {
           closeModal={this.hideNotification}
           notification={this.state.activeNotification}
         ></ViewNotificationModel>
+        <CreateAnnouncementModel
+          show={this.state.showCreateAnnouncement}
+          closeModal={this.hideCreateAnnouncement}
+        ></CreateAnnouncementModel>
       </div>
     );
   }

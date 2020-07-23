@@ -11,6 +11,18 @@ class ViewAnnouncementModal extends Component {
       announcement: "I have a Announcement.....",
     };
   }
+
+  close = () => {
+    this.props.closeModal("close");
+  };
+  deleteAnnoucement = () => {
+    let id = this.props.announcement.id;
+    fetch(`http://localhost:8080/api/annoucements/deleteAnnoucement/${id}`, {
+      method: "PUT",
+    }).then((response) => {
+      this.props.closeModal("save");
+    });
+  };
   render() {
     const isManager = localStorage.getItem("role") === "manager";
     return (
@@ -34,18 +46,18 @@ class ViewAnnouncementModal extends Component {
                   rows="3"
                   name="announcement"
                   readOnly
-                  value={this.props.announcement}
+                  value={this.props.announcement.announcement}
                 />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
             {isManager ? (
-              <Button variant="danger" onClick={this.props.closeModal}>
+              <Button variant="danger" onClick={this.deleteAnnoucement}>
                 Delete
               </Button>
             ) : null}
-            <Button variant="secondary" onClick={this.props.closeModal}>
+            <Button variant="secondary" onClick={this.close}>
               Close
             </Button>
           </Modal.Footer>

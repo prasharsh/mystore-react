@@ -11,6 +11,18 @@ class ViewNotificationModal extends Component {
       notification: "You have a Notification.....",
     };
   }
+  close = () => {
+    this.props.closeModal("close");
+  };
+
+  deleteNotification = () => {
+    let id = this.props.notification.id;
+    fetch(`http://localhost:8080/api/notifications/deleteNotification/${id}`, {
+      method: "PUT",
+    }).then((response) => {
+      this.props.closeModal("save");
+    });
+  };
   render() {
     return (
       <div>
@@ -33,16 +45,16 @@ class ViewNotificationModal extends Component {
                   rows="3"
                   name="notification"
                   readOnly
-                  value={this.props.notification}
+                  value={this.props.notification.notification}
                 />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="danger" onClick={this.props.closeModal}>
+            <Button variant="danger" onClick={this.deleteNotification}>
               Delete
             </Button>
-            <Button variant="secondary" onClick={this.props.closeModal}>
+            <Button variant="secondary" onClick={this.close}>
               Close
             </Button>
           </Modal.Footer>
