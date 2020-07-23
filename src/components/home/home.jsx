@@ -135,7 +135,7 @@ class Wall extends Component {
                                   action
                                   onClick={() => this.showAnnouncement(value)}
                                 >
-                                  Announcement {index + 1}
+                                  Announcement {value.id}
                                   <br></br>
                                   Date: {value.announcementDate}
                                 </ListGroup.Item>
@@ -167,7 +167,7 @@ class Wall extends Component {
                                   action
                                   onClick={() => this.showNotification(value)}
                                 >
-                                  Notification {index + 1}
+                                  Notification {value.id}
                                   <br></br>
                                   Type: {value.notificationType}
                                   <br></br>

@@ -24,7 +24,8 @@ class CreateResponseModal extends Component {
   saveData = () => {
     var response = {};
     response.response = this.state.response;
-    response.id = this.props.complaintId;
+    response.id = this.props.complaint.id;
+    response.userId = this.props.complaint.userId;
     response.managerId = localStorage.getItem("id");
     fetch("http://localhost:8080/api/complaints/updateResponse", {
       method: "PUT",
@@ -33,6 +34,7 @@ class CreateResponseModal extends Component {
     }).then((response) => {
       this.props.closeModal("save");
     });
+    this.setState({ response: "" });
   };
 
   close = () => {

@@ -20,9 +20,10 @@ export default class ComplaintHome extends Component {
       showCreateResponse: false,
       showCreateComplaint: false,
       complaints: [],
-      activeComplaintText: "",
+      activeComplaint: "",
       activeResponse: "",
       activeComplaintId: 0,
+      activeComplaintForResponse: {},
       pageOfItems: [],
     };
   }
@@ -84,8 +85,8 @@ export default class ComplaintHome extends Component {
     this.setState({ showResponse: false });
   };
 
-  showCreateResponse = (complaintId) => {
-    this.setState({ activeComplaintId: complaintId });
+  showCreateResponse = (complaint) => {
+    this.setState({ activeComplaintForResponse: complaint });
     this.setState({ showCreateResponse: true });
   };
 
@@ -107,7 +108,16 @@ export default class ComplaintHome extends Component {
     }
   };
 
-  deleteResponse = (id) => {};
+  deleteComplaint = (id) => {
+    fetch(`http://localhost:8080/api/complaints/deleteComplaint/${id}`, {
+      method: "PUT",
+    }).then((response) => {
+      if (response.status === 200) {
+        alert("Complaint Deleted");
+        this.getDetailsAgain();
+      }
+    });
+  };
 
   render() {
     if (this.state.loading) return <Loader />;
@@ -141,6 +151,7 @@ export default class ComplaintHome extends Component {
                     <tr>
                       <th>#</th>
                       <th>Date</th>
+                      <th>Complaint Id</th>
                       {isManager ? <th>Employee Name</th> : null}
                       <th>Complaint Type</th>
                       <th>View Complaint</th>
@@ -156,6 +167,7 @@ export default class ComplaintHome extends Component {
                           <tr>
                             <td>{index + 1}</td>
                             <td>{value.complaintDate}</td>
+                            <td>{value.id}</td>
                             {isManager ? (
                               <td>{value.complaintUserName}</td>
                             ) : null}
@@ -196,9 +208,7 @@ export default class ComplaintHome extends Component {
                               <td>
                                 <button
                                   disabled={value.response !== null}
-                                  onClick={() =>
-                                    this.showCreateResponse(value.id)
-                                  }
+                                  onClick={() => this.showCreateResponse(value)}
                                   name="submit"
                                   className="btn btn-success"
                                 >
@@ -207,13 +217,16 @@ export default class ComplaintHome extends Component {
                                 <CreateResponseModal
                                   show={this.state.showCreateResponse}
                                   closeModal={this.hideCreateResponse}
-                                  complaintId={this.state.activeComplaintId}
+                                  complaint={
+                                    this.state.activeComplaintForResponse
+                                  }
+                                  userId={value.userId}
                                 ></CreateResponseModal>
                               </td>
                             ) : null}
                             <td>
                               <button
-                                onClick={() => this.deleteResponse(value.id)}
+                                onClick={() => this.deleteComplaint(value.id)}
                                 className="btn btn-danger"
                               >
                                 Delete
