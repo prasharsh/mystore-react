@@ -60,6 +60,9 @@ export default class ApplicationManagment extends Component {
       (response) => {
         console.log(response.data);
         this.handleDelete(value, index);
+        alert(
+          "Email sent to " + value.firstName + " that they are now an employee"
+        );
       },
       (error) => {
         console.log(error);
