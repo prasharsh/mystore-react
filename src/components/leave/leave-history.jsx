@@ -30,9 +30,10 @@ class LeaveHistory extends Component {
   renderTable() {
     const { leaveHistory } = this.state;
     if (leaveHistory.length > 0) {
-      return leaveHistory.map((value) => (
+      return leaveHistory.map((value, index) => (
         <tbody key={value.id}>
           <tr>
+            <td>{index + 1}</td>
             <td>{value.id}</td>
             <td>{value.startdate}</td>
             <td>{value.enddate}</td>
@@ -99,6 +100,7 @@ class LeaveHistory extends Component {
               <table className="table">
                 <thead className="thead-container">
                   <tr>
+                    <th scope="col">#</th>
                     <th scope="col">Request ID</th>
                     <th scope="col">Start Date</th>
                     <th scope="col">End Date</th>

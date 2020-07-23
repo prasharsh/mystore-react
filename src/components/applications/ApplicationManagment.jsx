@@ -50,6 +50,26 @@ export default class ApplicationManagment extends Component {
     );
   };
 
+  handleAccept = async (value, index) => {
+    console.log(value);
+    console.log(index);
+
+    let userURL = "http://localhost:8080/api/myStore/updateRole/";
+
+    await axios.put(userURL + `${value.userID}`).then(
+      (response) => {
+        console.log(response.data);
+        this.handleDelete(value, index);
+        alert(
+          "Email sent to " + value.firstName + " that they are now an employee"
+        );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
   render() {
     return (
       <div>
@@ -107,7 +127,7 @@ export default class ApplicationManagment extends Component {
                             <button
                               name="submit"
                               className="btn btn-primary mr-2"
-                              onClick={() => this.handleDelete(index)}
+                              onClick={() => this.handleAccept(value, index)}
                             >
                               Accept
                             </button>
