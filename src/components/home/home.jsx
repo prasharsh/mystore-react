@@ -125,57 +125,6 @@ class Wall extends Component {
                   <Col>
                     <Card border="dark" style={{ width: "18rem" }}>
                       <Card.Header>
-                        <img
-                          className="profile-img"
-                          src={NotificationImg}
-                        ></img>{" "}
-                        Notfications
-                      </Card.Header>
-
-                      <Card.Body>
-                        <div className="card-container-not">
-                          <ListGroup variant="flush">
-                            {this.state.notifications.map((value, index) => {
-                              return (
-                                <ListGroup.Item
-                                  key={index}
-                                  action
-                                  onClick={() =>
-                                    this.showNotification(value.notification)
-                                  }
-                                >
-                                  Notification {index + 1}
-                                  <br></br>
-                                  Type: {value.notificationType}
-                                  <br></br>
-                                  Date: {value.notificationDate}
-                                  <br></br>
-                                </ListGroup.Item>
-                              );
-                            })}
-                          </ListGroup>
-                        </div>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                </Row>
-                <br></br>
-                <Row>
-                  <Col>
-                    <Card border="dark" style={{ width: "18rem" }}>
-                      <Card.Header>
-                        <img className="profile-img" src={TeamImg}></img>{" "}
-                        Operational Details
-                      </Card.Header>
-                      <Card.Body>
-                        <Card.Title>Today's Crew</Card.Title>
-                        <Card.Text>Bob, Alice, Ravi, Angela</Card.Text>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                  <Col>
-                    <Card border="dark" style={{ width: "18rem" }}>
-                      <Card.Header>
                         <img className="profile-img" src={BuildingImg}></img>{" "}
                         Store Details
                       </Card.Header>
@@ -188,6 +137,63 @@ class Wall extends Component {
                       </Card.Body>
                     </Card>
                   </Col>
+                </Row>
+                <br></br>
+                <Row>
+                  {localStorage.getItem("role") !== "guest" ? (
+                    <Col>
+                      <Card border="dark" style={{ width: "18rem" }}>
+                        <Card.Header>
+                          <img
+                            className="profile-img"
+                            src={NotificationImg}
+                          ></img>{" "}
+                          Notfications
+                        </Card.Header>
+
+                        <Card.Body>
+                          <div className="card-container-not">
+                            <ListGroup variant="flush">
+                              {this.state.notifications.map((value, index) => {
+                                return (
+                                  <ListGroup.Item
+                                    key={index}
+                                    action
+                                    onClick={() =>
+                                      this.showNotification(value.notification)
+                                    }
+                                  >
+                                    Notification {index + 1}
+                                    <br></br>
+                                    Type: {value.notificationType}
+                                    <br></br>
+                                    Date: {value.notificationDate}
+                                    <br></br>
+                                  </ListGroup.Item>
+                                );
+                              })}
+                            </ListGroup>
+                          </div>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  ) : null}
+
+                  <br></br>
+                  {localStorage.getItem("role") !== "guest" ? (
+                    <Col>
+                      <Card border="dark" style={{ width: "18rem" }}>
+                        <Card.Header>
+                          <img className="profile-img" src={TeamImg}></img>{" "}
+                          Operational Details
+                        </Card.Header>
+                        <Card.Body>
+                          <Card.Title>Today's Crew</Card.Title>
+                          <Card.Text>Bob, Alice, Ravi, Angela</Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  ) : null}
                 </Row>
               </Container>
             </div>

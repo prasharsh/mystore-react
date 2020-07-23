@@ -75,70 +75,73 @@ export class NavigationBar extends Component {
               {/* <Nav.Link onClick={() => this.props.history.push("/home/later")}>
                 Shifts <i className="fas fa-clock"></i>
               </Nav.Link> */}
-              <NavDropdown title="Shift Management" id="basic-nav-dropdown">
-                {/* <NavDropdown.Item
+              {(this.state.role === "crew" ||
+                this.state.role === "manager") && (
+                <NavDropdown title="Shift Management" id="basic-nav-dropdown">
+                  {/* <NavDropdown.Item
                   className="hover-color"
                   onClick={() => this.props.history.push("/home/later")}
                 >
                   Provide Availablity
                 </NavDropdown.Item> */}
-                {this.state.role === "crew" && (
-                  <NavDropdown.Item
-                    className="hover-color"
-                    onClick={() =>
-                      this.props.history.push("/home/request-avail")
-                    }
-                  >
-                    Request Availablity
-                  </NavDropdown.Item>
-                )}
-                {this.state.role === "crew" && (
-                  <span className="navSpan">Swap Shift</span>
-                )}
-                {this.state.role === "crew" && (
-                  <NavDropdown.Item
-                    className="hover-color"
-                    onClick={() =>
-                      this.props.history.push("/home/swapShift/create")
-                    }
-                  >
-                    Create Shift Swap Request
-                  </NavDropdown.Item>
-                )}
-                {this.state.role === "crew" && (
-                  <NavDropdown.Item
-                    className="hover-color"
-                    onClick={() =>
-                      this.props.history.push("/home/swapShift/edit")
-                    }
-                  >
-                    Edit Shift Swap Request
-                  </NavDropdown.Item>
-                )}
-                {this.state.role === "crew" && (
-                  <NavDropdown.Item
-                    className="hover-color"
-                    onClick={() =>
-                      this.props.history.push("/home/swapShift/requests")
-                    }
-                  >
-                    Shift Swap Requests
-                  </NavDropdown.Item>
-                )}
-
-                {this.state.role === "manager" && (
-                    <span className="navSpan">Allocate Shift</span>
-                  ) && (
+                  {this.state.role === "crew" && (
                     <NavDropdown.Item
                       className="hover-color"
                       onClick={() =>
-                        this.props.history.push("/home/generate-schedule")
+                        this.props.history.push("/home/request-avail")
                       }
                     >
-                      Generate Shift
+                      Request Availablity
                     </NavDropdown.Item>
                   )}
-              </NavDropdown>
+                  {this.state.role === "crew" && (
+                    <span className="navSpan">Swap Shift</span>
+                  )}
+                  {this.state.role === "crew" && (
+                    <NavDropdown.Item
+                      className="hover-color"
+                      onClick={() =>
+                        this.props.history.push("/home/swapShift/create")
+                      }
+                    >
+                      Create Shift Swap Request
+                    </NavDropdown.Item>
+                  )}
+                  {this.state.role === "crew" && (
+                    <NavDropdown.Item
+                      className="hover-color"
+                      onClick={() =>
+                        this.props.history.push("/home/swapShift/edit")
+                      }
+                    >
+                      Edit Shift Swap Request
+                    </NavDropdown.Item>
+                  )}
+                  {this.state.role === "crew" && (
+                    <NavDropdown.Item
+                      className="hover-color"
+                      onClick={() =>
+                        this.props.history.push("/home/swapShift/requests")
+                      }
+                    >
+                      Shift Swap Requests
+                    </NavDropdown.Item>
+                  )}
+
+                  {this.state.role === "manager" && (
+                      <span className="navSpan">Allocate Shift</span>
+                    ) && (
+                      <NavDropdown.Item
+                        className="hover-color"
+                        onClick={() =>
+                          this.props.history.push("/home/generate-schedule")
+                        }
+                      >
+                        Generate Shift
+                      </NavDropdown.Item>
+                    )}
+                </NavDropdown>
+              )}
               {/* <span className="p-2">|</span> */}
               {this.state.role === "manager" && (
                 <Nav.Link
