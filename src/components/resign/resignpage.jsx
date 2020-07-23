@@ -12,9 +12,59 @@ import { Jumbotron, Button, Container } from "react-bootstrap";
 class ResignPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      resign:[]
+    };
     
   }
+  componentDidMount(){
+    const {resign} =this.state.resign
+       const empid=localStorage.getItem("id");
+      fetch(`http://localhost:8080/api/myStore/resignation/edit/${empid}`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+          this.setState(
+              {
+  
+                  resign: responseJson,
+  
+              },
+          );
+      })
+      
+    }
+
+    applyeditDisplay(){
+      if(this.state.resign.empid==0)
+      return(
+        <span
+        className="btn active"
+          type="submit"
+          onClick={() =>
+            this.props.history.push("/home/applyresign")
+          }
+        >
+
+       Apply
+        </span>
+
+      )
+      if(this.state.resign.empid!=0)
+      {
+        return(
+          <span
+                          className="btn active"
+                            type="submit"
+                            onClick={() =>this.props.history.push("/home/resigndetails")}
+                          >
+                              
+                            View 
+                          </span>
+
+        )
+      }
+      
+    }
 
 
     render() {
@@ -76,27 +126,9 @@ We ask employees to submit a written, signed notice of resignation for record-ke
                     <tbody>
                       <tr>
                         <td>
-                        <span
-                          className="btn active"
-                            type="submit"
-                            onClick={() =>
-                              this.props.history.push("/home/applyresign")
-                            }
-                          >
-   
-                         Apply
-                          </span>
+                       this.{this.applyeditDisplay()}
+                       
                           </td>
-                        <td>
-                          <span
-                          className="btn active"
-                            type="submit"
-                            onClick={() =>this.props.history.push("/home/resigndetails")}
-                          >
-                              
-                            View 
-                          </span>
-                        </td>
                         
                       </tr>
                     </tbody>
