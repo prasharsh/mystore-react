@@ -107,9 +107,8 @@ export default class ComplaintHome extends Component {
     }
   };
 
-  openAlert = (msg) => {
-    alert(msg);
-  };
+  deleteResponse = (id) => {};
+
   render() {
     if (this.state.loading) return <Loader />;
     const isManager = localStorage.getItem("role") === "manager";
@@ -147,6 +146,7 @@ export default class ComplaintHome extends Component {
                       <th>View Complaint</th>
                       <th>View Response</th>
                       {isManager ? <th>Respond</th> : null}
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -211,6 +211,14 @@ export default class ComplaintHome extends Component {
                                 ></CreateResponseModal>
                               </td>
                             ) : null}
+                            <td>
+                              <button
+                                onClick={() => this.deleteResponse(value.id)}
+                                className="btn btn-danger"
+                              >
+                                Delete
+                              </button>
+                            </td>
                           </tr>
                         </React.Fragment>
                       );
