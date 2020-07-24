@@ -3,6 +3,8 @@ import ComplaintImage from "../complaints/complaint.svg";
 import "../login/login.css";
 import "./resign.css";
 import "./resignpage";
+import Popup from 'react-popup';
+import AcceptResignation from "../request/resignation";
 
 class ResignDetails extends Component {
   constructor() {
@@ -28,7 +30,7 @@ componentDidMount(){
     })
     
   }
-  editresignation
+  
 
   deleteresignation = () =>{
     const empid=localStorage.getItem("id");
@@ -42,8 +44,9 @@ componentDidMount(){
     const result =responseJson
     if(result === 'Success')
     {
-      alert("Successfully deleted the resignation")
+      alert("You are about to delete your resignation")
       this.props.history.push("/home/resign")
+      alert("Your Resignation was deleted successfully", "Resignation deletion successful");
     }
     else
     alert("Error deleting resignation, try again")
@@ -113,7 +116,7 @@ componentDidMount(){
                                 this.props.history.push("/home/editresign")
                               }
                               name="submit"
-                              className="btn btn-primary mx-2"
+                              className="btn btn-primary mx-5"
                             >
                               Edit Form
                             </button>

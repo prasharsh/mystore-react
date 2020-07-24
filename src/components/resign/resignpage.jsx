@@ -1,5 +1,6 @@
 
 import React, { Component } from "react";
+
 import "./resign.css";
 
 
@@ -7,7 +8,7 @@ import ComplaintImage from "../complaints/complaint.svg";
 
 import "../login/login.css";
 
-import { Jumbotron, Button, Container } from "react-bootstrap";
+import { Jumbotron} from "react-bootstrap";
 
 class ResignPage extends Component {
   constructor(props) {
@@ -41,12 +42,13 @@ class ResignPage extends Component {
         className="btn active"
           type="submit"
           onClick={() =>
+            
             this.props.history.push("/home/applyresign")
           }
         >
-
        Apply
         </span>
+        
 
       )
       if(this.state.resign.empid!=0)
@@ -127,7 +129,6 @@ We ask employees to submit a written, signed notice of resignation for record-ke
                       <tr>
                         <td>
                        {this.applyeditDisplay()}
-                       
                        
                           </td>
                         

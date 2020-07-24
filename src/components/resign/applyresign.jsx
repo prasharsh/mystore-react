@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./resign.css";
 
+
 import ComplaintImage from "../complaints/complaint.svg";
 
 import "../login/login.css";
@@ -35,7 +36,6 @@ handleChange(e) {
         let fields = {};
          fields["reason"] = "";
         this.setState({fields:fields});
-        
         const result= this.applyresignation();
         this.props.history.push("/home/resign")
     }
@@ -63,8 +63,6 @@ handleChange(e) {
       empid:localStorage.getItem("id"),
       reason: this.state.fields.reason,
     };
-    console.log(resignation);
-    console.log("hiii");
     const empid=localStorage.getItem("id");
     fetch(`http://localhost:8080/api/myStore/resignation/apply/${empid}`, {
       method: "POST",
@@ -74,11 +72,13 @@ handleChange(e) {
     .then(function(response){return response.json();})
     .then(function(data)
     {const items=data;
-    console.log(items)
       if(items==="Success")
-      alert("Resignation Successfull");
+      {
+      alert("Your Resignation was applied successfully");
+      window.location.reload(false);
+      }
       else
-      alert("You have already applied, please edit the resignation form");
+     alert("You have already applied, please edit your resignation", "Attempt Unsuccessful");
     });
   }
     render() {

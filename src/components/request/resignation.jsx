@@ -11,12 +11,12 @@ class AcceptResignation extends Component {
     this.handleReject = this.handleReject.bind(this);
   }
 
-  handleReject(index) {
-    const empid = index.empid;
-    const name = index.name;
+  handleReject(value) {
+    const empid = value.empid;
+    const name = value.name;
     let resign = {
       empid: localStorage.getItem("id"),
-      rid: index.rid,
+      rid: value.rid,
       status: "Rejected",
     };
     fetch(
@@ -31,24 +31,24 @@ class AcceptResignation extends Component {
       .then((responseJson) => {
         const result = responseJson;
         if (result === "Success")
-          alert("You have rejected the Resignation for  " + name);
+          alert("You have ryejected the Resignation for  " + name);
         else alert("Error in performing action, contact the helpdesk.");
       });
     this.setState({
       resignation: this.state.resignation.filter(
-        (item) => item.empid !== index.empid
+        (item) => item.empid !== value.empid
       ),
     });
   }
 
-  handleAccept(index) {
-    console.log(index.empid);
-    const empid = index.empid;
-    const name = index.name;
+  handleAccept(value) {
+    console.log(value.empid);
+    const empid = value.empid;
+    const name = value.name;
     let resign = {
       empid: localStorage.getItem("id"),
-      rid: index.rid,
-      status: "Accepted",
+      rid: value.rid,
+      status: "ACCEPTED",
     };
     fetch(
       `http://localhost:8080/api/mystore/requests/resignation/inactive/${empid}`,
@@ -78,7 +78,7 @@ class AcceptResignation extends Component {
       });
     this.setState({
       resignation: this.state.resignation.filter(
-        (item) => item.empid !== index.empid
+        (item) => item.empid !== value.empid
       ),
     });
   }
@@ -100,29 +100,55 @@ class AcceptResignation extends Component {
         }
       );
   }
+  novalue(){
+    const { resignation } = this.state;
+    if (resignation.length > 0)
+    {
+    return(
+    <Table className="resign">
+            <thead>
+              <tr>
+                <th>Employee No.</th>
+                <th>Name</th>
+                <th>Resignation ID</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            {this.renderTable()}
+          </Table>
+    );
+    }
+    else{
+      return(
+        <h3>No Resignation Requests</h3>
+      )
+    }
+  }
 
   renderTable() {
     const { resignation } = this.state;
     if (resignation.length > 0) {
-      return resignation.map((index) => (
-        <tbody>
+      return resignation.map((value, index) => (
+        <tbody key={index}>
           <tr>
-            <td>{index.empid}</td>
-            <td>{index.name}</td>
-            <td>{index.rid}</td>
-            <td>{index.reason}</td>
-            <td>{index.status}</td>
+            <td>{value.empid}</td>
+            <td>{value.name}</td>
+            <td>{value.rid}</td>
+            <td>{value.reason}</td>
+            <td>{value.status}</td>
             <td>
               <Button
                 className="btn btn-primary  mr-5"
-                onClick={() => this.handleAccept(index)}
+                onClick={() => this.handleAccept(value)}
               >
                 {" "}
                 Accept
               </Button>
               <Button
                 className="btn btn-primary mr-5"
-                onClick={() => this.handleReject(index)}
+                onClick={() => this.handleReject(value)}
               >
                 {" "}
                 Reject
@@ -132,6 +158,7 @@ class AcceptResignation extends Component {
         </tbody>
       ));
     }
+    
   }
 
   render() {
@@ -155,19 +182,7 @@ class AcceptResignation extends Component {
         <br></br>
         <br></br>
         <div>
-          <Table classname="resign">
-            <thead>
-              <tr>
-                <th>Employee No.</th>
-                <th>Name</th>
-                <th>Resignation ID</th>
-                <th>Reason</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            {this.renderTable()}
-          </Table>
+          {this.novalue()}
         </div>
       </div>
     );

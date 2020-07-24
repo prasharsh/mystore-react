@@ -92,11 +92,10 @@ handleChange(e) {
     .then(function(response){return response.json();})
     .then(function(data)
     {const items=data;
-    console.log(items)
       if(items==="Success")
-      alert("Successfully updated your resigntion ");
+      alert(" Your resignation was succussfully updated");
       else
-      alert("Failed to update ");
+      alert("Failed to update your resignation");
     });
   }
     render() {
