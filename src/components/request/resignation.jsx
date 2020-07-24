@@ -31,7 +31,7 @@ class AcceptResignation extends Component {
       .then((responseJson) => {
         const result = responseJson;
         if (result === "Success")
-          alert("You have Rejected the Resignation for  " + name);
+          alert("You have rejected the Resignation for  " + name);
         else alert("Error in performing action, contact the helpdesk.");
       });
     this.setState({
@@ -72,7 +72,7 @@ class AcceptResignation extends Component {
             .then((responseJson) => {
               const result = responseJson;
               if (result === "Success")
-                alert("You have Accepted the Resignation for  " + name);
+                alert("You have accepted the Resignation for  " + name);
             });
         } else alert("Error in performing accept action");
       });

@@ -14,7 +14,7 @@ class ApplyResign extends Component {
     this.state = {
         empid:'',
         reason:'',
-        fields: {},
+        fields: {name: '', reason : ''}, 
         errors: {}
 
     }
@@ -25,7 +25,7 @@ handleChange(e) {
     let fields = this.state.fields;
     fields[e.target.name] = e.target.value;
     this.setState({
-      fields
+      fields:fields
     });
 
   }
@@ -63,6 +63,8 @@ handleChange(e) {
       empid:localStorage.getItem("id"),
       reason: this.state.fields.reason,
     };
+    console.log(resignation);
+    console.log("hiii");
     const empid=localStorage.getItem("id");
     fetch(`http://localhost:8080/api/myStore/resignation/apply/${empid}`, {
       method: "POST",
@@ -99,11 +101,12 @@ handleChange(e) {
           </div>
       </div>
      
-      <Form className="userResignationForm">
+      <Form className="userResignationForm" method="post" onSubmit= {this.submituserRegistrationForm}>
+     
           <br></br>
           <h5>Employee Separation Form </h5>
           <br></br>
-  <form method="post"  name="userResignationForm"  onSubmit= {this.submituserRegistrationForm} >
+ 
         <label>EMPID</label>
         {/* <input type="text" name="firstname" value={this.state.fields.firstname} onChange={this.handleChange} placeholder="James "/>
         <div className="errorMsg">{this.state.errors.firstname}</div> */}
@@ -112,11 +115,11 @@ handleChange(e) {
         
 
         <label>Reason</label>
-        <input type="text" name="reason" value={this.state.fields.reason} onChange={this.handleChange}placeholder="Enter your reason" />
+        <input type="text" name="reason" value={this.state.fields.reason} onChange={this.handleChange} placeholder="Enter your reason" />
         <div className="errorMsg">{this.state.errors.reason}</div>
         <br></br>
         <input type="submit" onClick={this.submitResignationForm}  className="btn btn-success "  value="Resign" />
-        </form>
+       
         <br></br>
           <h6>Please read the separation terms and policies </h6>
           <br></br>

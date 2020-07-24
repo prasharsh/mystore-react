@@ -54,14 +54,12 @@ export default class ApplicationManagment extends Component {
     console.log(value);
     console.log(index);
 
-    let userURL = "http://localhost:8080/api/applications/acceptApplication/";
+    let userURL = "http://localhost:8080/api/myStore/updateRole/";
 
-    await axios.put(userURL + `${value.applicationID}`).then(
+    await axios.put(userURL + `${value.userID}`).then(
       (response) => {
         console.log(response.data);
-        let app = this.state.application;
-        delete app[index];
-        this.setState({ application: app });
+        this.handleDelete(value, index);
         alert(
           "Email sent to " + value.firstName + " that they are now an employee"
         );
@@ -98,6 +96,7 @@ export default class ApplicationManagment extends Component {
                       <th>First Name</th>
                       <th>Last Name</th>
                       <th>Email</th>
+                      <th>Position</th>
                       <th>Date</th>
                       <th>Details</th>
                       <th>Action</th>

@@ -27,41 +27,6 @@ class LeaveHistory extends Component {
       );
   }
 
-  handleDelete(id) {
-    console.log(id);
-    fetch(
-      `http://localhost:8080/api/myStore/leave/viewLeaveHistory/delete/${id}`,
-      {
-        method: "DELETE",
-        Accept: "application/json; odata=verbose",
-      }
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        const result = responseJson;
-        console.log(result);
-        if (result === "Success") {
-          alert("Successfully deleted the leave");
-        } else alert("Error in deleting leave, try again");
-      });
-    window.location.reload(false);
-  }
-
-  delete(status, id) {
-    if (status == "Pending") {
-      return (
-        <button
-          type="button"
-          className="btn btn-danger mx-2"
-          onClick={() => this.handleDelete(id)}
-        >
-          {" "}
-          Delete
-        </button>
-      );
-    }
-  }
-
   renderTable() {
     const { leaveHistory } = this.state;
     if (leaveHistory.length > 0) {
@@ -73,8 +38,14 @@ class LeaveHistory extends Component {
             <td>{value.startdate}</td>
             <td>{value.enddate}</td>
             <td>{value.reason}</td>
-            <td>{value.status}</td>
-            <td>{this.delete(value.status, value.id)}</td>
+            <td>
+              <span
+                type="submit"
+                onClick={() => this.props.history.push("/home/leavedetails")}
+              >
+                <u>{value.status}</u>
+              </span>
+            </td>
           </tr>
         </tbody>
       ));
@@ -135,7 +106,6 @@ class LeaveHistory extends Component {
                     <th scope="col">End Date</th>
                     <th scope="col">Reason</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 {this.renderTable()}

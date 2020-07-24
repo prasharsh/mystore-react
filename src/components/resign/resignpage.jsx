@@ -126,7 +126,8 @@ We ask employees to submit a written, signed notice of resignation for record-ke
                     <tbody>
                       <tr>
                         <td>
-                       this.{this.applyeditDisplay()}
+                       {this.applyeditDisplay()}
+                       
                        
                           </td>
                         

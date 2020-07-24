@@ -15,7 +15,7 @@ class EditResign extends Component {
       resign:[],
         empid:'',
         reason:'',
-        fields: {},
+        fields: {name: '', reason : ''}, 
         errors: {}
 
     }
@@ -23,13 +23,13 @@ class EditResign extends Component {
     this.submitResignationForm = this.submitResignationForm.bind(this)
 }
 handleChange(e) {
-    let fields = this.state.fields;
-    fields[e.target.name] = e.target.value;
-    this.setState({
-      fields
-    });
+  let fields = this.state.fields;
+  fields[e.target.name] = e.target.value;
+  this.setState({
+    fields:fields
+  });
 
-  }
+}
   submitResignationForm(e) {
     e.preventDefault();
     if (this.validateForm()) {
@@ -118,11 +118,11 @@ handleChange(e) {
           </div>
       </div>
      
-      <Form className="userResignationForm">
+      <Form className="userResignationForm" method="post" onSubmit= {this.submituserRegistrationForm} >
           <br></br>
           <h5>Employee Separation Form </h5>
           <br></br>
-  <form method="post"  name="userResignationForm"  onSubmit= {this.submituserRegistrationForm} >
+  
         <label>EMPID</label>
         <input type="text" readOnly name="EMPID" value={localStorage.getItem("id")}></input>
 
@@ -131,7 +131,6 @@ handleChange(e) {
         <div className="errorMsg">{this.state.errors.reason}</div>
         <br></br>
         <input type="submit" onClick={this.submitResignationForm}  className="btn btn-success "  value="Resign" />
-        </form>
         <br></br>
           <h6>Please read the separation terms and policies </h6>
           <br></br>
