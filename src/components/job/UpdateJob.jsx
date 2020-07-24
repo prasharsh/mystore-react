@@ -12,7 +12,8 @@ export default class UpdateJob extends Component {
   }
   componentDidMount = async () => {
     const { selectedJob } = this.props.location.state;
-    let jobPostURL = "http://localhost:8080/api/jobPosts/fetchByJobID/";
+    let jobPostURL =
+      "https://mystore-spring.herokuapp.com/api/jobPosts/fetchByJobID/";
 
     await axios.get(jobPostURL + `${selectedJob.jobID}`).then(
       (response) => {
@@ -129,7 +130,8 @@ export default class UpdateJob extends Component {
         selectedJob.requirment !== requirments
       ) {
         console.log("before call");
-        let jobPostURL = "http://localhost:8080/api/jobPosts/updateJob/";
+        let jobPostURL =
+          "https://mystore-spring.herokuapp.com/api/jobPosts/updateJob/";
         await axios.put(jobPostURL + `${job.jobID}`, job).then(
           (response) => {
             console.log(response.data);
@@ -147,7 +149,8 @@ export default class UpdateJob extends Component {
   };
 
   handleDelete = async () => {
-    let jobPostURL = "http://localhost:8080/api/jobPosts/deleteJob/";
+    let jobPostURL =
+      "https://mystore-spring.herokuapp.com/api/jobPosts/deleteJob/";
     const { selectedJob } = this.state;
     const jobID = selectedJob.jobID;
     console.log(jobID);

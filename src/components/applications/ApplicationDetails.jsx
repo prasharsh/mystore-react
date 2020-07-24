@@ -7,7 +7,7 @@ import axios from "axios";
 export default class ApplicationDetails extends Component {
   componentDidMount = async () => {
     let applicationURL =
-      "http://localhost:8080/api/applications/fetchByApplicationID/";
+      "https://mystore-spring.herokuapp.com/api/applications/fetchByApplicationID/";
     let application = this.props.location.state.value;
 
     await axios.get(applicationURL + `${application.applicationID}`).then(
@@ -72,7 +72,8 @@ export default class ApplicationDetails extends Component {
         time: time,
         notify: notify,
       };
-      let interviewURL = "http://localhost:8080/api/interview/insertInterview";
+      let interviewURL =
+        "https://mystore-spring.herokuapp.com/api/interview/insertInterview";
       await axios.post(interviewURL, interview).then(
         (response) => {
           console.log(response.data);

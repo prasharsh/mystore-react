@@ -12,7 +12,8 @@ export default class JobDetails extends Component {
 
   componentDidMount = async () => {
     const { job } = this.props.location.state;
-    let jobPostURL = "http://localhost:8080/api/jobPosts/fetchByJobID/";
+    let jobPostURL =
+      "https://mystore-spring.herokuapp.com/api/jobPosts/fetchByJobID/";
 
     await axios.get(jobPostURL + `${job.jobID}`).then(
       (response) => {

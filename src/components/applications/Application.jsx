@@ -111,7 +111,7 @@ export default class Application extends Component {
       phoneNumberValid
     ) {
       let applicationURL =
-        "http://localhost:8080/api/applications/insertApplication";
+        "https://mystore-spring.herokuapp.com/api/applications/insertApplication";
 
       console.log("here");
       await axios.post(applicationURL, application).then(

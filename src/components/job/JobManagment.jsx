@@ -17,7 +17,8 @@ export default class JobManagment extends Component {
   }
 
   componentDidMount = async () => {
-    let jobPostURL = "http://localhost:8080/api/jobPosts/fetchAll";
+    let jobPostURL =
+      "https://mystore-spring.herokuapp.com/api/jobPosts/fetchAll";
 
     await axios.get(jobPostURL).then(
       (response) => {

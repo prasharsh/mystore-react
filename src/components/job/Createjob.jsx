@@ -74,7 +74,8 @@ export default class CreateJob extends Component {
       description: description,
     };
 
-    let jobPostURL = "http://localhost:8080/api/jobPosts/insertJob";
+    let jobPostURL =
+      "https://mystore-spring.herokuapp.com/api/jobPosts/insertJob";
     await axios.post(jobPostURL, job).then(
       (response) => {
         console.log(response.data);

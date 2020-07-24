@@ -11,7 +11,8 @@ export default class ApplicationManagment extends Component {
   };
 
   componentDidMount = async () => {
-    let applicationURL = "http://localhost:8080/api/applications/fetchAll";
+    let applicationURL =
+      "https://mystore-spring.herokuapp.com/api/applications/fetchAll";
 
     await axios.get(applicationURL).then(
       (response) => {
@@ -35,7 +36,7 @@ export default class ApplicationManagment extends Component {
     console.log(index);
 
     let applicationURL =
-      "http://localhost:8080/api/applications/deleteApplication/";
+      "https://mystore-spring.herokuapp.com/api/applications/deleteApplication/";
 
     await axios.delete(applicationURL + `${value.applicationID}`).then(
       (response) => {
@@ -54,7 +55,8 @@ export default class ApplicationManagment extends Component {
     console.log(value);
     console.log(index);
 
-    let userURL = "http://localhost:8080/api/myStore/updateRole/";
+    let userURL =
+      "https://mystore-spring.herokuapp.com/api/myStore/updateRole/";
 
     await axios.put(userURL + `${value.userID}`).then(
       (response) => {
@@ -96,7 +98,6 @@ export default class ApplicationManagment extends Component {
                       <th>First Name</th>
                       <th>Last Name</th>
                       <th>Email</th>
-                      <th>Position</th>
                       <th>Date</th>
                       <th>Details</th>
                       <th>Action</th>
@@ -110,7 +111,6 @@ export default class ApplicationManagment extends Component {
                           <td>{value.firstName}</td>
                           <td>{value.lastName}</td>
                           <td>{value.email}</td>
-                          <td>{value.position}</td>
                           <td>{value.date}</td>
 
                           <td>
