@@ -4,7 +4,7 @@ import {Table, Form, Button} from 'react-bootstrap';
 export default class CrewRequestAvail extends Component {
   constructor(props) {
     super(props);
-    this.state = { monStart: '', monEnd: '', 
+    this.state = { monStart: '', monEnd: '',
                    tuesStart: '', tuesEnd:'',
                    wedStart: '', wedEnd:'',
                    thrusStart:'', thrusEnd:'',
@@ -51,7 +51,22 @@ export default class CrewRequestAvail extends Component {
   handleSunEnd(event){this.setState({ sunEnd: event.target.value });}
 
   handleSubmit(){
-   
+   let avail ={
+       username:localStorage.getItem('username'),
+       monStart: this.state.monStart,
+       monEnd: this.state.monEnd,
+       tuesStart: this.state.tuesStart,
+       tuesEnd: this.state.tuesEnd,
+       wedStart: this.state.wedStart,
+       wedEnd: this.state.wedEnd,
+       thrusStart: this.state.thrusStart,
+       thrusEnd: this.state.thrusEnd,
+       friStart: this.state.friStart,
+       friEnd: this.state.friEnd,
+       satStart: this.state.satStart,
+       satEnd: this.state.satEnd,
+       sunStart: this.state.sunStart,
+       sunEnd: this.state.sunEnd};
     var flag = true;
      //https:///^([0]?[1-9]|1[0-2]):([0-5]\d)\s?(am|pm) 
      const regex  = /^([0]?[1-9]|1[0-2]):([0-5]\d)\s?(AM|PM)|^$/;
@@ -120,6 +135,21 @@ export default class CrewRequestAvail extends Component {
       })
 
     }
+
+      fetch("http://localhost:8080/api/schedule/saveAvail", {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(avail),
+      })
+          .then((response) => response.json())
+          .then((data) => {
+                    if (data){
+                        alert(data);
+                    }
+          });
+
+
+
     
  }
     render() {

@@ -146,7 +146,7 @@ class Login extends Component {
           localStorage.setItem("role", data.userRole);
           localStorage.setItem("id", data.id);
           localStorage.setItem("auth", "true");
-
+          localStorage.setItem("username",data.username);
           if (localStorage.getItem("role") !== "null") {
             localStorage.setItem("auth", "true");
             console.log(
