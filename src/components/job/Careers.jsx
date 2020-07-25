@@ -17,7 +17,6 @@ export default class Careers extends Component {
 
     await axios.get(jobPostURL).then(
       (response) => {
-        console.log(response.data);
         this.setState(() => ({ jobs: response.data }));
       },
       (error) => {
@@ -27,7 +26,6 @@ export default class Careers extends Component {
   };
 
   handleOnClick = (job) => {
-    //console.log(job);
     this.setState({ selectedJob: job });
     this.setState({ selected: true });
     const { selectedJob } = this.state;
@@ -39,7 +37,6 @@ export default class Careers extends Component {
   };
   render() {
     const { selectedJob } = this.state;
-    // console.log(selectedJob);
 
     return (
       <div className="col-md-12">

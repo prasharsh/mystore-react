@@ -16,7 +16,6 @@ export default class ApplicationManagment extends Component {
 
     await axios.get(applicationURL).then(
       (response) => {
-        console.log(response.data);
         this.setState(() => ({ application: response.data }));
       },
       (error) => {
@@ -32,9 +31,6 @@ export default class ApplicationManagment extends Component {
     });
   };
   handleDelete = async (value, index) => {
-    console.log(value);
-    console.log(index);
-
     let applicationURL =
       "https://mystore-spring.herokuapp.com/api/applications/deleteApplication/";
 

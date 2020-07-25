@@ -12,7 +12,6 @@ export default class ApplicationDetails extends Component {
 
     await axios.get(applicationURL + `${application.applicationID}`).then(
       (response) => {
-        console.log(response.data);
         this.setState(() => ({ application: response.data }));
       },
       (error) => {
@@ -32,36 +31,27 @@ export default class ApplicationDetails extends Component {
   };
 
   handleType = (event) => {
-    console.log(event.target.value);
     this.setState({ type: event.target.value });
   };
   handleDate = (event) => {
     if (event.target.value !== "") {
       this.setState({ dateInvalid: false });
     }
-    console.log(event.target.value);
 
     this.setState({ date: event.target.value });
   };
   handleTime = (event) => {
-    console.log(event.target.value);
-
     this.setState({ time: event.target.value });
   };
   handleNotify = (event) => {
-    console.log(event.target.value);
     let { notify } = this.state;
     notify = !notify;
     this.setState({ notify });
   };
 
   handleSchedule = async () => {
-    console.log("here");
     const { type, date, time, notify } = this.state;
-    console.log(type);
-    console.log(date);
-    console.log(time);
-    console.log(notify);
+
     if (date === "") {
       this.setState({ dateInvalid: true });
     } else {
@@ -76,7 +66,6 @@ export default class ApplicationDetails extends Component {
         "https://mystore-spring.herokuapp.com/api/interview/insertInterview";
       await axios.post(interviewURL, interview).then(
         (response) => {
-          console.log(response.data);
           if (response.data) {
             this.setState({ selected: true });
             alert(
@@ -98,7 +87,6 @@ export default class ApplicationDetails extends Component {
       this.props.history.push("/home/application-managment");
     }
     const { application } = this.state;
-    console.log(application);
     return (
       <div>
         <div className="col-md-12">

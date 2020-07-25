@@ -22,7 +22,6 @@ export default class JobManagment extends Component {
 
     await axios.get(jobPostURL).then(
       (response) => {
-        console.log(response.data);
         this.setState(() => ({ jobs: response.data }));
       },
       (error) => {
@@ -31,12 +30,9 @@ export default class JobManagment extends Component {
     );
   };
 
-  async componentDidUpdate() {
-    console.log("did update");
-  }
+  async componentDidUpdate() {}
 
   handleOnClick = (job) => {
-    //console.log(job);
     this.setState({ selectedJob: job });
     this.setState({ selected: true });
   };
@@ -47,7 +43,6 @@ export default class JobManagment extends Component {
   render() {
     const { selectedJob } = this.state;
     const { jobs } = this.state;
-    console.log("here");
     if (this.state.selected) {
       this.props.history.push({
         pathname: "/home/update-job",

@@ -17,7 +17,6 @@ export default class UpdateJob extends Component {
 
     await axios.get(jobPostURL + `${selectedJob.jobID}`).then(
       (response) => {
-        console.log(response.data);
         this.setState(() => ({ selectedJob: response.data }));
         this.setState(() => ({
           position: response.data.position,
@@ -26,8 +25,6 @@ export default class UpdateJob extends Component {
           description: response.data.description,
           requirments: response.data.requirment,
         }));
-        console.log(response.data.requirment);
-        console.log(this.state.requirments);
       },
       (error) => {
         console.log(error);
@@ -89,7 +86,6 @@ export default class UpdateJob extends Component {
     event.stopPropagation();
     event.preventDefault();
     const jobs = this.props.location.state.jobs;
-    console.log(this.props.location.state);
     const {
       position,
       shiftType,
@@ -110,18 +106,8 @@ export default class UpdateJob extends Component {
       requirment: requirments,
       description: description,
     };
-    console.log("job");
-    console.log(job);
-    console.log(selectedJob);
-    console.log("here" + positionValid + requirementsValid + descriptionValid);
-    if (positionValid && requirementsValid && descriptionValid) {
-      console.log("in first");
-      console.log(selectedJob.position !== position);
-      console.log(selectedJob.type !== jobType);
-      console.log(selectedJob.shift !== shiftType);
-      console.log(selectedJob.description !== description);
-      console.log(selectedJob.requirment !== requirments);
 
+    if (positionValid && requirementsValid && descriptionValid) {
       if (
         selectedJob.position !== position ||
         selectedJob.type !== jobType ||
@@ -129,12 +115,10 @@ export default class UpdateJob extends Component {
         selectedJob.description !== description ||
         selectedJob.requirment !== requirments
       ) {
-        console.log("before call");
         let jobPostURL =
           "https://mystore-spring.herokuapp.com/api/jobPosts/updateJob/";
         await axios.put(jobPostURL + `${job.jobID}`, job).then(
           (response) => {
-            console.log(response.data);
             if (response.data) {
               this.setState({ selected: true });
               alert(`Job: ${job.jobID} has been updated`);
@@ -153,11 +137,9 @@ export default class UpdateJob extends Component {
       "https://mystore-spring.herokuapp.com/api/jobPosts/deleteJob/";
     const { selectedJob } = this.state;
     const jobID = selectedJob.jobID;
-    console.log(jobID);
 
     await axios.delete(jobPostURL + `${jobID}`).then(
       (response) => {
-        console.log(response.data);
         if (response.data) {
           this.setState({ selected: true });
           alert(`Job: ${jobID} has been deleted`);
@@ -169,7 +151,6 @@ export default class UpdateJob extends Component {
     );
   };
   render() {
-    console.log(this.state.selected);
     if (this.state.selected) {
       history.push("/home/jobPosting");
     } else {

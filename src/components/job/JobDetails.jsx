@@ -17,7 +17,6 @@ export default class JobDetails extends Component {
 
     await axios.get(jobPostURL + `${job.jobID}`).then(
       (response) => {
-        console.log(response.data);
         this.setState(() => ({ job: response.data }));
       },
       (error) => {
@@ -29,10 +28,7 @@ export default class JobDetails extends Component {
     this.setState({ selected: true });
   }
   render() {
-    console.log(this.props);
-
     const { job } = this.props.location.state;
-    console.log(job);
     if (this.state.selected) {
       this.props.history.push({
         pathname: "/home/application",

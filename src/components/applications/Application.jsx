@@ -79,7 +79,6 @@ export default class Application extends Component {
     event.stopPropagation();
     event.preventDefault();
     const userID = localStorage.getItem("id");
-    console.log("UserID: " + userID);
     const job = this.props.location.state.job;
 
     const {
@@ -113,7 +112,6 @@ export default class Application extends Component {
       let applicationURL =
         "https://mystore-spring.herokuapp.com/api/applications/insertApplication";
 
-      console.log("here");
       await axios.post(applicationURL, application).then(
         (response) => {
           if (response.data) {
