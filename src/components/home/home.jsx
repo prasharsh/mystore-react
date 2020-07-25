@@ -307,11 +307,11 @@ class Wall extends Component {
           show={this.state.showCreateAnnouncement}
           closeModal={this.hideCreateAnnouncement}
         ></CreateAnnouncementModel>
-        <UpdateStoreDetails
+        {/* <UpdateStoreDetails
           show={this.state.showUpdateStoreDetails}
           closeModal={this.hideUpdateStoreDetails}
           storeDetails={this.state.storeDetails}
-        ></UpdateStoreDetails>
+        ></UpdateStoreDetails> */}
       </div>
     );
   }
