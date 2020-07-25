@@ -131,7 +131,7 @@ handleChange(e) {
         <br></br>
         <input type="submit" onClick={this.submitResignationForm}  className="btn btn-success "  value="Resign" />
         <br></br>
-          <h6>Please read the separation terms and policies </h6>
+          <h6>Please read the terms and  policies </h6>
           <br></br>
         </Form>
        

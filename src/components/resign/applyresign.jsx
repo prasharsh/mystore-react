@@ -64,7 +64,7 @@ handleChange(e) {
       reason: this.state.fields.reason,
     };
     const empid=localStorage.getItem("id");
-    fetch(`https://mystore-spring.herokuapp.com/api/myStore/resignation/apply/${empid}`, {
+    fetch(`http://localhost:8080/api/myStore/resignation/apply/${empid}`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(resignation),
@@ -101,31 +101,33 @@ handleChange(e) {
           </div>
       </div>
      
-      <Form className="userResignationForm" method="post" onSubmit= {this.submituserRegistrationForm}>
      
-          <br></br>
-          <h5>Employee Separation Form </h5>
-          <br></br>
- 
-        <label>EMPID</label>
-        {/* <input type="text" name="firstname" value={this.state.fields.firstname} onChange={this.handleChange} placeholder="James "/>
-        <div className="errorMsg">{this.state.errors.firstname}</div> */}
-        <input type="text" readOnly name="EMPID" value={localStorage.getItem("id")}></input>
-        
-        
+     <Form className="userResignationForm" method="post" onSubmit= {this.submituserRegistrationForm}>
+     
+     <br></br>
+     <h5>Employee Separation Form </h5>
+     <br></br>
 
-        <label>Reason</label>
-        <input type="text" name="reason" value={this.state.fields.reason} onChange={this.handleChange} placeholder="Enter your reason" />
-        <div className="errorMsg">{this.state.errors.reason}</div>
-        <br></br>
-        <input type="submit" onClick={this.submitResignationForm}  className="btn btn-success "  value="Resign" />
+   <label>EMPID</label>
+   {/* <input type="text" name="firstname" value={this.state.fields.firstname} onChange={this.handleChange} placeholder="James "/>
+   <div className="errorMsg">{this.state.errors.firstname}</div> */}
+   <input type="text" readOnly name="EMPID" value={localStorage.getItem("id")}></input>
+   
+   
+
+   <label>Reason</label>
+   <input type="text" name="reason" value={this.state.fields.reason} onChange={this.handleChange} placeholder="Enter your reason" />
+   <div className="errorMsg">{this.state.errors.reason}</div>
+   <br></br>
+   <input type="submit" onClick={this.submitResignationForm}  className="btn btn-success "  value="Resign" />
+  
+   <br></br>
+     <h6>Please read the terms and  policies </h6>
+     <br></br>
+   </Form>
+     </div>
        
-        <br></br>
-          <h6>Please read the separation terms and policies </h6>
-          <br></br>
-        </Form>
-       
-        </div>
+
       );
        }
       }
