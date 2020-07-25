@@ -22,7 +22,7 @@ class Wall extends Component {
       showNotification: false,
       showCreateAnnouncement: false,
       showUpdateStoreDetails: false,
-      storeDetails: {},
+      storeDetails: { storeName: "", storeEmail: "", address: "" },
       announcements: [],
       loadingNotifications: true,
       loadingAnnouncements: true,
