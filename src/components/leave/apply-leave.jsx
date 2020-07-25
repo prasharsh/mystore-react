@@ -80,8 +80,6 @@ class ApplyLeave extends Component {
         errors: errors,
       });
     }
-
-    console.log(this.state.errors);
     return formIsValid;
   };
 
@@ -106,7 +104,6 @@ class ApplyLeave extends Component {
         })
         .then(function (data) {
           const items = data;
-          console.log(items);
           if (items === "Success") {
             alert("Leave applied successfully");
           } else if (items === "Duplicate") {

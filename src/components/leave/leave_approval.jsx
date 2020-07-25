@@ -27,7 +27,6 @@ class LeaveApproval extends Component {
   }
 
   handleAccept(value) {
-    console.log(value);
     const empid = value.empid;
     const name = value.name;
     let acceptLeave = {
@@ -55,7 +54,6 @@ class LeaveApproval extends Component {
   }
 
   handleReject(value) {
-    console.log(value);
     const empid = value.empid;
     const name = value.name;
     let acceptLeave = {
@@ -118,6 +116,29 @@ class LeaveApproval extends Component {
     }
   }
 
+  renderData = () => {
+    if (this.state.leaveApproval.length != 0) {
+      return (
+        <table className="table">
+          <thead className="thead-container">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Employee Id</th>
+              <th scope="col"> Name</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Reason</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          {this.renderTable()}
+        </table>
+      );
+    } else {
+      return <h3>No leave pending for approval !!</h3>;
+    }
+  };
+
   render() {
     return (
       <div>
@@ -138,20 +159,7 @@ class LeaveApproval extends Component {
                   </div>
                 </div>
               </div>
-              <table className="table">
-                <thead className="thead-container">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Employee Id</th>
-                    <th scope="col"> Name</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">End Date</th>
-                    <th scope="col">Reason</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                {this.renderTable()}
-              </table>
+              {this.renderData()}
             </div>
           </div>
         </div>

@@ -28,7 +28,6 @@ class LeaveHistory extends Component {
   }
 
   handleDelete(id) {
-    console.log(id);
     fetch(
       `http://localhost:8080/api/myStore/leave/viewLeaveHistory/delete/${id}`,
       {
@@ -39,7 +38,6 @@ class LeaveHistory extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         const result = responseJson;
-        console.log(result);
         if (result === "Success") {
           alert("Successfully deleted the leave");
         } else alert("Error in deleting leave, try again");
@@ -80,6 +78,29 @@ class LeaveHistory extends Component {
       ));
     }
   }
+
+  renderData = () => {
+    if (this.state.leaveHistory.length != 0) {
+      return (
+        <table className="table">
+          <thead className="thead-container">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Request ID</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Reason</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          {this.renderTable()}
+        </table>
+      );
+    } else {
+      return <h3>No leave applied !!</h3>;
+    }
+  };
 
   render() {
     return (
@@ -126,20 +147,7 @@ class LeaveHistory extends Component {
                   </div>
                 </div>
               </div>
-              <table className="table">
-                <thead className="thead-container">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Request ID</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">End Date</th>
-                    <th scope="col">Reason</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                {this.renderTable()}
-              </table>
+              {this.renderData()}
             </div>
           </div>
         </div>
