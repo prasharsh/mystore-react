@@ -26,11 +26,13 @@ class ForgotPassword extends Component {
 
   triggerEmail() {
     const { email } = this.state;
-    console.log(email);
-    fetch(`http://localhost:8080/api/myStore/resetPassword/${email}`)
+    // console.log(email);
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/myStore/resetPassword/${email}`
+    )
       .then((response) => response.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         alert(res);
         if (res === "Please check your email for the token sent!!") {
           this.props.history.push("/token");

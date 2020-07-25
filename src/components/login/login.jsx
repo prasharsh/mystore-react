@@ -17,7 +17,7 @@ import LoginImage from "./login.svg";
 class Login extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.isAuthed);
+    // console.log(this.props.isAuthed);
     this.state = {
       email: "",
       password: "",
@@ -130,13 +130,13 @@ class Login extends Component {
       this.state.validate.emailState === "has-success" &&
       this.state.validate.passwordState === "has-success"
     ) {
-      console.log(this.state);
+      // console.log(this.state);
       let user = {
         username: this.state.email,
         password: this.state.password,
       };
       let role = "";
-      fetch("http://localhost:8080/api/myStore/login", {
+      fetch("https://mystore-spring.herokuapp.com/api/myStore/login", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(user),
@@ -146,15 +146,15 @@ class Login extends Component {
           localStorage.setItem("role", data.userRole);
           localStorage.setItem("id", data.id);
           localStorage.setItem("auth", "true");
-          localStorage.setItem("username",data.username);
+          localStorage.setItem("username", data.username);
           if (localStorage.getItem("role") !== "null") {
             localStorage.setItem("auth", "true");
-            console.log(
-              localStorage.getItem("role") +
-                "......." +
-                localStorage.getItem("auth")
-            );
-            console.log("inside if role is valid");
+            // // console.log(
+            //   localStorage.getItem("role") +
+            //     "......." +
+            //     localStorage.getItem("auth")
+            // );
+            // console.log("inside if role is valid");
             this.props.updateAuth(true);
             this.props.history.push("/home");
             //window.location.reload();

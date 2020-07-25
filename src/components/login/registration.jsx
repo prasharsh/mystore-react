@@ -81,7 +81,7 @@ class Registration extends Component {
       lastName: this.state.lname,
       phone: this.state.phone,
     };
-    fetch("http://localhost:8080/api/myStore/register", {
+    fetch("https://mystore-spring.herokuapp.com/api/myStore/register", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(user),

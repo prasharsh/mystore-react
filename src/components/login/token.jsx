@@ -75,13 +75,13 @@ class Token extends Component {
       token: this.state.token,
       password: this.state.password,
     };
-    fetch("http://localhost:8080/api/myStore/changePassword", {
+    fetch("https://mystore-spring.herokuapp.com/api/myStore/changePassword", {
       method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(user),
     }).then((res) => {
       if (res) {
-        console.log(res.body);
+        // console.log(res.body);
       }
     });
   }

@@ -32,7 +32,7 @@ class Profile extends Component {
 
   componentDidMount() {
     const url =
-      "http://localhost:8080/api/myStore/fetchUserProfile/" +
+      "https://mystore-spring.herokuapp.com/api/myStore/fetchUserProfile/" +
       localStorage.getItem("id");
 
     fetch(url)
@@ -48,11 +48,11 @@ class Profile extends Component {
             email: result.username,
             newPass: result.password,
           });
-          console.log(result);
+          // console.log(result);
         },
 
         (error) => {
-          console.log(error);
+          // console.log(error);
         }
       );
   }
@@ -107,7 +107,7 @@ class Profile extends Component {
       password: this.state.newPass,
     };
     let role = "";
-    fetch("http://localhost:8080/api/myStore/updateProfile", {
+    fetch("https://mystore-spring.herokuapp.com/api/myStore/updateProfile", {
       method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(user),
@@ -117,7 +117,7 @@ class Profile extends Component {
         alert("Profile successfully updated !");
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
       });
   }
   handleUpdate = () => {
