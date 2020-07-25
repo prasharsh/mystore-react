@@ -20,7 +20,7 @@ class AcceptResignation extends Component {
       status: "Rejected",
     };
     fetch(
-      `http://localhost:8080/api/mystore/requests/resignation/reject/${empid}`,
+      `https://mystore-spring.herokuapp.com/api/mystore/requests/resignation/reject/${empid}`,
       {
         method: "PUT",
         headers: { "Content-type": "application/json" },
@@ -50,7 +50,7 @@ class AcceptResignation extends Component {
       status: "ACCEPTED",
     };
     fetch(
-      `http://localhost:8080/api/mystore/requests/resignation/accept/${empid}`,
+      `https://mystore-spring.herokuapp.com/api/mystore/requests/resignation/accept/${empid}`,
       {
         method: "PUT",
         headers: { "Content-type": "application/json" },
@@ -64,7 +64,7 @@ class AcceptResignation extends Component {
         {
           alert("You have accepted the Resignation of  " + name);
           fetch(
-            `http://localhost:8080/api/mystore/requests/resignation/inactive/${empid}`,
+            `https://mystore-spring.herokuapp.com/api/mystore/requests/resignation/inactive/${empid}`,
             {
               method: "PUT",
             }
@@ -87,7 +87,7 @@ class AcceptResignation extends Component {
   }
 
   componentDidMount() {
-    const url = "http://localhost:8080/api/mystore/requests/resignation";
+    const url = "https://mystore-spring.herokuapp.com/api/mystore/requests/resignation";
 
     fetch(url)
       .then((response) => response.json())

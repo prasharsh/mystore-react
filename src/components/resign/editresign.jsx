@@ -61,7 +61,7 @@ handleChange(e) {
     componentDidMount(){
       const {resign} =this.state.resign
          const empid=localStorage.getItem("id");
-        fetch(`http://localhost:8080/api/myStore/resignation/edit/${empid}`)
+        fetch(`https://mystore-spring.herokuapp.com/api/myStore/resignation/edit/${empid}`)
         .then((response) => response.json())
         .then((responseJson) => {
             this.setState(
@@ -84,7 +84,7 @@ handleChange(e) {
       status:'PENDING'
     };
     const empid = localStorage.getItem("id");
-    fetch(`http://localhost:8080/api/myStore/resignation/update/${empid}`, {
+    fetch(`https://mystore-spring.herokuapp.com/api/myStore/resignation/update/${empid}`, {
       method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(resignation),

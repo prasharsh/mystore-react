@@ -21,7 +21,7 @@ class ResignPage extends Component {
   componentDidMount(){
     const {resign} =this.state.resign
        const empid=localStorage.getItem("id");
-      fetch(`http://localhost:8080/api/myStore/resignation/edit/${empid}`)
+      fetch(`https://mystore-spring.herokuapp.com/api/myStore/resignation/edit/${empid}`)
       .then((response) => response.json())
       .then((responseJson) => {
           this.setState(
