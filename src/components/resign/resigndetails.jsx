@@ -57,7 +57,6 @@ componentDidMount(){
 
   render() {
     const resign=this.state.resign;
-    console.log(resign)
     return (
   
         <div className="col-md-12">

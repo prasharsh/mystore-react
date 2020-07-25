@@ -31,7 +31,7 @@ class AcceptResignation extends Component {
       .then((responseJson) => {
         const result = responseJson;
         if (result === "Success")
-          alert("You have ryejected the Resignation for  " + name);
+          alert("You have rejected the Resignation of  " + name);
         else alert("Error in performing action, contact the helpdesk.");
       });
     this.setState({
@@ -42,7 +42,6 @@ class AcceptResignation extends Component {
   }
 
   handleAccept(value) {
-    console.log(value.empid);
     const empid = value.empid;
     const name = value.name;
     let resign = {
@@ -51,31 +50,35 @@ class AcceptResignation extends Component {
       status: "ACCEPTED",
     };
     fetch(
-      `http://localhost:8080/api/mystore/requests/resignation/inactive/${empid}`,
+      `http://localhost:8080/api/mystore/requests/resignation/accept/${empid}`,
       {
         method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(resign),
       }
     )
       .then((response) => response.json())
       .then((responseJson) => {
         const result = responseJson;
-        if (result === "Success") {
+        if (result === "Success")
+        {
+          alert("You have accepted the Resignation of  " + name);
           fetch(
-            `http://localhost:8080/api/mystore/requests/resignation/accept/${empid}`,
+            `http://localhost:8080/api/mystore/requests/resignation/inactive/${empid}`,
             {
               method: "PUT",
-              headers: { "Content-type": "application/json" },
-              body: JSON.stringify(resign),
             }
           )
             .then((response) => response.json())
             .then((responseJson) => {
               const result = responseJson;
-              if (result === "Success")
-                alert("You have accepted the Resignation for  " + name);
+              
             });
-        } else alert("Error in performing accept action");
+        }
+          else alert("Error in performing accept action");
+
       });
+    
     this.setState({
       resignation: this.state.resignation.filter(
         (item) => item.empid !== value.empid
