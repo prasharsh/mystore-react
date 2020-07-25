@@ -12,7 +12,9 @@ class LeaveApproval extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:8080/api/myStore/leave/viewLeaveRequest`)
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/myStore/leave/viewLeaveRequest`
+    )
       .then((response) => response.json())
       .then(
         (result) => {
@@ -36,7 +38,7 @@ class LeaveApproval extends Component {
       status: "Accepted",
     };
     fetch(
-      `http://localhost:8080/api/myStore/leave/viewLeaveRequest/accept/${empid}`,
+      `https://mystore-spring.herokuapp.com/api/myStore/leave/viewLeaveRequest/accept/${empid}`,
       {
         method: "PUT",
         headers: { "Content-type": "application/json" },
@@ -63,7 +65,7 @@ class LeaveApproval extends Component {
       status: "Accepted",
     };
     fetch(
-      `http://localhost:8080/api/myStore/leave/viewLeaveRequest/reject/${empid}`,
+      `https://mystore-spring.herokuapp.com/api/myStore/leave/viewLeaveRequest/reject/${empid}`,
       {
         method: "PUT",
         headers: { "Content-type": "application/json" },

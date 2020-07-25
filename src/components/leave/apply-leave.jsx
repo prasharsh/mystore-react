@@ -92,13 +92,16 @@ class ApplyLeave extends Component {
         reason: this.state.reason,
       };
       const empid = localStorage.getItem("id");
-      fetch(`http://localhost:8080/api/myStore/leave/apply/${empid}`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(leave),
-      })
+      fetch(
+        `https://mystore-spring.herokuapp.com/api/myStore/leave/apply/${empid}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(leave),
+        }
+      )
         .then(function (response) {
           return response.json();
         })

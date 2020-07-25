@@ -13,7 +13,9 @@ class LeaveHistory extends Component {
 
   componentDidMount() {
     const empid = localStorage.getItem("id");
-    fetch(`http://localhost:8080/api/myStore/leave/viewLeaveHistory/${empid}`)
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/myStore/leave/viewLeaveHistory/${empid}`
+    )
       .then((response) => response.json())
       .then(
         (result) => {
@@ -29,7 +31,7 @@ class LeaveHistory extends Component {
 
   handleDelete(id) {
     fetch(
-      `http://localhost:8080/api/myStore/leave/viewLeaveHistory/delete/${id}`,
+      `https://mystore-spring.herokuapp.com/api/myStore/leave/viewLeaveHistory/delete/${id}`,
       {
         method: "DELETE",
         Accept: "application/json; odata=verbose",
