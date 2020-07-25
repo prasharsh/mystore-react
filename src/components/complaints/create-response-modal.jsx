@@ -27,11 +27,14 @@ class CreateResponseModal extends Component {
     response.id = this.props.complaint.id;
     response.userId = this.props.complaint.userId;
     response.managerId = localStorage.getItem("id");
-    fetch("http://localhost:8080/api/complaints/updateResponse", {
-      method: "PUT",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(response),
-    }).then((response) => {
+    fetch(
+      "https://mystore-spring.herokuapp.com/api/complaints/updateResponse",
+      {
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(response),
+      }
+    ).then((response) => {
       if (response.status === 200) {
         this.props.closeModal("save");
       } else {

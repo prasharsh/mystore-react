@@ -32,11 +32,14 @@ class CreateComplaintModal extends Component {
     complaint.complaintType = this.state.complaintType;
     complaint.userId = localStorage.getItem("id");
 
-    fetch("http://localhost:8080/api/complaints/createComplaint", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(complaint),
-    }).then((response) => {
+    fetch(
+      "https://mystore-spring.herokuapp.com/api/complaints/createComplaint",
+      {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(complaint),
+      }
+    ).then((response) => {
       if (response.status === 200) {
         this.props.closeModal("save");
       } else {

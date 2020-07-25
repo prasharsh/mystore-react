@@ -17,9 +17,12 @@ class ViewAnnouncementModal extends Component {
   };
   deleteAnnoucement = () => {
     let id = this.props.announcement.id;
-    fetch(`http://localhost:8080/api/annoucements/deleteAnnoucement/${id}`, {
-      method: "PUT",
-    }).then((response) => {
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/annoucements/deleteAnnoucement/${id}`,
+      {
+        method: "PUT",
+      }
+    ).then((response) => {
       if (response.status === 200) {
         this.props.closeModal("save");
       } else {

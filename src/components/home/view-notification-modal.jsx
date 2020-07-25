@@ -17,9 +17,12 @@ class ViewNotificationModal extends Component {
 
   deleteNotification = () => {
     let id = this.props.notification.id;
-    fetch(`http://localhost:8080/api/notifications/deleteNotification/${id}`, {
-      method: "PUT",
-    }).then((response) => {
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/notifications/deleteNotification/${id}`,
+      {
+        method: "PUT",
+      }
+    ).then((response) => {
       if (response.status === 200) {
         this.props.closeModal("save");
       } else {

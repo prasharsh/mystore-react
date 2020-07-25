@@ -28,11 +28,14 @@ class CreateAnnouncement extends Component {
     announcement.announcement = this.state.announcement;
     announcement.managerId = localStorage.getItem("id");
 
-    fetch("http://localhost:8080/api/annoucements/createAnnouncement", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(announcement),
-    }).then((response) => {
+    fetch(
+      "https://mystore-spring.herokuapp.com/api/annoucements/createAnnouncement",
+      {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(announcement),
+      }
+    ).then((response) => {
       if (response.status === 200) {
         this.props.closeModal("save");
       } else {

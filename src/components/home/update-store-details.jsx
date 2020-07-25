@@ -6,12 +6,18 @@ class UpdateStoreDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      storeName: this.props.storeDetails.storeName,
-      address: this.props.storeDetails.address,
-      storeEmail: this.props.storeDetails.storeEmail,
+      storeName: "",
+      address: "",
+      storeEmail: "",
       validated: true,
     };
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({ storeName: this.props.storeDetails.storeName });
+    this.setState({ address: this.props.storeDetails.address });
+    this.setState({ storeEmail: this.props.storeDetails.storeEmail });
   }
 
   close = () => {
@@ -24,11 +30,14 @@ class UpdateStoreDetails extends Component {
     details.storeEmail = this.state.storeEmail;
     details.address = this.state.address;
     details.id = this.props.storeDetails.id;
-    fetch("http://localhost:8080/api/storeDetails/updateStoreDetails", {
-      method: "PUT",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(details),
-    }).then((response) => {
+    fetch(
+      "https://mystore-spring.herokuapp.com/api/storeDetails/updateStoreDetails",
+      {
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(details),
+      }
+    ).then((response) => {
       if (response.status === 200) {
         this.props.closeModal("save");
       } else {

@@ -38,7 +38,7 @@ export default class ComplaintHome extends Component {
     const userId = localStorage.getItem("id");
     if (role === "crew") {
       fetch(
-        `http://localhost:8080/api/complaints/getComplaintsByUserId/${userId}`
+        `https://mystore-spring.herokuapp.com/api/complaints/getComplaintsByUserId/${userId}`
       )
         .then((response) => response.json())
         .then((responseJson) => {
@@ -48,7 +48,9 @@ export default class ComplaintHome extends Component {
           this.setState({ loading: false });
         });
     } else if (role === "manager") {
-      fetch(`http://localhost:8080/api/complaints/getAllComplaints`)
+      fetch(
+        `https://mystore-spring.herokuapp.com/api/complaints/getAllComplaints`
+      )
         .then((response) => response.json())
         .then((responseJson) => {
           this.setState({
@@ -115,9 +117,12 @@ export default class ComplaintHome extends Component {
   };
 
   deleteComplaint = (id) => {
-    fetch(`http://localhost:8080/api/complaints/deleteComplaint/${id}`, {
-      method: "PUT",
-    }).then((response) => {
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/complaints/deleteComplaint/${id}`,
+      {
+        method: "PUT",
+      }
+    ).then((response) => {
       if (response.status === 200) {
         this.getDetailsAgain();
         alert("Complaint Deleted Successfully!");

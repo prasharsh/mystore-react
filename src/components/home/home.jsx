@@ -39,7 +39,9 @@ class Wall extends Component {
     this.getNotificationDetailsAgain();
   }
   getStoreDetails() {
-    fetch(`http://localhost:8080/api/storeDetails/getStoreDetails`)
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/storeDetails/getStoreDetails`
+    )
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -51,7 +53,7 @@ class Wall extends Component {
   getNotificationDetailsAgain() {
     const userId = localStorage.getItem("id");
     fetch(
-      `http://localhost:8080/api/notifications/getUserNotifications/${userId}`
+      `https://mystore-spring.herokuapp.com/api/notifications/getUserNotifications/${userId}`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -67,7 +69,9 @@ class Wall extends Component {
       });
   }
   getAnnouncementDetailsAgain() {
-    fetch(`http://localhost:8080/api/annoucements/getAllAnnouncements`)
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/annoucements/getAllAnnouncements`
+    )
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(typeof this.state.numArray);
@@ -307,11 +311,11 @@ class Wall extends Component {
           show={this.state.showCreateAnnouncement}
           closeModal={this.hideCreateAnnouncement}
         ></CreateAnnouncementModel>
-        {/* <UpdateStoreDetails
+        <UpdateStoreDetails
           show={this.state.showUpdateStoreDetails}
           closeModal={this.hideUpdateStoreDetails}
           storeDetails={this.state.storeDetails}
-        ></UpdateStoreDetails> */}
+        ></UpdateStoreDetails>
       </div>
     );
   }
