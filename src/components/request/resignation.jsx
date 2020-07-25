@@ -142,20 +142,22 @@ class AcceptResignation extends Component {
             <td>{value.reason}</td>
             <td>{value.status}</td>
             <td>
-              <Button
-                className="btn btn-primary  mr-5"
+            <button
+                type="button"
+                className="btn btn-primary mx-2"
                 onClick={() => this.handleAccept(value)}
-              >
+                >
                 {" "}
                 Accept
-              </Button>
-              <Button
-                className="btn btn-primary mr-5"
+                </button>
+                <button
+                type="button"
+                className="btn btn-primary mx-2"
                 onClick={() => this.handleReject(value)}
-              >
+                >
                 {" "}
                 Reject
-              </Button>
+              </button>
             </td>
           </tr>
         </tbody>
