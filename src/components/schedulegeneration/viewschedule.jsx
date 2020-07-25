@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {Table, Form, Button} from 'react-bootstrap';
 
-export default class Schedule1 extends Component {
+export default class ViewSchedule extends Component {
 //   state = {
 //     crewSchedule: [], // list is empty in the beginning
 //     error: false
@@ -9,30 +9,13 @@ export default class Schedule1 extends Component {
 
     constructor(props){
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
+
         this.state = { confirmation:false,
             crewSchedule: [], // list is empty in the beginning
             error: false};
     }
 
-    handleSubmit(){
-        let schedule = this.state.crewSchedule;
-        fetch("http://localhost:8080/api/schedule/publishSchedule", {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify(schedule),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data){
-                    //alert(data);
-                    this.setState({
-                        ...this.state,
-                        confirmation : true
-                    })
-                }
-            });
-    }
+
 
 
     componentDidMount() {
@@ -41,7 +24,7 @@ export default class Schedule1 extends Component {
 
     getUserList = async () => {
         try { //try to get data
-            const response = await fetch("http://localhost:8080/api/schedule/requestScheduleSuggest", {
+            const response = await fetch("http://localhost:8080/api/schedule/retrievePublishedSchedule", {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -69,10 +52,9 @@ export default class Schedule1 extends Component {
         return (
 
             <div className="schedule1-component m-4 p-4">
-                {
-                    this.state.confirmation && <span style={{ color: 'blue' }} > schedule(s) broadcasted !</span> }
 
-                <h2 id="crewDashBoardTitle">Auto generated schedule </h2>
+
+                <h4 id="crewDashBoardTitle">You are viewing the updated schedule for the next week (Timezone : Atlantic Daylight Time (ADT))</h4>
                 <Table striped bordered hover size="sm">
                     <thead>
                     <tr>
@@ -112,9 +94,7 @@ export default class Schedule1 extends Component {
 
                     </tbody>
                 </Table>
-                <Button variant="primary" type="submit" onClick={this.handleSubmit}>
-                    Confirm Schedule
-                </Button>
+                <h5 id="crewDashBoardFooterNote">Every crew should submit their availability for imminent weeks change before wednesday latest</h5>
             </div>
         );
     }

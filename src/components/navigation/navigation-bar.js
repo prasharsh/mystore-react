@@ -127,7 +127,16 @@ export class NavigationBar extends Component {
                       Shift Swap Requests
                     </NavDropdown.Item>
                   )}
-
+                  {
+                    <NavDropdown.Item
+                        className="hover-color"
+                        onClick={() =>
+                            this.props.history.push("/home/view-schedule")
+                        }
+                    >
+                      View Schedule
+                    </NavDropdown.Item>
+                  }
                   {this.state.role === "manager" && (
                       <span className="navSpan">Allocate Shift</span>
                     ) && (

@@ -13,12 +13,11 @@ import Wall from "./components/home/home.jsx";
 import ApplyLeave from "./components/leave/apply-leave.jsx";
 import LeaveHistory from "./components/leave/leave-history.jsx";
 import LeaveDetails from "./components/leave/leave-details.jsx";
-import EmployeeDashboard from "./components/employeedashboard/employeedashboard.jsx";
 import CrewRequestAvail from "./components/employeedashboard/RequestAvail.jsx";
 import GenerateSchedule from "./components/schedulegeneration/generateschedule.jsx";
 import Schedule1 from "./components/schedulegeneration/schedulesuggest1.jsx";
-import Schedule2 from "./components/schedulegeneration/schedulesuggest2.jsx";
-import ScheduleSuggestions from "./components/schedulegeneration/schedulesuggestions.jsx";
+import ViewSchedule from "./components/schedulegeneration/viewschedule";
+
 import CreateSwap from "./components/shift/CreateSwap.jsx";
 import EditSwap from "./components/shift/EditSwap.jsx";
 import SwapRequests from "./components/shift/SwapRequests.jsx";
@@ -130,20 +129,17 @@ class App extends Component {
                   component={GenerateSchedule}
                 />
                 <Route
-                  exact
-                  path="/home/generate-schedule/suggestions"
-                  component={ScheduleSuggestions}
+                    exact
+                    path="/home/view-schedule"
+                    component={ViewSchedule}
                 />
+
                 <Route
                   exact
                   path="/home/generate-schedule/suggestions/suggest1"
                   component={Schedule1}
                 />
-                <Route
-                  exact
-                  path="/home/generate-schedule/suggestions/suggest2"
-                  component={Schedule2}
-                />
+
                 <Route
                   exact
                   path="/home/request-avail"

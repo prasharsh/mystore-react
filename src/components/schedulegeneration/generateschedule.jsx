@@ -9,7 +9,7 @@ export default class GenerateSchedule extends Component {
       }
       handleSubmit(event){
        
-        this.props.history.push('/home/generate-schedule/suggestions');
+        this.props.history.push('/home/generate-schedule/suggestions/suggest1');
       }
     render() {
         return (
