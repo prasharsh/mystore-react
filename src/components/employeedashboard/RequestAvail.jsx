@@ -214,6 +214,35 @@ export default class CrewRequestAvail extends Component {
  <Button variant="primary" type="submit" onClick={this.handleSubmit}>
     Submit
   </Button>
+      <hr></hr>
+    <div>
+        <h5 id="timingsLabel">Crews are requested to fill their timings exactly as per below permutations for any day </h5>
+        <Table striped bordered hover size="sm">
+            <thead>
+            <tr>
+                <th>Shift</th>
+                <th>Timings</th>
+
+            </tr>
+            </thead>
+            <tr>
+                <td>shift 1</td>
+                <td>12:00AM-06:00AM</td>
+            </tr>
+            <tr>
+                <td>shift 2</td>
+                <td>06:00AM-12:00PM</td>
+            </tr>
+            <tr>
+                <td>shift 3</td>
+                <td>12:00PM-06:00PM</td>
+            </tr>
+            <tr>
+                <td>shift 4</td>
+                <td>06:00PM-12:00PM</td>
+            </tr>
+        </Table>
+    </div>
 
 </div>
 );
