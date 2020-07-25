@@ -13,7 +13,7 @@ import Wall from "./components/home/home.jsx";
 import ApplyLeave from "./components/leave/apply-leave.jsx";
 import LeaveHistory from "./components/leave/leave-history.jsx";
 import LeaveDetails from "./components/leave/leave-details.jsx";
-import CrewRequestAvail from "./components/employeedashboard/RequestAvail.jsx";
+import CrewRequestAvail from "./components/schedulegeneration/RequestAvail.jsx";
 import GenerateSchedule from "./components/schedulegeneration/generateschedule.jsx";
 import Schedule1 from "./components/schedulegeneration/schedulesuggest1.jsx";
 import ViewSchedule from "./components/schedulegeneration/viewschedule";
