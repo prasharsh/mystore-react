@@ -128,13 +128,7 @@ export default class CrewRequestAvail extends Component {
         validateHours: true
       })
     }
-    else{
-      this.setState({
-        ...this.state,
-        submitMessage : true
-      })
-
-    }
+    
 
       fetch("http://localhost:8080/api/schedule/saveAvail", {
           method: "POST",
@@ -144,7 +138,11 @@ export default class CrewRequestAvail extends Component {
           .then((response) => response.json())
           .then((data) => {
                     if (data){
-                        alert(data);
+                        //alert(data);
+                        this.setState({
+                            ...this.state,
+                            submitMessage : true
+                        })
                     }
           });
 
