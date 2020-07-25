@@ -41,7 +41,7 @@ export default class Schedule1 extends Component {
 
     getUserList = async () => {
         try { //try to get data
-            const response = await fetch("http://localhost:8080/api/schedule/requestScheduleSuggest", {
+            const response = await fetch("https://mystore-spring.herokuapp.com/api/schedule/requestScheduleSuggest", {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

@@ -24,7 +24,7 @@ export default class ViewSchedule extends Component {
 
     getUserList = async () => {
         try { //try to get data
-            const response = await fetch("http://localhost:8080/api/schedule/retrievePublishedSchedule", {
+            const response = await fetch("https://mystore-spring.herokuapp.com/api/schedule/retrievePublishedSchedule", {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

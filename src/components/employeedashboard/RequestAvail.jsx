@@ -130,7 +130,7 @@ export default class CrewRequestAvail extends Component {
     }
     
 
-      fetch("http://localhost:8080/api/schedule/saveAvail", {
+      fetch("https://mystore-spring.herokuapp.com/api/schedule/saveAvail", {
           method: "POST",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify(avail),
