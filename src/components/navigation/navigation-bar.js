@@ -45,8 +45,6 @@ export class NavigationBar extends Component {
 
   componentDidMount() {
     this.retrieverole();
-    console.log(this.state.role);
-    console.log(this.props);
   }
   handleLogout = () => {
     this.props.updateAuth(false);
@@ -129,10 +127,10 @@ export class NavigationBar extends Component {
                   )}
                   {
                     <NavDropdown.Item
-                        className="hover-color"
-                        onClick={() =>
-                            this.props.history.push("/home/view-schedule")
-                        }
+                      className="hover-color"
+                      onClick={() =>
+                        this.props.history.push("/home/view-schedule")
+                      }
                     >
                       View Schedule
                     </NavDropdown.Item>
