@@ -57,9 +57,13 @@ class ApplyLeave extends Component {
       }
     }
 
-    if (this.state.reason.length <= 1) {
+    if (this.state.reason.length <= 2) {
       formIsValid = false;
-      errors.reason = "Please provide the reason";
+      if (this.state.reason.length <= 2 && this.state.reason.length > 0) {
+        errors.reason = "Reason should be greater than 2 characters";
+      } else {
+        errors.reason = "Please provide the reason";
+      }
       this.setState({
         errors: errors,
       });
