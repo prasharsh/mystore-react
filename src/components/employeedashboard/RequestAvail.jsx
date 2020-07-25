@@ -69,7 +69,7 @@ export default class CrewRequestAvail extends Component {
        sunEnd: this.state.sunEnd};
     var flag = true;
      //https:///^([0]?[1-9]|1[0-2]):([0-5]\d)\s?(am|pm) 
-     const regex  = /^([0]?[1-9]|1[0-2]):([0-5]\d)\s?(AM|PM)|^$/;
+     const regex  = /^([0][1-9]|1[0-2]):([0-5]\d)\s?(AM|PM)|^$/;
     
     if ( !regex.test(this.state.monStart) && flag){
        
@@ -129,22 +129,24 @@ export default class CrewRequestAvail extends Component {
       })
     }
     
+    if(flag){
+    fetch("https://mystore-spring.herokuapp.com/api/schedule/saveAvail", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(avail),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data){
+                //alert(data);
+                this.setState({
+                    ...this.state,
+                    submitMessage : true
+                })
+            }
+        });
+    }
 
-      fetch("https://mystore-spring.herokuapp.com/api/schedule/saveAvail", {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify(avail),
-      })
-          .then((response) => response.json())
-          .then((data) => {
-                    if (data){
-                        //alert(data);
-                        this.setState({
-                            ...this.state,
-                            submitMessage : true
-                        })
-                    }
-          });
 
 
 
@@ -239,7 +241,7 @@ export default class CrewRequestAvail extends Component {
             </tr>
             <tr>
                 <td>shift 4</td>
-                <td>06:00PM-12:00PM</td>
+                <td>06:00PM-12:00AM</td>
             </tr>
         </Table>
     </div>
