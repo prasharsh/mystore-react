@@ -78,7 +78,6 @@ export default class CreateJob extends Component {
       "https://mystore-spring.herokuapp.com/api/jobPosts/insertJob";
     await axios.post(jobPostURL, job).then(
       (response) => {
-        console.log(response.data);
         if (response.data) {
           this.setState({ selected: true });
           alert("Job Posting for: " + job.position + " has been added");

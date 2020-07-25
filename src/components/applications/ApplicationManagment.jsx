@@ -36,7 +36,6 @@ export default class ApplicationManagment extends Component {
 
     await axios.delete(applicationURL + `${value.applicationID}`).then(
       (response) => {
-        console.log(response.data);
         let app = this.state.application;
         delete app[index];
         this.setState({ application: app });
@@ -48,15 +47,11 @@ export default class ApplicationManagment extends Component {
   };
 
   handleAccept = async (value, index) => {
-    console.log(value);
-    console.log(index);
-
     let userURL =
-      "https://mystore-spring.herokuapp.com/api/myStore/updateRole/";
+      "https://mystore-spring.herokuapp.com/api/applications/acceptApplication/";
 
-    await axios.put(userURL + `${value.userID}`).then(
+    await axios.put(userURL + `${value.applicationID}`).then(
       (response) => {
-        console.log(response.data);
         this.handleDelete(value, index);
         alert(
           "Email sent to " + value.firstName + " that they are now an employee"
