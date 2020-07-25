@@ -32,7 +32,11 @@ class CreateResponseModal extends Component {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(response),
     }).then((response) => {
-      this.props.closeModal("save");
+      if (response.status === 200) {
+        this.props.closeModal("save");
+      } else {
+        this.props.closeModal("SaveFailed");
+      }
     });
     this.setState({ response: "" });
   };
@@ -79,7 +83,12 @@ class CreateResponseModal extends Component {
             <Button variant="secondary" onClick={this.close}>
               Close
             </Button>
-            <Button type="submit" variant="primary" onClick={this.saveData}>
+            <Button
+              disabled={this.state.response.length === 0}
+              type="submit"
+              variant="primary"
+              onClick={this.saveData}
+            >
               Save
             </Button>
           </Modal.Footer>

@@ -35,6 +35,8 @@ class CreateAnnouncement extends Component {
     }).then((response) => {
       if (response.status === 200) {
         this.props.closeModal("save");
+      } else {
+        this.props.closeModal("SaveFailed");
       }
     });
 
@@ -71,7 +73,11 @@ class CreateAnnouncement extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={this.save}>
+            <Button
+              disabled={this.state.announcement.length === 0}
+              variant="primary"
+              onClick={this.save}
+            >
               Save Announcement
             </Button>
             <Button variant="secondary" onClick={this.close}>

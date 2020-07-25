@@ -13,6 +13,7 @@ import TeamImg from "./team.svg";
 import BuildingImg from "./building.svg";
 import CreateAnnouncementModel from "./create-announcement-modal.jsx";
 import Loader from "../complaints/loader.js";
+import UpdateStoreDetails from "./update-store-details.jsx";
 class Wall extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +21,8 @@ class Wall extends Component {
       showAnnouncement: false,
       showNotification: false,
       showCreateAnnouncement: false,
+      showUpdateStoreDetails: false,
+      storeDetails: {},
       announcements: [],
       loadingNotifications: true,
       loadingAnnouncements: true,
@@ -31,8 +34,18 @@ class Wall extends Component {
   }
 
   componentDidMount() {
+    this.getStoreDetails();
     this.getAnnouncementDetailsAgain();
     this.getNotificationDetailsAgain();
+  }
+  getStoreDetails() {
+    fetch(`http://localhost:8080/api/storeDetails/getStoreDetails`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          storeDetails: responseJson,
+        });
+      });
   }
 
   getNotificationDetailsAgain() {
@@ -83,6 +96,9 @@ class Wall extends Component {
     this.setState({ showCreateAnnouncement: false });
     if (type === "save") {
       this.getAnnouncementDetailsAgain();
+      alert("Annoucement Created!");
+    } else if (type === "SaveFailed") {
+      alert("Could Not Create Announcement!");
     }
   };
 
@@ -90,6 +106,22 @@ class Wall extends Component {
     this.setState({ showAnnouncement: false });
     if (type === "save") {
       this.getAnnouncementDetailsAgain();
+      alert("Announcement Deleted Successfully!");
+    } else if (type === "SaveFailed") {
+      alert("Announcement Delete Unsuccessful!");
+    }
+  };
+
+  showUpdateStoreDetails = () => {
+    this.setState({ showUpdateStoreDetails: true });
+  };
+  hideUpdateStoreDetails = (type) => {
+    this.setState({ showUpdateStoreDetails: false });
+    if (type === "save") {
+      this.getStoreDetails();
+      alert("Store Details Updated Successfully!");
+    } else if (type === "SaveFailed") {
+      alert("Store Details Update Unsuccessful!");
     }
   };
 
@@ -102,6 +134,9 @@ class Wall extends Component {
     this.setState({ showNotification: false });
     if (type === "save") {
       this.getNotificationDetailsAgain();
+      alert("Notification Deleted Successfully!");
+    } else if (type === "SaveFailed") {
+      alert("Notification Delete Unsuccessful!");
     }
   };
 
@@ -158,9 +193,11 @@ class Wall extends Component {
                       </Card.Header>
                       <Card.Body>
                         <Card.Text>
-                          Shopper Drug Mart<br></br>
-                          Qungate place, Halifax, NS, Canada<br></br>
-                          drugmart@gmail.com
+                          Store Name: {this.state.storeDetails.storeName}
+                          <br></br>
+                          Address: {this.state.storeDetails.address}
+                          <br></br>
+                          Email: {this.state.storeDetails.storeEmail}
                         </Card.Text>
                       </Card.Body>
                     </Card>
@@ -204,11 +241,11 @@ class Wall extends Component {
                       <Card border="dark" style={{ width: "18rem" }}>
                         <Card.Header>
                           <img className="profile-img" src={TeamImg}></img>{" "}
-                          Operational Details
+                          Developement Team
                         </Card.Header>
                         <Card.Body>
-                          <Card.Title>Today's Crew</Card.Title>
-                          <Card.Text>Bob, Alice, Ravi, Angela</Card.Text>
+                          <Card.Title>Dalhousi University</Card.Title>
+                          <Card.Text> Team 8 CSCI 5709</Card.Text>
                         </Card.Body>
                       </Card>
                     </Col>
@@ -216,9 +253,11 @@ class Wall extends Component {
                 ) : null}
               </Container>
               <br></br>
-              {isManager ? (
-                <div className="row">
-                  <div className="col-md-12">
+
+              <div className="row">
+                <div className="col-md-2"></div>
+                {isManager ? (
+                  <div className="col-md-4">
                     <div align="center">
                       <div style={{ display: "inline-block" }}>
                         <button
@@ -231,8 +270,25 @@ class Wall extends Component {
                       </div>
                     </div>
                   </div>
-                </div>
-              ) : null}
+                ) : null}
+
+                {isManager ? (
+                  <div className="col-md-3">
+                    <div align="center">
+                      <div style={{ display: "inline-block" }}>
+                        <button
+                          onClick={this.showUpdateStoreDetails}
+                          name="submit"
+                          className="btn btn-dark"
+                        >
+                          Update Store Details
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+                <div className="col-md-3"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -251,6 +307,11 @@ class Wall extends Component {
           show={this.state.showCreateAnnouncement}
           closeModal={this.hideCreateAnnouncement}
         ></CreateAnnouncementModel>
+        <UpdateStoreDetails
+          show={this.state.showUpdateStoreDetails}
+          closeModal={this.hideUpdateStoreDetails}
+          storeDetails={this.state.storeDetails}
+        ></UpdateStoreDetails>
       </div>
     );
   }

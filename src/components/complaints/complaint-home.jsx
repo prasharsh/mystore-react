@@ -94,6 +94,9 @@ export default class ComplaintHome extends Component {
     this.setState({ showCreateResponse: false });
     if (type === "save") {
       this.getDetailsAgain();
+      alert("Respose Created Succesfully!");
+    } else if (type === "SaveFailed") {
+      alert("Could Not Create the Response");
     }
   };
 
@@ -105,6 +108,9 @@ export default class ComplaintHome extends Component {
     this.setState({ showCreateComplaint: false });
     if (type === "save") {
       this.getDetailsAgain();
+      alert("Complaint Created Successfully!");
+    } else if (type === "SaveFailed") {
+      alert("Could Not create the complaint");
     }
   };
 
@@ -114,7 +120,9 @@ export default class ComplaintHome extends Component {
     }).then((response) => {
       if (response.status === 200) {
         this.getDetailsAgain();
-        alert("Complaint Deleted");
+        alert("Complaint Deleted Successfully!");
+      } else {
+        alert("Could not delete the complaint");
       }
     });
   };

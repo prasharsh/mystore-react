@@ -39,6 +39,8 @@ class CreateComplaintModal extends Component {
     }).then((response) => {
       if (response.status === 200) {
         this.props.closeModal("save");
+      } else {
+        this.props.closeModal("SaveFailed");
       }
     });
 
@@ -96,7 +98,11 @@ class CreateComplaintModal extends Component {
             <Button variant="secondary" onClick={this.closeComplaint}>
               Close
             </Button>
-            <Button variant="primary" onClick={this.saveComplaint}>
+            <Button
+              disabled={this.state.complaint.length === 0}
+              variant="primary"
+              onClick={this.saveComplaint}
+            >
               Save
             </Button>
           </Modal.Footer>

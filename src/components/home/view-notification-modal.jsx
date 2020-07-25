@@ -20,7 +20,11 @@ class ViewNotificationModal extends Component {
     fetch(`http://localhost:8080/api/notifications/deleteNotification/${id}`, {
       method: "PUT",
     }).then((response) => {
-      this.props.closeModal("save");
+      if (response.status === 200) {
+        this.props.closeModal("save");
+      } else {
+        this.props.closeModal("SaveFailed");
+      }
     });
   };
   render() {
