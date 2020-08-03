@@ -1,17 +1,84 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
-
 import ComplaintImage from "../complaints/complaint.svg";
 
 class EmployeeDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: "Crew" };
+    this.state = { employeeList: [] };
+  }
+
+  componentDidMount() {
+    fetch(`http://localhost:8080/api/myStore/manager/viewEmployee`)
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          this.setState({
+            employeeList: result,
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   handleChange = (event) => {
     this.setState({ value: event.target.value });
   };
+
+  handleDelete(id) {
+    fetch(
+      `http://localhost:8080/api/myStore/manager/viewEmployee/delete/${id}`,
+      {
+        method: "DELETE",
+        Accept: "application/json; odata=verbose",
+      }
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        const result = responseJson;
+        if (result === "success") {
+          alert("Successfully terminated the employee !!");
+          this.setState({
+            employeeList: this.state.employeeList.filter(
+              (item) => item.id !== id
+            ),
+          });
+        } else alert("Error in deleting, try again");
+      });
+    // window.location.reload(false);
+  }
+
+  delete(id) {
+    return (
+      <button
+        type="button"
+        className="btn btn-danger mx-2"
+        onClick={() => this.handleDelete(id)}
+      >
+        {" "}
+        Delete
+      </button>
+    );
+  }
+
+  renderTable() {
+    const { employeeList } = this.state;
+    return employeeList.map((value, index) => (
+      <tbody key={value.id}>
+        <tr>
+          <td>{index + 1}</td>
+          <td>{value.first_name}</td>
+          <td>{value.last_name}</td>
+          <td>{value.id}</td>
+          <td>{value.user_name}</td>
+          <td>{value.phone}</td>
+          <td>{this.delete(value.id)}</td>
+        </tr>
+      </tbody>
+    ));
+  }
 
   render() {
     return (
@@ -38,43 +105,13 @@ class EmployeeDetails extends Component {
                     <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th> Role </th>
+                    <th>Employee Id</th>
                     <th>Email</th>
-                    <th>Start Date</th>
+                    <th>Contact No.</th>
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td> 1 </td>
-                    <td> Khanjika </td>
-                    <td> Arora </td>
-                    <td>
-                      <select
-                        value={this.state.value}
-                        onChange={this.handleChange}
-                      >
-                        <option value="Crew">Crew</option>
-                        <option value="Manager"> Manager </option>
-                      </select>
-                    </td>
-                    <td> kh77899@dal.ca </td>
-                    <td> 1-1-2020 </td>
-
-                    <td>
-                      <button
-                        type="submit"
-                        className="btn btn-primary mr-2"
-                        onClick={this.onClick}
-                      >
-                        Save
-                      </button>
-                      <button type="delete" className="btn btn-danger mr-2">
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
+                {this.renderTable()}
               </Table>
             </div>
           </div>
