@@ -8,7 +8,31 @@ class CreateSwap extends React.Component {
   state = {
     shiftType: "",
     startDate: new Date(),
+    shifts: [],
   };
+
+  componentDidMount() {
+    const username = localStorage.getItem("username");
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/shift/fetchShiftsByUsername/${username}`
+    )
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          this.setState({
+            shifts: result,
+          });
+          this.state.shifts.map((index) => {
+            console.log(index.swapDate);
+            console.log(index.shiftType);
+          });
+          this.render();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
 
   handleChange = (date) => {
     this.setState({
@@ -17,16 +41,74 @@ class CreateSwap extends React.Component {
     });
   };
   submitSwap() {
-    console.log(this.refs.dateP.value);
-    if (this.refs.dateP.value !== "") {
-      window.alert("Shift swap request created.");
-
-      window.location.reload();
-    } else {
-      window.alert("Enter date");
+    let isValid = false;
+    let shiftSwap;
+    let radio = document.getElementsByName("shift");
+    for (var i = 0; i < radio.length; i++) {
+      if (radio[i].checked) {
+        console.log(radio[i].value);
+        isValid = true;
+        shiftSwap = {
+          swapDate: radio[i].id,
+          shiftType: radio[i].value,
+          swapComments: this.refs.comment.value,
+          swapRequestor: localStorage.getItem("id"),
+        };
+      }
     }
+
+    if (isValid) {
+      fetch(
+        "https://mystore-spring.herokuapp.com/api/shift/createSwapRequest",
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(shiftSwap),
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          alert("Shift created successfully");
+        });
+    } else alert("please select a date");
   }
 
+  renderShiftsforSwap() {
+    const shifts = this.state.shifts;
+    console.log("inside render shifts" + shifts);
+    if (shifts) {
+      const s = shifts.filter((item) => item.shiftType);
+      console.log(s.length + "++++++++++++++++++");
+      if (s.length == 0) {
+        return (
+          <>
+            <br />
+            <br />
+            <div>No shits to display </div>
+          </>
+        );
+      }
+      return s.map((index) => (
+        <tbody>
+          {console.log(index.swapDate + "==========")}
+          <tr>
+            <td>
+              <input
+                type="radio"
+                id={index.swapDate}
+                name="shift"
+                value={index.shiftType}
+              />
+            </td>
+            <td>{index.swapDate}</td>
+            <td>{index.shiftType}</td>
+          </tr>
+        </tbody>
+      ));
+    } else {
+      console.log("no items to display");
+    }
+  }
   render() {
     const { shiftType } = this.state;
     let shift = "";
@@ -52,17 +134,16 @@ class CreateSwap extends React.Component {
               <div align="center">
                 <Card border="primary" style={{ width: "36rem" }}>
                   <Card.Body>
-                    <DatePicker
-                      selected={this.state.startDate}
-                      placeholderText="Enter Swap Shift Date"
-                      onChange={this.handleChange}
-                      minDate={new Date()}
-                    />
+                    <table className="table">
+                      <thead className="thead-container"></thead>
+                      Select Shift For Swap
+                      {this.renderShiftsforSwap()}
+                    </table>
                     <br />
                     <Form.Label>{shift}</Form.Label>
                     <br />
                     <Form.Control
-                      ref="dateP"
+                      ref="comment"
                       as="textarea"
                       rows="3"
                       placeholder="Reason"
@@ -77,6 +158,7 @@ class CreateSwap extends React.Component {
             </div>
           </div>
         </div>
+        ** A user can create multiple swap requests for the same day.
       </div>
     );
   }

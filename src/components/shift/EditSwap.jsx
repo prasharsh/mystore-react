@@ -8,21 +8,27 @@ class EditSwap extends Component {
     this.deleteReq = this.deleteReq.bind(this);
     this.updateReq = this.updateReq.bind(this);
     this.state = {
-      openSwapRequests: [
-        {
-          id: "SR1",
-          swapDate: "16-06-2020",
-          shiftType: "S1",
-          reason: "personal",
-        },
-        {
-          id: "SR2",
-          swapDate: "15-06-2020",
-          shiftType: "S2",
-          reason: "not in town",
-        },
-      ],
+      openSwapRequests: [],
     };
+  }
+
+  componentDidMount() {
+    const id = localStorage.getItem("id");
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/shift/fetchSwapReqByUserid/${id}`
+    )
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          this.setState({
+            openSwapRequests: result,
+          });
+          this.render();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   renderTable() {
@@ -33,7 +39,7 @@ class EditSwap extends Component {
         <Table responsive="sm" striped bordered hover>
           <thead>
             <tr>
-              <th>#</th>
+              <th>Shift Request Id</th>
               <th>Swap Date</th>
               <th>Shift Type</th>
               <th>Reason</th>
@@ -50,19 +56,42 @@ class EditSwap extends Component {
 
   deleteReq(index) {
     console.log(index);
-    this.setState({
-      openSwapRequests: this.state.openSwapRequests.filter(
-        (item) => item.id !== index.id
-      ),
-    });
-    window.alert("Request deleted ");
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/shift/deleteShift/${index.swapId}`
+    )
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          window.location.reload();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   updateReq(index) {
     console.log(this.refs.reason.value);
+    console.log(index.swapId);
+    let shiftReq = {
+      swapId: index.swapId,
+      swapComments: this.refs.reason.value,
+    };
+    fetch(
+      "https://mystore-spring.herokuapp.com/api/shift/updateShiftComments",
+      {
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(shiftReq),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        alert("Shift updated successfully");
+      });
+    console.log(this.refs.reason.value);
     console.log(index.id);
     //update to backend logic here
-    window.alert("Request updated!");
   }
 
   renderSwapRequests() {
@@ -71,7 +100,7 @@ class EditSwap extends Component {
       return openSwapRequests.map((index) => (
         <>
           <tr>
-            <td>{index.id}</td>
+            <td>{index.swapId}</td>
             <td>{index.swapDate}</td>
             <td>{index.shiftType}</td>
             <td>
@@ -81,7 +110,7 @@ class EditSwap extends Component {
                 rows="3"
                 placeholder="Reason"
               >
-                {index.reason}
+                {index.swapComments}
               </Form.Control>
             </td>
             <td>

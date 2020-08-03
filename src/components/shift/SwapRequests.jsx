@@ -7,35 +7,27 @@ class SwapRequests extends Component {
     super(props);
     this.swapShift = this.swapShift.bind(this);
     this.state = {
-      openSwapRequests: [
-        {
-          id: "SR1",
-          swapDate: "16-06-2020",
-          shiftType: "S1",
-          raisedBy: "Brad",
-          reason: "personal",
-        },
-        {
-          id: "SR2",
-          swapDate: "15-06-2020",
-          shiftType: "S2",
-          raisedBy: "Tom",
-          reason: "not in town",
-        },
-      ],
-      notificationInfo: [
-        {
-          title: "Store Hour Update",
-          text:
-            "I am delighted to bring to you this great news that Nova Scotia has not had any new COVID 19 cases for the last week. With this the store will now be open till 9 pm on the weekends. Thank you team for your support. ",
-        },
-        {
-          title: "Team Party Postponed",
-          text:
-            "Qurterly team party for June month is postponed due to lockdown restrictions in the city, We shll party once things go back to Normal. You do get a free Pizza on duty, but we need to practice social distancing. TC :) ",
-        },
-      ],
+      openSwapRequests: [],
     };
+  }
+
+  componentDidMount() {
+    const id = localStorage.getItem("id");
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/shift/fetchOpenSwapReqByUserid/${id}`
+    )
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          this.setState({
+            openSwapRequests: result,
+          });
+          this.render();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   renderTable() {
@@ -46,10 +38,10 @@ class SwapRequests extends Component {
         <Table responsive="sm" striped bordered hover>
           <thead>
             <tr>
-              <th>#</th>
+              <th>Swap Id</th>
               <th>Swap Date</th>
               <th>Shift Type</th>
-              <th>Swap With</th>
+              <th>Swap With (EMP ID)</th>
               <th>Reason</th>
               <th>Action</th>
             </tr>
@@ -64,12 +56,24 @@ class SwapRequests extends Component {
 
   swapShift(index) {
     console.log(index);
-    this.setState({
-      openSwapRequests: this.state.openSwapRequests.filter(
-        (item) => item.id !== index.id
-      ),
-    });
-    window.alert("Shift successfully swapped with " + index.raisedBy);
+    let swap = {
+      swapId: index.swapId,
+      swapDate: index.swapDate,
+      shiftType: index.shiftType,
+      swapComments: index.swapComments,
+      swapRequestor: index.swapRequestor,
+      swappedWith: localStorage.getItem("id"),
+    };
+    fetch("https://mystore-spring.herokuapp.com/api/shift/acceptShift", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(swap),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        window.alert("Shift successfully swapped !");
+        window.location.reload();
+      });
   }
   renderSwapRequests() {
     const { openSwapRequests } = this.state;
@@ -77,11 +81,11 @@ class SwapRequests extends Component {
       return openSwapRequests.map((index) => (
         <>
           <tr>
-            <td>{index.id}</td>
+            <td>{index.swapId}</td>
             <td>{index.swapDate}</td>
             <td>{index.shiftType}</td>
-            <td>{index.raisedBy}</td>
-            <td>{index.reason}</td>
+            <td>{index.swapRequestor}</td>
+            <td>{index.swapComments}</td>
             <td>
               <Button variant="dark" onClick={() => this.swapShift(index)}>
                 Swap Shift
