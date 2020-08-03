@@ -40,6 +40,11 @@ class EmployeeDetails extends Component {
         const result = responseJson;
         if (result === "success") {
           alert("Successfully terminated the employee !!");
+          this.setState({
+            employeeList: this.state.employeeList.filter(
+              (item) => item.id !== id
+            ),
+          });
         } else alert("Error in deleting, try again");
       });
     // window.location.reload(false);
