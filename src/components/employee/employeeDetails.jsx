@@ -27,9 +27,31 @@ class EmployeeDetails extends Component {
     this.setState({ value: event.target.value });
   };
 
+  handleDelete(id) {
+    fetch(
+      `http://localhost:8080/api/myStore/manager/viewEmployee/delete/${id}`,
+      {
+        method: "DELETE",
+        Accept: "application/json; odata=verbose",
+      }
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        const result = responseJson;
+        if (result === "success") {
+          alert("Successfully terminated the employee !!");
+        } else alert("Error in deleting, try again");
+      });
+    // window.location.reload(false);
+  }
+
   delete(id) {
     return (
-      <button type="button" className="btn btn-danger mx-2">
+      <button
+        type="button"
+        className="btn btn-danger mx-2"
+        onClick={() => this.handleDelete(id)}
+      >
         {" "}
         Delete
       </button>
