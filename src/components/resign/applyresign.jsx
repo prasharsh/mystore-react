@@ -64,7 +64,7 @@ handleChange(e) {
       reason: this.state.fields.reason,
     };
     const empid=localStorage.getItem("id");
-    fetch(`http://localhost:8080/api/myStore/resignation/apply/${empid}`, {
+    fetch(`https://mystore-spring.herokuapp.com/api/myStore/resignation/apply/${empid}`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(resignation),
