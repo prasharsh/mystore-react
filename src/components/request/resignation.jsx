@@ -150,6 +150,8 @@ class AcceptResignation extends Component {
                 {" "}
                 Accept
                 </button>
+                </td>
+                <td>
                 <button
                 type="button"
                 className="btn btn-primary mx-2"
