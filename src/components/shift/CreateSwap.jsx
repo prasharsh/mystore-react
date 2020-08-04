@@ -84,7 +84,7 @@ class CreateSwap extends React.Component {
           <>
             <br />
             <br />
-            <div>No shits to display </div>
+            <div>You do not have any scheduled shift to swap</div>
           </>
         );
       }
