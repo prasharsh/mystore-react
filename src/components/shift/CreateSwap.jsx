@@ -69,6 +69,7 @@ class CreateSwap extends React.Component {
         .then((response) => response.json())
         .then((data) => {
           alert("Shift created successfully");
+          window.location.reload();
         });
     } else alert("please select a date");
   }

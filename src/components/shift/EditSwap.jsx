@@ -43,7 +43,8 @@ class EditSwap extends Component {
               <th>Swap Date</th>
               <th>Shift Type</th>
               <th>Reason</th>
-              <th>Action</th>
+              <th>Update</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>{this.renderSwapRequests()}</tbody>
@@ -116,8 +117,7 @@ class EditSwap extends Component {
             <td>
               <Button variant="primary" onClick={() => this.updateReq(index)}>
                 Update
-              </Button>{" "}
-              {"  "}
+              </Button></td><td>
               <Button variant="danger" onClick={() => this.deleteReq(index)}>
                 Delete
               </Button>
