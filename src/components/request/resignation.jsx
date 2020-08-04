@@ -108,15 +108,15 @@ class AcceptResignation extends Component {
     if (resignation.length > 0)
     {
     return(
-    <Table className="resign">
-            <thead>
+      <Table responsive="sm">
+      <thead className="thead-container">
               <tr>
-                <th>Employee No.</th>
-                <th>Name</th>
-                <th>Resignation ID</th>
-                <th>Reason</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th scope="col">Employee No.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Resignation ID</th>
+                <th scope="col">Reason</th>
+                <th scope="col">Status</th>
+                <th colSpan="2">Action</th>
               </tr>
             </thead>
             {this.renderTable()}
