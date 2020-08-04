@@ -9,7 +9,9 @@ class EmployeeDetails extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:8080/api/myStore/manager/viewEmployee`)
+    fetch(
+      `https://mystore-spring.herokuapp.com/api/myStore/manager/viewEmployee`
+    )
       .then((response) => response.json())
       .then(
         (result) => {
@@ -29,7 +31,7 @@ class EmployeeDetails extends Component {
 
   handleDelete(id) {
     fetch(
-      `http://localhost:8080/api/myStore/manager/viewEmployee/delete/${id}`,
+      `https://mystore-spring.herokuapp.com/api/myStore/manager/viewEmployee/delete/${id}`,
       {
         method: "DELETE",
         Accept: "application/json; odata=verbose",
