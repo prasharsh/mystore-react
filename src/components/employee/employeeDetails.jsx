@@ -60,7 +60,7 @@ class EmployeeDetails extends Component {
         onClick={() => this.handleDelete(id)}
       >
         {" "}
-        Delete
+        Terminate
       </button>
     );
   }
