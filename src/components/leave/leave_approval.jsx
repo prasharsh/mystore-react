@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ComplaintImage from "../complaints/complaint.svg";
+import Table from "react-bootstrap/Table";
 import "../login/login.css";
 import "./leave.css";
 
@@ -103,6 +104,8 @@ class LeaveApproval extends Component {
                 {" "}
                 Accept
               </button>
+            </td>
+            <td>
               <button
                 type="button"
                 className="btn btn-primary mx-2"
@@ -121,7 +124,7 @@ class LeaveApproval extends Component {
   renderData = () => {
     if (this.state.leaveApproval.length != 0) {
       return (
-        <table className="table">
+        <Table responsive="sm">
           <thead className="thead-container">
             <tr>
               <th scope="col">#</th>
@@ -130,11 +133,11 @@ class LeaveApproval extends Component {
               <th scope="col">Start Date</th>
               <th scope="col">End Date</th>
               <th scope="col">Reason</th>
-              <th scope="col">Action</th>
+              <th colSpan="2">Action</th>
             </tr>
           </thead>
           {this.renderTable()}
-        </table>
+        </Table>
       );
     } else {
       return <h3>No leave pending for approval !!</h3>;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ComplaintImage from "../complaints/complaint.svg";
+import Table from "react-bootstrap/Table";
 import "../login/login.css";
 import "./leave.css";
 
@@ -84,7 +85,7 @@ class LeaveHistory extends Component {
   renderData = () => {
     if (this.state.leaveHistory.length != 0) {
       return (
-        <table className="table">
+        <Table responsive="sm">
           <thead className="thead-container">
             <tr>
               <th scope="col">#</th>
@@ -97,7 +98,7 @@ class LeaveHistory extends Component {
             </tr>
           </thead>
           {this.renderTable()}
-        </table>
+        </Table>
       );
     } else {
       return <h3>No leave applied !!</h3>;
